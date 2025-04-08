@@ -11,11 +11,12 @@
 ## 🛠 Tech Stack
 
 - ASP.NET Core Web API
+- ASP.NET Core Web MVC
 - Entity Framework Core
-- SQL Server (or your DB of choice)
-- AutoMapper
-- JWT for authentication
+- LINQ
+- SQL Server
+- Manual Mapping
+- JWT for authentication with Identity
 - Swagger (for API documentation)
-
 ---
 
