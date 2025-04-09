@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PharmaCare.DAL.Database;
+using PharmaCare.DAL.Models;
 
 namespace PharmaCare.API
 {
@@ -21,8 +22,8 @@ namespace PharmaCare.API
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.; Database = PharmaCare; Integrated Security = True; Trust Server Certificate = True")));
 
-            builder.Services.AddIdentity<ApplicationDbContext, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                   .AddEntityFrameworkStores<ApplicationDbContext>();
 
             var app = builder.Build();
 
