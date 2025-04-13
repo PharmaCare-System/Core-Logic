@@ -39,12 +39,14 @@ namespace PharmaCare.BLL.Services.AuthenticationService
 
         public async Task<string> RegisterAsync(RegisterDTO registerDTO)
         {
-            var user = new ApplicationUser();
+            if(registerDTO.Password != registerDTO.ConfirmPassword)
+                return "Passwords do not match";
 
-            if (registerDTO.Password != registerDTO.ConfirmPassword)
-                return null;
-
-            user.Email = registerDTO.Email;
+            var user = new ApplicationUser()
+            {
+               Email = registerDTO.Email,
+               UserName = registerDTO.Email
+            };
 
             var result = await _userManager.CreateAsync(user, registerDTO.Password);
 
