@@ -114,23 +114,25 @@ Will be handled later with global exception
 var student = await _studentRepository.GetByIdAsync(id);
 id.CheckIfNull(student); //Extension Method!
 ```
-✨ Clean Code Tips
-✅ Use descriptive names (avoid: a, x, temp)
-✅ One responsibility per method
-✅ Avoid long methods — prefer small, focused ones
-✅ Always add XML comments for public methods
-✅ Group related files in meaningful folders
-✅ Prefer async/await with Async suffix
-✅ Avoid using magic strings/numbers — use constants
-✅ Use dependency injection, don’t instantiate dependencies manually
-✅ Use Logger not Console.WriteLine
-✅ Avoid code duplication
-✅ Don’t leave commented-out code in commits
-✅ Keep consistent formatting (tabs/spaces, braces style...)
-✅ Write unit tests when possible
-✅ Use AutoMapper for mapping between Entities and DTOs
-✅ Don't overuse regions — keep code readable
-✅ Avoid multiple returns in long methods unless necessary
-✅ Prefer immutability where possible
-✅ Use access modifiers explicitly (private, public...)
+## ✨ Clean Code Tips
+
+✅ **Use descriptive names** (avoid: `a`, `x`, `temp`)  
+✅ **One responsibility per method**  
+✅ **Avoid long methods** — prefer small, focused ones  
+✅ **Always add XML comments for public methods**  
+✅ **Group related files in meaningful folders**  
+✅ **Prefer `async/await` with `Async` suffix**  
+✅ **Avoid using magic strings/numbers** — use constants  
+✅ **Use dependency injection**, don’t instantiate dependencies manually  
+✅ **Use Logger** not `Console.WriteLine`  
+✅ **Avoid code duplication**  
+✅ **Don’t leave commented-out code in commits**  
+✅ **Keep consistent formatting** (tabs/spaces, braces style...)  
+✅ **Write unit tests when possible**  
+✅ **Use AutoMapper** for mapping between Entities and DTOs  
+✅ **Don't overuse regions** — keep code readable  
+✅ **Avoid multiple returns in long methods unless necessary**  
+✅ **Prefer immutability** where possible  
+✅ **Use access modifiers explicitly** (`private`, `public`...)
+
 
