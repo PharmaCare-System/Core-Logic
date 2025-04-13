@@ -49,6 +49,8 @@ namespace PharmaCare.API
                     ValidateAudience = false
                 };
             });
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             var app = builder.Build();
 
