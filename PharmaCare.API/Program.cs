@@ -1,8 +1,11 @@
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
+using System.Text;
 
 namespace PharmaCare.API
 {
@@ -24,6 +27,24 @@ namespace PharmaCare.API
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultChallengeScheme = "Pharma";
+                options.DefaultChallengeScheme = "Pharma";
+            }).AddJwtBearer("Pharma", options =>
+            {
+                var secreteKeyString = builder.Configuration.GetSection("SecretKey").Value;
+                var secreteKeyBytes = Encoding.ASCII.GetBytes(secreteKeyString);
+                SecurityKey secreteKey = new SymmetricSecurityKey(secreteKeyBytes);
+
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = secreteKey,
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             var app = builder.Build();
 

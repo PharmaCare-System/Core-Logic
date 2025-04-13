@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PharmaCare.BLL.Services.AuthenticationService
 {
     public interface IAccountService
-    {//
+    {
         public Task<string> LoginAsync(LoginDTO loginDTO);
         public Task<string> RegisterAsync(RegisterDTO registerDTO);
     }
