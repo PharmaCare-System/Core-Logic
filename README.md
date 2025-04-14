@@ -111,8 +111,8 @@ Always call CheckIfNull(object) after fetching from DB
 Will be handled later with global exception
 
 ```csharp
-var student = await _studentRepository.GetByIdAsync(id);
-id.CheckIfNull(student); //Extension Method!
+var studentModel = await _studentRepository.GetByIdAsync(id);
+id.CheckIfNull<Student>(studentModel); //Extension Method!
 ```
 ## ✨ Clean Code Tips
 
