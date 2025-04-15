@@ -7,9 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Repository\" />
+    <Folder Include="Repository\Orders\" />
+    <Folder Include="Repository\CustomersAddress\" />
+    <Folder Include="Repository\Customers\" />
   </ItemGroup>
 
   <ItemGroup>
