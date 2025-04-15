@@ -1,12 +1,25 @@
 
+using inventory.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Notification.Dal;
 using PharmaCare.BLL.Services.AuthenticationService;
+using PharmaCare.BLL.Services.InventoryService;
+using PharmaCare.BLL.Services.NotifacationService;
+using PharmaCare.BLL.Services.PharmacistService;
+using PharmaCare.BLL.Services.PharmacySerivce;
+using PharmaCare.DAL;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
+using PharmaCareInv.DAL;
+using PharmaCareNot.DAL;
+using PharmaCarepharmacy.DAL.Repository;
+using pharmacy.DAL;
+using pharmasist.DAL;
 using System.Text;
+
 
 namespace PharmaCare.API
 {
@@ -50,7 +63,21 @@ namespace PharmaCare.API
                 };
             });
 
+
             var app = builder.Build();
+
+            builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+            builder.Services.AddScoped<IInventoryService, InventoryService>();
+            builder.Services.AddScoped<INotifacationRepository, NoticationRepository>();
+            builder.Services.AddScoped<INotifacationService, NotifacationService>();
+            builder.Services.AddScoped<IPharmacistService, PharmacistService>();
+            builder.Services.AddScoped<IPharmacistRepository, PharmacistRepository>();
+            builder.Services.AddScoped<IPharmacyRepository, PharmacyRepository>();
+            builder.Services.AddScoped<IPharmacySerivce, PharmacySerivce>();
+
+
+
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
