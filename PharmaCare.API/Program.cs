@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PharmaCare.API.Middleware;
 using PharmaCare.BLL.Services.AuthenticationService;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
@@ -34,7 +35,7 @@ namespace PharmaCare.API
 
             builder.Services.AddAuthentication(options =>
             {
-                options.DefaultChallengeScheme = "Pharma";
+                options.DefaultAuthenticateScheme = "Pharma";
                 options.DefaultChallengeScheme = "Pharma";
             }).AddJwtBearer("Pharma", options =>
             {
@@ -59,11 +60,10 @@ namespace PharmaCare.API
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<GlobalExceptionMiddleware>();
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
             app.UseAuthentication();
-
+            app.UseAuthorization();
             app.MapControllers();
 
             app.Run();
