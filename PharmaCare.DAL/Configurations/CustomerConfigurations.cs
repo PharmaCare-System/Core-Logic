@@ -28,35 +28,41 @@ namespace PharmaCare.DAL.Configurations
                    .HasMaxLength(15)
                    .IsRequired();
 
-            
+
 
             // Relations
+
+            // Customer send messages ( 1 to N)
             builder.HasMany(c=>c.Messages)
                    .WithOne(m => m.Customer)
                    .HasForeignKey(m => m.CustomerId);
 
+            // customer has chat ( 1 to 1 )
             builder.HasOne(c => c.Chat)
                    .WithOne(ch => ch.Customer)
                    .HasForeignKey<Chat>(ch => ch.CustomerId);
 
+            // Customer Has ShoppingCart (1 to 1) 
             builder.HasOne(c => c.ShoppingCart)
                    .WithOne(sh => sh.Customer)
                    .HasForeignKey<ShoppingCart>(sh => sh.CustomerId);
 
+            // customer Receive Purchase ( 1 to N)
             builder.HasMany(c => c.Purchases)
                    .WithOne(p => p.Customer)
                    .HasForeignKey(p => p.CustomerId);
 
+            // Customer Make Review (1 to N)
             builder.HasMany(c => c.Reviews)
                    .WithOne(r => r.Customer)
                    .HasForeignKey(r => r.CustomerId);
 
-
+            // Customer upload prescription (1 to N)
             builder.HasMany(c => c.Prescriptions)
                    .WithOne(p => p.Customer)
                    .HasForeignKey(p => p.CustomerId);
 
-
+            // Customer Take Order ( 1 to N)
             builder.HasMany(c => c.Orders)
                    .WithOne(o => o.Customer)
                    .HasForeignKey(o => o.CustomerId);

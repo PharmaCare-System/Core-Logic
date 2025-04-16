@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Configurations;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +23,16 @@ namespace PharmaCare.DAL.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
             base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new CustomerConfigurations());
+            builder.ApplyConfiguration(new OrderConfigurations());
+
         }
     }
 }
