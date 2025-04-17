@@ -1,0 +1,24 @@
+[33mbb966c4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDevelop2[m[33m, [m[1;31morigin/Develop2[m[33m)[m Modify changes in Generic Repo & Add GetAllAsync
+[33m5eafdf5[m Merge pull request #13 from PharmaCare-System/GenericRepository_Develop
+[33m98b83d6[m[33m ([m[1;31morigin/GenericRepository_Develop[m[33m, [m[1;32mGenericRepository_Develop[m[33m)[m Make GenericRepo Async
+[33mc10efe8[m Merge pull request #11 from PharmaCare-System/FixExceptionExtension
+[33mf019bbb[m[33m ([m[1;31morigin/FixExceptionExtension[m[33m, [m[1;32mFixExceptionExtension[m[33m)[m Make the Extentions folder in DAL
+[33m1bf4a17[m[33m ([m[1;31morigin/Develop[m[33m, [m[1;32mDevelop[m[33m)[m Merge pull request #10 from PharmaCare-System/GlobalException_Develop
+[33m76bbf79[m[33m ([m[1;31morigin/GlobalException_Develop[m[33m, [m[1;32mGlobalException_Develop[m[33m)[m Add GlobalExceptionMiddleware
+[33m01d32fd[m Modify the order of middleware & delete dup line
+[33m52f8264[m Add Generic Repo class & interface & implementation
+[33m205c0c3[m Merge pull request #6 from PharmaCare-System/GlobalException_Develop
+[33md30ba41[m Add CheckIfNull extensionMethod
+[33mcff6c89[m Add app.UseAuthentication() in program.cs
+[33m9431cc5[m Delete Duplication of DbContext Registration
+[33mad9206a[m Merge pull request #3 from PharmaCare-System/Auth_Develop
+[33m6f0ac22[m[33m ([m[1;31morigin/Auth_Develop[m[33m)[m Merge branch 'Develop' into Auth_Develop
+[33m8eb6876[m[33m ([m[1;32mAuth_Develop[m[33m)[m Add Auth_Controller & Add ConnectionString
+[33mdab3ba2[m Add Login & Register services, DTOS & register the authentication in program.cs
+[33md1fb06f[m Modify Registration of identity
+[33m93e68cb[m WIP
+[33m3e1a295[m WIP
+[33ma9c180b[m Add project structure
+[33m9175c4d[m[33m ([m[1;32mmain[m[33m)[m Update README.md
+[33m51b67e8[m Update README.md
+[33mccb823d[m Initial commit
