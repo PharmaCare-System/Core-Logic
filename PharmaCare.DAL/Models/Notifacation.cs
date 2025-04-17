@@ -9,8 +9,9 @@ namespace PharmaCare.DAL.Models
 {
     public enum SenderType
     {
-        Pharmacist,
-        Manager
+       order =1,
+        message =2,
+        other = 3,
     }
     public class Notifacation
     {
@@ -35,4 +36,14 @@ namespace PharmaCare.DAL.Models
 
 
     }
+    public class OrderNotification : Notifacation
+    {
+        public Order Sender { get; set; }
+    }
+    public class MessageNotification : Notifacation
+    {
+        public Message Sender { get; set; }
+    }
+
+
 }

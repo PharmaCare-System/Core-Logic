@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,11 @@ namespace PharmaCare.DAL.Configurations
                 .HasForeignKey(n => n.OrderId)
                 .IsRequired(false) 
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder
+       .HasDiscriminator<SenderType>(nameof(Notifacation.Sender))
+       .HasValue<OrderNotification>(SenderType.order)
+       .HasValue<MessageNotification>(SenderType.message);
 
         }
     }

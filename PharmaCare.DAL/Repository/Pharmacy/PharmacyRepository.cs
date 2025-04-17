@@ -15,38 +15,38 @@ namespace PharmaCarepharmacy.DAL.Repository
     public class PharmacyRepository :IPharmacyRepository
 
     {
-        private readonly ApplicationDbContext _Context;
+        private readonly ApplicationDbContext _context;
         public PharmacyRepository(ApplicationDbContext context) {
-            _Context = context;
+            _context = context;
         }
 
         public void Add(Pharmacy pharmacy)
         {
-            _Context.pharmacies.Add(pharmacy);
-            _Context.SaveChanges();
+            _context.pharmacies.Add(pharmacy);
+            _context.SaveChanges();
         }
 
         public void Delete(Pharmacy pharmacy)
         {
-            _Context.pharmacies.Remove(pharmacy);
-            _Context.SaveChanges();
+            _context.pharmacies.Remove(pharmacy);
+            _context.SaveChanges();
         }
 
         public IQueryable<Pharmacy> GetAll()
         {
-            return _Context.pharmacies;
+            return _context.pharmacies;
         }
 
 
         public Pharmacy GetById(int id)
         {
-            return _Context.pharmacies.Find(id);
+            return _context.pharmacies.Find(id);
         }
 
         public void Update(Pharmacy pharmacy)
         {
-            _Context.pharmacies.Update(pharmacy);
-            _Context.SaveChanges();
+            _context.pharmacies.Update(pharmacy);
+            _context.SaveChanges();
         }
     }
 }
