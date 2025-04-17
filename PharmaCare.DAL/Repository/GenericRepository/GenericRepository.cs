@@ -19,7 +19,7 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 		}
 		public async Task AddAsync(T entity)
 		{
-			await _context.AddAsync(entity);
+			await _DbSet.AddAsync(entity);
 			await _context.SaveChangesAsync();
 		}
 		public IQueryable<T> GetQueryable()
@@ -36,8 +36,12 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 		}
 		public async Task DeleteAsync(T entity)
 		{
-			_context.Remove(entity);
+			_DbSet.Remove(entity);
 			await _context.SaveChangesAsync();
+		}
+		public async Task<IEnumerable<T>> GetAllAsync()
+		{
+			return await _DbSet.ToListAsync();
 		}
 	}
 }
