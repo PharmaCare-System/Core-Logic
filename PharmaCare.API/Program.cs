@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Notification.Dal;
+using PharmaCare.API.Middleware;
 using PharmaCare.BLL.Services.AuthenticationService;
 using PharmaCare.BLL.Services.InventoryService;
 using PharmaCare.BLL.Services.NotifacationService;
@@ -18,6 +19,7 @@ using PharmaCareNot.DAL;
 using PharmaCarepharmacy.DAL.Repository;
 using pharmacy.DAL;
 using pharmasist.DAL;
+using PharmaCare.DAL.Repository.UnitOfWork;
 using System.Text;
 
 
@@ -37,7 +39,7 @@ namespace PharmaCare.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IAccountService, AccountService>();
-
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -47,7 +49,7 @@ namespace PharmaCare.API
 
             builder.Services.AddAuthentication(options =>
             {
-                options.DefaultChallengeScheme = "Pharma";
+                options.DefaultAuthenticateScheme = "Pharma";
                 options.DefaultChallengeScheme = "Pharma";
             }).AddJwtBearer("Pharma", options =>
             {
@@ -63,9 +65,6 @@ namespace PharmaCare.API
                 };
             });
 
-
-            var app = builder.Build();
-
             builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
             builder.Services.AddScoped<IInventoryService, InventoryService>();
             builder.Services.AddScoped<INotifacationRepository, NoticationRepository>();
@@ -74,10 +73,8 @@ namespace PharmaCare.API
             builder.Services.AddScoped<IPharmacistRepository, PharmacistRepository>();
             builder.Services.AddScoped<IPharmacyRepository, PharmacyRepository>();
             builder.Services.AddScoped<IPharmacySerivce, PharmacySerivce>();
-
-
-
-
+          
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -86,11 +83,10 @@ namespace PharmaCare.API
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<GlobalExceptionMiddleware>();
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
             app.UseAuthentication();
-
+            app.UseAuthorization();
             app.MapControllers();
 
             app.Run();
