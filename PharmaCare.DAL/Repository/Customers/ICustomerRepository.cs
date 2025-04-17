@@ -4,17 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PharmaCare.DAL.Repository.GenericRepository;
 
 namespace PharmaCare.DAL.Repository.Customers
 {
-    public interface ICustomerRepository
+    public interface ICustomerRepository : IGenericRepository<Customer>
     {
-        // Add, Update, Delete, GetAll, GetById
-        public IQueryable<Customer> GetAll();
-        public Customer GetById(int id);
-        public void Add(Customer customer);
-        public void Update(Customer customer);
-        public void Delete(Customer customer);
+
 
     }
 }

@@ -24,13 +24,27 @@ namespace PharmaCare.DAL.Configurations
                     .HasMaxLength(100)
                     .IsRequired();
 
+            builder.Property(c => c.FirstName)
+                    .HasMaxLength(25)
+                    .IsRequired();
+            builder.Property(c => c.LastName)
+                    .HasMaxLength(25)
+                    .IsRequired();
+
             builder.Property(c => c.Phone)
                    .HasMaxLength(15)
                    .IsRequired();
 
+            builder.Property(c => c.Birthday)
+                    .HasColumnType("DATE")
+                    .IsRequired();
 
+        // Relations
 
-            // Relations
+        // customer 1-1 with Address
+        builder.HasOne(c => c.Address)
+                   .WithOne(a => a.Customer)
+                   .HasForeignKey<Customer>(c => c.AddressId);
 
             // Customer send messages ( 1 to N)
             builder.HasMany(c=>c.Messages)
@@ -66,7 +80,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasMany(c => c.Orders)
                    .WithOne(o => o.Customer)
                    .HasForeignKey(o => o.CustomerId);
-
+            
 
 
         }

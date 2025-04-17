@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PharmaCare.DAL.Enums;
 using PharmaCare.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace PharmaCare.DAL.Configurations
         {
 
 
-            builder.Property(o => o.OrderType)
+        builder.Property(o => o.OrderType)
                    .HasConversion<string>()
                    .HasMaxLength(10)
                    .IsRequired();
@@ -28,6 +29,8 @@ namespace PharmaCare.DAL.Configurations
             builder.Property(c => c.DeliveryAddress)
                     .HasMaxLength(100)
                     .IsRequired();
+
+            builder.Property(c => c.TotalPrice).IsRequired();
 
 
             // Relations
