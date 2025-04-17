@@ -8,10 +8,10 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 {
 	public interface IGenericRepository<T> where T : class
 	{
-		void Add(T entity);
-		IQueryable<T> Get();
-		T GetById(int id);
-		void Update(T entity);
-		void Delete(T entity);
+		Task AddAsync(T entity);
+		IQueryable<T> GetQueryable();
+		Task<T> GetAsyncById(int id);
+		Task UpdateAsync(T entity);
+		Task DeleteAsync(T entity);
 	}
 }
