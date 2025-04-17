@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Repository.UnitOfWork
 {
-	internal interface IUnitOfWork
+	public interface IUnitOfWork : IDisposable
 	{
+		//IGenericRepository<Product> ProductRepository {get; set;}
+		//Inventory
+		//Purchase
+
+		Task<int> CompleteAsync();
 	}
 }
