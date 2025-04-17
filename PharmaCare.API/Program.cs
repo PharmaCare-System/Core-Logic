@@ -7,6 +7,7 @@ using PharmaCare.API.Middleware;
 using PharmaCare.BLL.Services.AuthenticationService;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Repository.UnitOfWork;
 using System.Text;
 
 namespace PharmaCare.API
@@ -25,7 +26,7 @@ namespace PharmaCare.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IAccountService, AccountService>();
-
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
