@@ -10,5 +10,11 @@ namespace PharmaCare.DAL.Enums
     {
         Customer,
         Pharmacist,
+        Admin
+    }
+    public enum OrderTypes
+    {
+        Retail,
+        Bulk
     }
 }

@@ -11,13 +11,26 @@ namespace PharmaCare.DAL.Configurations
         public void Configure(EntityTypeBuilder<Address> builder)
         {
 
-            builder.HasDiscriminator<UserType>(nameof(Address.UserType))
-                   .IsComplete(false);
+            builder.Property(a => a.streetNumber)
+                    .HasColumnType("SMALLINT")
+                    .IsRequired();
+
+            builder.Property(a => a.Country)
+                    .HasMaxLength(50)
+                    .IsRequired();
+
+            builder.Property(a => a.City)
+                    .HasMaxLength(50)
+                    .IsRequired();
+
 
             // Relations
-
+            builder.HasDiscriminator<UserType>(nameof(Address.UserType))
+                   .HasValue<CustomerAddress>(UserType.Customer)
+                   .HasValue<PharmacistAddress>(UserType.Pharmacist);         
 
 
         }
     }
+
 }

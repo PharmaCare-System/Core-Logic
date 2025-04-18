@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PharmaCare.DAL.Enums;
 using PharmaCare.DAL.Models;
@@ -10,6 +11,20 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Configurations
 {
+    public class PrescriptionConfigurations : IEntityTypeConfiguration<Prescription>
+    {
+        public void Configure(EntityTypeBuilder<Prescription> builder)
+        {
+            builder.Property(p => p.Status)
+                   .HasConversion<string>()
+                   .HasMaxLength(10)
+                   .IsRequired(false);
+
+            builder.Property(p => p.UploadDate)
+                   .HasConversion<DateTime>()
+                   .IsRequired();
+        }
+    }
     public class OrderConfigurations : IEntityTypeConfiguration<Order>
     {
         public void Configure(EntityTypeBuilder<Order> builder)
@@ -56,9 +71,9 @@ namespace PharmaCare.DAL.Configurations
                    .HasForeignKey(o => o.PharmacistId);
 
             // Pharmacy
-            builder.HasOne(o => o.Pharamcy)
+            builder.HasOne(o => o.pharmacy)
                    .WithMany(p => p.Orders)
-                   .HasForeignKey(o => o.PharamcyId);
+                   .HasForeignKey(o => o.PharmacyId);
 
             // Notifications
             builder.HasMany(o => o.Notifications)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Identity.Client;
 using PharmaCare.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -40,16 +41,6 @@ namespace PharmaCare.DAL.Configurations
                     .IsRequired();
 
         // Relations
-
-        // customer 1-1 with Address
-        builder.HasOne(c => c.Address)
-                   .WithOne(a => a.Customer)
-                   .HasForeignKey<Customer>(c => c.AddressId);
-
-            // Customer send messages ( 1 to N)
-            builder.HasMany(c=>c.Messages)
-                   .WithOne(m => m.Customer)
-                   .HasForeignKey(m => m.CustomerId);
 
             // customer has chat ( 1 to 1 )
             builder.HasOne(c => c.Chat)
