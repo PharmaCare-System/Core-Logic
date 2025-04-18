@@ -16,8 +16,7 @@ namespace PharmaCarepharmacy.DAL.Repository
 
     {
         public PharmacyRepository(ApplicationDbContext context) : base (context)
-        {
-            
+        {   
         }
     }
 }
