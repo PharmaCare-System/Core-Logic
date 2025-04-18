@@ -1,4 +1,5 @@
 ﻿using PharmaCare.DAL.Enums;
+using PharmaCare.DAL.Models.ProductRel;
 using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Models
@@ -34,5 +35,8 @@ namespace PharmaCare.DAL.Models
         //pharmacy
         public int PharmacyId { get; set; }
         public Pharmacy? pharmacy{ get; set; }
+
+        public virtual ICollection<ProductOrder>? OrderProducts { get; set; }
+
     }
 }
