@@ -31,12 +31,12 @@ namespace PharmaCare.DAL.Configurations
                .HasForeignKey<Inventory>(i => i.PharmacyId)
                .OnDelete(DeleteBehavior.SetNull); 
 
-            builder.HasMany(i => i.notifacations)
+            builder.HasMany(i => i.Notifacations)
                 .WithOne(n => n.Inventory)
                 .HasForeignKey(n => n.SenderId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasMany(i => i.products)
+            builder.HasMany(i => i.Products)
                 .WithOne(p => p.Inventory)
                 .HasForeignKey(p => p.InventoryId)
                 .OnDelete(DeleteBehavior.SetNull);

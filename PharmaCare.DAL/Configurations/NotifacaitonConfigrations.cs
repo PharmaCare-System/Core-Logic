@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Enums;
+using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Configurations
 {
@@ -34,20 +35,21 @@ namespace PharmaCare.DAL.Configurations
             builder.Property(n => n.IsRead)
                 .IsRequired()
                 .HasDefaultValue(false);
-            builder.HasOne(p => p.Inventory).WithMany(p=>p.notifacations)
+
+            builder.HasOne(p => p.Inventory).WithMany(p=>p.Notifacations)
                 .HasForeignKey(n => n.SenderId)
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(p => p.order)
-                .WithMany(p => p.notifacations) 
-                .HasForeignKey(n => n.OrderId)
+                .WithMany(p => p.Notifications)
+                .HasForeignKey(n => n.SenderId)
                 .IsRequired(false) 
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder
-       .HasDiscriminator<SenderType>(nameof(Notifacation.Sender))
-       .HasValue<OrderNotification>(SenderType.order)
-       .HasValue<MessageNotification>(SenderType.message);
+               .HasDiscriminator<SenderType>(nameof(Notifacation.Sender))
+               .HasValue<OrderNotification>(SenderType.order)
+               .HasValue<MessageNotification>(SenderType.message);
 
         }
     }

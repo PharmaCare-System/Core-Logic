@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Models
 {
@@ -15,8 +16,8 @@ namespace PharmaCare.DAL.Models
         public int PharmacyId { get; set; }
         public Pharmacy? Pharmacy { get; set; }
 
-        public ICollection<Notifacation>? notifacations { get; set; }
-        public ICollection<Product>?products { get; set; }
+        public ICollection<Notifacation>? Notifacations { get; set; }
+        public ICollection<Product>? Products { get; set; }
 
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Notification.Dal;
 using PharmaCare.DAL.Database;
-using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCareNot.DAL
 {

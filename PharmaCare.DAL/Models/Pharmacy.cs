@@ -21,12 +21,9 @@ namespace PharmaCare.DAL.Models
         public Pharmacist? ManagerPharmacy { get; set; }
 
 
-
-        public ICollection<Pharmacist>? pharmacists { get; set; }
-
-
-
-
+        public virtual ICollection<Order>? Orders { get; set; }
+        public virtual ICollection<Pharmacist>? Pharmacists { get; set; }
+        public virtual ICollection<Chat>? Chats { get; set; }
 
     }
 }

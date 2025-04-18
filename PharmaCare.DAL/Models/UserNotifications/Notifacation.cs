@@ -4,22 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using PharmaCare.DAL.Enums;
 
-namespace PharmaCare.DAL.Models
+namespace PharmaCare.DAL.Models.UserNotifications
 {
-    public enum SenderType
-    {
-       order =1,
-        message =2,
-        other = 3,
-    }
     public class Notifacation
     {
 
         public int Id { get; set; }
 
         public int SenderId { get; set; }
-      
+
         public SenderType Sender { get; set; }
 
         public string Message { get; set; }
@@ -31,19 +26,5 @@ namespace PharmaCare.DAL.Models
 
         public Order? order { get; set; }
 
-
-
-
-
     }
-    public class OrderNotification : Notifacation
-    {
-        public Order Sender { get; set; }
-    }
-    public class MessageNotification : Notifacation
-    {
-        public Message Sender { get; set; }
-    }
-
-
 }
