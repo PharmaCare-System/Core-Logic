@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PharmaCare.DAL.Enums;
 using PharmaCare.DAL.Models;
 
 namespace PharmaCare.BLL.DTOs.NotifaciionDTOs

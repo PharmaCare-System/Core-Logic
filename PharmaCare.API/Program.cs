@@ -18,7 +18,6 @@ using PharmaCareInv.DAL;
 using PharmaCareNot.DAL;
 using PharmaCarepharmacy.DAL.Repository;
 using pharmacy.DAL;
-using pharmasist.DAL;
 using PharmaCare.DAL.Repository.UnitOfWork;
 using System.Text;
 
@@ -65,15 +64,6 @@ namespace PharmaCare.API
                 };
             });
 
-            builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
-            builder.Services.AddScoped<IInventoryService, InventoryService>();
-            builder.Services.AddScoped<INotifacationRepository, NoticationRepository>();
-            builder.Services.AddScoped<INotifacationService, NotifacationService>();
-            builder.Services.AddScoped<IPharmacistService, PharmacistService>();
-            builder.Services.AddScoped<IPharmacistRepository, PharmacistRepository>();
-            builder.Services.AddScoped<IPharmacyRepository, PharmacyRepository>();
-            builder.Services.AddScoped<IPharmacySerivce, PharmacySerivce>();
-          
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
