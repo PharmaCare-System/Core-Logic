@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using inventory.DAL;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
 using PharmaCare.DAL.Repository.GenericRepository;
+using PharmaCare.DAL.Repositoryphar;
 
-namespace PharmaCareInv.DAL
+namespace PharmaCare.DAL.Repository.Pur
 {
-    public class InventoryRepository: GenericRepository<Inventory>, IInventoryRepository
+    public class PurchaseRepository : GenericRepository<Purchase>, IPurchaseRepository
     {
-        public InventoryRepository(ApplicationDbContext context) : base(context)
+        public PurchaseRepository(ApplicationDbContext context) : base(context)
         {
         }
     }
+    
 }

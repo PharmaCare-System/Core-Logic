@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Repository.GenericRepository;
 
 namespace pharmacy.DAL
 {
-    public interface IPharmacyRepository
+    public interface IPharmacyRepository : IGenericRepository<Pharmacy>
     {
-        public IQueryable<Pharmacy> GetAll();
-        public Pharmacy GetById(int id);
-        void Add(Pharmacy pharmacy);
-        void Update(Pharmacy pharmacy);
-        void Delete(Pharmacy pharmacy);
+        
 
     }
 }

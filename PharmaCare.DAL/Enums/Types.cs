@@ -23,4 +23,11 @@ namespace PharmaCare.DAL.Enums
         Retail,
         Bulk
     }
+    public enum PaymentType
+    {
+        CreditCard,
+        DebitCard,
+        PayPal,
+        BankTransfer
+    }
 }
