@@ -28,6 +28,7 @@ namespace PharmaCare.DAL.Database
         {
             base.OnConfiguring(optionsBuilder);
 
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
