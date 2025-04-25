@@ -17,8 +17,4 @@ namespace PharmaCare.DAL.Models
         // Navigation property for 1-to-1 with Purchase
         public virtual Purchase? Purchase { get; set; }
     }
-
-
- 
-  
 }

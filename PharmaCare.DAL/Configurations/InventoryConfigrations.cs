@@ -9,7 +9,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.DAL.Configurations
 {
-    public class InventoryConfigrations : IEntityTypeConfiguration<Inventory>
+    public class InventoryConfigurations : IEntityTypeConfiguration<Inventory>
     {
         public void Configure(EntityTypeBuilder<Inventory> builder)
         {
@@ -31,7 +31,7 @@ namespace PharmaCare.DAL.Configurations
                .HasForeignKey<Inventory>(i => i.PharmacyId)
                .OnDelete(DeleteBehavior.SetNull); 
 
-            builder.HasMany(i => i.Notifacations)
+            builder.HasMany(i => i.Notifications)
                 .WithOne(n => n.Inventory)
                 .HasForeignKey(n => n.SenderId)
                 .OnDelete(DeleteBehavior.SetNull);
@@ -40,8 +40,6 @@ namespace PharmaCare.DAL.Configurations
                 .WithOne(p => p.Inventory)
                 .HasForeignKey(p => p.InventoryId)
                 .OnDelete(DeleteBehavior.SetNull);
-
-
         }
     }
 }

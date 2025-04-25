@@ -15,5 +15,4 @@ namespace PharmaCare.DAL.Models.UserMessages
         public int ChatId { get; set; }
         public virtual Chat? Chat { get; set; }
     }
-
 }

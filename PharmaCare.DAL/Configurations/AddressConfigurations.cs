@@ -23,14 +23,10 @@ namespace PharmaCare.DAL.Configurations
                     .HasMaxLength(50)
                     .IsRequired();
 
-
             // Relations
             builder.HasDiscriminator<UserType>(nameof(Address.UserType))
                    .HasValue<CustomerAddress>(UserType.Customer)
                    .HasValue<PharmacistAddress>(UserType.Pharmacist);         
-
-
         }
     }
-
 }

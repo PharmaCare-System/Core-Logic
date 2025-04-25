@@ -4,7 +4,6 @@ using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Models
 {
-
     public class Order
     {
         public int Id;
@@ -12,7 +11,6 @@ namespace PharmaCare.DAL.Models
         public string DeliveryAddress { get; set; }
         public double TotalPrice { get; set; }
         public OrderStatuses OrderStatus { get; set; }
-
 
         // Customer
         public int CustomerId { get; set; }
@@ -30,13 +28,12 @@ namespace PharmaCare.DAL.Models
         public Pharmacist? Pharmacist { get; set; }
 
         //Notification
-        public virtual ICollection<Notifacation>? Notifications { get; set; }
+        public virtual ICollection<Notification>? Notifications { get; set; }
 
         //pharmacy
         public int PharmacyId { get; set; }
         public Pharmacy? pharmacy{ get; set; }
 
         public virtual ICollection<ProductOrder>? OrderProducts { get; set; }
-
     }
 }

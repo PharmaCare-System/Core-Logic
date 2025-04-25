@@ -54,7 +54,7 @@ namespace PharmaCare.DAL.Configurations
             // customer Review Purchase ( 1 to N)
             builder.HasMany(p => p.Prescriptions)
                    .WithOne(pr => pr.Pharmacist)
-                   .HasForeignKey(pr => pr.PharamcistId);
+                   .HasForeignKey(pr => pr.PharmacistId);
 
             // pharmacist process Order ( 1 to N)
             builder.HasMany(p => p.Orders)
@@ -70,9 +70,6 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(p => p.Pharmacy)
                    .WithMany(ph=>ph.Pharmacists)
                    .HasForeignKey(p=>p.PharmacyId);
-
-
-
         }
     }
 }

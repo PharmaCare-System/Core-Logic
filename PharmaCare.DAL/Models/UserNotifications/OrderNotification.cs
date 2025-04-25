@@ -1,9 +1,7 @@
 ﻿namespace PharmaCare.DAL.Models.UserNotifications
 {
-    public class OrderNotification : Notifacation
+    public class OrderNotification : Notification
     {
         public Order Order { get; set; }
     }
-
-
 }

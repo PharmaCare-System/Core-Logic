@@ -9,7 +9,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.DAL.Configurations
 {
-    public class PharmacyConfigrations : IEntityTypeConfiguration<Pharmacy>
+    public class PharmacyConfigurations : IEntityTypeConfiguration<Pharmacy>
     {
         public void Configure(EntityTypeBuilder<Pharmacy> builder)
         {
@@ -28,7 +28,7 @@ namespace PharmaCare.DAL.Configurations
 
             builder.HasMany(p => p.purchases)
                 .WithOne(p => p.Pharmacy) 
-                .HasForeignKey(p => p.PharamcyId)
+                .HasForeignKey(p => p.PharmacyId)
                 .OnDelete(DeleteBehavior.SetNull); 
 
             builder.HasOne(p => p.inventory)
@@ -44,7 +44,6 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(p => p.ManagerPharmacy)
                 .WithOne(p => p.Pharmacy)
                 .HasForeignKey<Pharmacist>(p => p.PharmacyId);
-
         }
     }
 }

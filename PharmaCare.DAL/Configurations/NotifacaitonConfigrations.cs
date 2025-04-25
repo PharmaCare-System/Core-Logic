@@ -11,13 +11,12 @@ using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Configurations
 {
-    public class NotifacaitonConfigrations : IEntityTypeConfiguration<Notifacation>
+    public class NotificationConfigurations : IEntityTypeConfiguration<Notification>
     {
-        public void Configure(EntityTypeBuilder<Notifacation> builder)
+        public void Configure(EntityTypeBuilder<Notification> builder)
         {
 
             builder.HasKey(n => n.Id);
-
         
             builder.Property(n => n.Sender)
                 .IsRequired()
@@ -36,7 +35,7 @@ namespace PharmaCare.DAL.Configurations
                 .IsRequired()
                 .HasDefaultValue(false);
 
-            builder.HasOne(p => p.Inventory).WithMany(p=>p.Notifacations)
+            builder.HasOne(p => p.Inventory).WithMany(p=>p.Notifications)
                 .HasForeignKey(n => n.SenderId)
                 .OnDelete(DeleteBehavior.SetNull);
 
@@ -47,10 +46,9 @@ namespace PharmaCare.DAL.Configurations
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder
-               .HasDiscriminator<SenderType>(nameof(Notifacation.Sender))
+               .HasDiscriminator<SenderType>(nameof(Notification.Sender))
                .HasValue<OrderNotification>(SenderType.order)
                .HasValue<MessageNotification>(SenderType.message);
-
         }
     }
 }

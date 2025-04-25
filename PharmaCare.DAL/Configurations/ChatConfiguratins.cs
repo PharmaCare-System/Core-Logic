@@ -4,7 +4,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.DAL.Configurations
 {
-    public class ChatConfiguratins : IEntityTypeConfiguration<Chat>
+    public class ChatConfigurations : IEntityTypeConfiguration<Chat>
     {
         public void Configure(EntityTypeBuilder<Chat> builder)
         {

@@ -16,11 +16,10 @@ namespace PharmaCare.DAL.Configurations
                 .HasColumnType("DATE")
                 .IsRequired();
 
-            // relations: THP (customer and pharmcist)
+            // relations: THP (customer and pharmacist)
             builder.HasDiscriminator<UserType>(nameof(Messages.UserType))
                    .HasValue<MessagesCustomer>(UserType.Customer)
                    .HasValue<MessagesPharmacist>(UserType.Pharmacist);
         }
     }
-
 }

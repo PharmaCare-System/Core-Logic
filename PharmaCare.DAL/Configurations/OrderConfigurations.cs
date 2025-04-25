@@ -11,27 +11,11 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Configurations
 {
-    public class PrescriptionConfigurations : IEntityTypeConfiguration<Prescription>
-    {
-        public void Configure(EntityTypeBuilder<Prescription> builder)
-        {
-            builder.Property(p => p.Status)
-                   .HasConversion<string>()
-                   .HasMaxLength(10)
-                   .IsRequired(false);
-
-            builder.Property(p => p.UploadDate)
-                   .HasConversion<DateTime>()
-                   .IsRequired();
-        }
-    }
     public class OrderConfigurations : IEntityTypeConfiguration<Order>
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-
-
-        builder.Property(o => o.OrderType)
+            builder.Property(o => o.OrderType)
                    .HasConversion<string>()
                    .HasMaxLength(10)
                    .IsRequired();

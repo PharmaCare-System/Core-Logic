@@ -16,8 +16,7 @@ namespace PharmaCare.DAL.Models
         public int? PharmacyId { get; set; }
         public virtual Pharmacy? Pharmacy { get; set; }
 
-        public virtual ICollection<Notifacation>? Notifacations { get; set; }
+        public virtual ICollection<Notification>? Notifications { get; set; }
         public ICollection<Product>? Products { get; set; }
-
     }
 }

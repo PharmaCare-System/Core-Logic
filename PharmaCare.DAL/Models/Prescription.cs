@@ -7,18 +7,14 @@ namespace PharmaCare.DAL.Models
         public int Id { get; set; }
         public DateTime UploadDate { get; set; }
         public PrescriptionStatus Status { get; set; }
-        
-        public byte[] Image { get; set; }
-
-        // relation
+        public string ImageURL { get; set; }
 
         // Customer upload Prescription
         public int CustomerId { get; set; }
         public Customer? Customer { get; set; }
 
-        // pharmcist who reviewd the prescription
-        public int PharamcistId { get; set; }
+        // Pharmacist who review the prescription
+        public int PharmacistId { get; set; }
         public  Pharmacist? Pharmacist { get; set; }
     }
-    
 }

@@ -2,10 +2,8 @@
 
 namespace PharmaCare.DAL.Models.UserNotifications
 {
-    public class MessageNotification : Notifacation
+    public class MessageNotification : Notification
     {
         public Messages Message { get; set; }
     }
-
-
 }

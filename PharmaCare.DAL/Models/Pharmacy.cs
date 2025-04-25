@@ -11,19 +11,13 @@ namespace PharmaCare.DAL.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-
         public int MangerPharmacyId { get; set; }
 
         public ICollection<Purchase>? purchases { get; set; }
-
         public Inventory? inventory { get; set; }
-
         public Pharmacist? ManagerPharmacy { get; set; }
-
-
         public virtual ICollection<Order>? Orders { get; set; }
         public virtual ICollection<Pharmacist>? Pharmacists { get; set; }
         public virtual ICollection<Chat>? Chats { get; set; }
-
     }
 }
