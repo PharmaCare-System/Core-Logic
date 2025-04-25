@@ -10,9 +10,9 @@ using PharmaCare.DAL.Database;
 
 namespace PharmaCare.DAL.Repository.Addresses
 {
-    public class CustomerRepository : GenericRepository<Address>, ICustomerRepository 
+    public class CustomerAddressRepository : GenericRepository<Address>, ICustomerAddressRepository 
     {
-        public CustomerRepository(ApplicationDbContext context) : base(context)
+        public CustomerAddressRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

@@ -3,7 +3,7 @@ using PharmaCare.DAL.Models.UserAddress;
 
 namespace PharmaCare.DAL.Repository.Addresses
 {
-    public interface ICustomerRepository : IGenericRepository<Address>
+    public interface ICustomerAddressRepository : IGenericRepository<Address>
     {
 
     }
