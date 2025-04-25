@@ -17,7 +17,6 @@ namespace PharmaCare.DAL.Models
         public int PharmacyId { get; set; }
         public virtual Pharmacy? Pharmacy { get; set; }
 
-        public virtual Address? Address { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
 
         // HTP Relation
@@ -27,5 +26,6 @@ namespace PharmaCare.DAL.Models
         public virtual ICollection<PharmacistChats>? pharmacistChats { get; set; }
 
         public virtual ICollection<Prescription>? Prescriptions { get; set; }
+        public virtual PharmacistAddress? Address { get; set; }
     }
 }

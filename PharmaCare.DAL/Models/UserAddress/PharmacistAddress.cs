@@ -2,6 +2,6 @@
 {
     public class PharmacistAddress
     {
-        public virtual Pharmacist? Customer { get; set; }
+        public virtual Pharmacist? Pharmacist { get; set; }
     }
 }

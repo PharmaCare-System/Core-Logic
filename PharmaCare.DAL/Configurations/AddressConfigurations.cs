@@ -26,7 +26,9 @@ namespace PharmaCare.DAL.Configurations
             // Relations
             builder.HasDiscriminator<UserType>(nameof(Address.UserType))
                    .HasValue<CustomerAddress>(UserType.Customer)
-                   .HasValue<PharmacistAddress>(UserType.Pharmacist);         
+                   .HasValue<PharmacistAddress>(UserType.Pharmacist);     
+            
+            
         }
     }
 }
