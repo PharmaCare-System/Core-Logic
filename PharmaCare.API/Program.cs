@@ -1,21 +1,20 @@
-
 using inventory.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Notification.Dal;
+//using Notification.Dal;
 using PharmaCare.API.Middleware;
 using PharmaCare.BLL.Services.AuthenticationService;
 using PharmaCare.BLL.Services.InventoryService;
-using PharmaCare.BLL.Services.NotifacationService;
+using PharmaCare.BLL.Services.NotificationService;
 using PharmaCare.BLL.Services.PharmacistService;
 using PharmaCare.BLL.Services.PharmacySerivce;
 using PharmaCare.DAL;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
 using PharmaCareInv.DAL;
-using PharmaCareNot.DAL;
+//using PharmaCareNot.DAL;
 using PharmaCarepharmacy.DAL.Repository;
 using pharmacy.DAL;
 using PharmaCare.DAL.Repository.UnitOfWork;
@@ -37,8 +36,13 @@ namespace PharmaCare.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
