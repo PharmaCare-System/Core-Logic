@@ -1,89 +1,89 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using PharmaCare.BLL.DTOs.PharmayDTOs;
-//using PharmaCare.DAL.Models;
-//using pharmacy.DAL;
-//using pharmasist.DAL;
+﻿//using system;
+//using system.collections.generic;
+//using system.linq;
+//using system.text;
+//using system.threading.tasks;
+//using pharmacare.bll.dtos.pharmaydtos;
+//using pharmacare.dal.models;
+//using pharmacy.dal;
+//using pharmasist.dal;
 
-//namespace PharmaCare.BLL.Services.PharmacySerivce
+//namespace pharmacare.bll.services.pharmacyserivce
 //{
-//    public class PharmacySerivce : IPharmacySerivce
+//    public class pharmacyserivce : ipharmacyserivce
 //    {
-//        private readonly IPharmacyRepository _pharmacyService;
-//        public void Add(PharmacyAddDto pharmacy)
+//        private readonly ipharmacyrepository _pharmacyservice;
+//        public void add(pharmacyadddto pharmacy)
 //        {
-//            var pharmacyEntity = new Pharmacy
+//            var pharmacyentity = new pharmacy
 //            {
-//                Address = pharmacy.Address,
-//                Name = pharmacy.Name,
-//                MangerPharmacyId = pharmacy.MangerPharmacyId,
+//                address = pharmacy.address,
+//                name = pharmacy.name,
+//                mangerpharmacyid = pharmacy.mangerpharmacyid,
 
 //            };
-//            _pharmacyService.Add(pharmacyEntity);
+//            _pharmacyservice.add(pharmacyentity);
 //        }
 
-//        public void Delete(int id)
+//        public void delete(int id)
 //        {
-//            var pharmacy = _pharmacyService.GetById(id);
+//            var pharmacy = _pharmacyservice.getbyid(id);
 //            if (pharmacy != null)
 //            {
-//                _pharmacyService.Delete(pharmacy);
+//                _pharmacyservice.delete(pharmacy);
 //            }
 //            else
 //            {
-//                throw new Exception("Pharmacy not found");
+//                throw new exception("pharmacy not found");
 //            }
 //        }
 
-//        public IEnumerable<PharmacyReadDto> GetAll()
+//        public ienumerable<pharmacyreaddto> getall()
 //        {
-//            var pharmacies = _pharmacyService.GetAll();
-//            var pharmacyModel = pharmacies.Select(p => new PharmacyReadDto
+//            var pharmacies = _pharmacyservice.getall();
+//            var pharmacymodel = pharmacies.select(p => new pharmacyreaddto
 //            {
-//                Id = p.Id,
-//                Address = p.Address,
-//                Name = p.Name,
-//                MangerPharmacyId = p.MangerPharmacyId,
-//            }).ToList();
-//            return pharmacyModel;
+//                id = p.id,
+//                address = p.address,
+//                name = p.name,
+//                mangerpharmacyid = p.mangerpharmacyid,
+//            }).tolist();
+//            return pharmacymodel;
 
 //        }
 
-//        public PharmacyReadDto GetById(int id)
+//        public pharmacyreaddto getbyid(int id)
 //        {
-//            var pharmacy = _pharmacyService.GetById(id);
+//            var pharmacy = _pharmacyservice.getbyid(id);
 //            if (pharmacy != null)
 //            {
-//                return new PharmacyReadDto
+//                return new pharmacyreaddto
 //                {
-//                    Id = pharmacy.Id,
-//                    Address = pharmacy.Address,
-//                    Name = pharmacy.Name,
-//                    MangerPharmacyId = pharmacy.MangerPharmacyId,
+//                    id = pharmacy.id,
+//                    address = pharmacy.address,
+//                    name = pharmacy.name,
+//                    mangerpharmacyid = pharmacy.mangerpharmacyid,
 //                };
 //            }
 //            else
 //            {
-//                throw new Exception("Pharmacy not found");
+//                throw new exception("pharmacy not found");
 //            }
 //        }
 
-//        public void Update(PharmacyUpdateDto pharmacy)
+//        public void update(pharmacyupdatedto pharmacy)
 //        {
-//            var pharmacyEntity = _pharmacyService.GetById(pharmacy.Id);
-//            if (pharmacyEntity != null)
+//            var pharmacyentity = _pharmacyservice.getbyid(pharmacy.id);
+//            if (pharmacyentity != null)
 //            {
-//                pharmacyEntity.Address = pharmacy.Address;
-//                pharmacyEntity.Name = pharmacy.Name;
-//                pharmacyEntity.MangerPharmacyId = pharmacy.MangerPharmacyId;
-//                _pharmacyService.Update(pharmacyEntity);
+//                pharmacyentity.address = pharmacy.address;
+//                pharmacyentity.name = pharmacy.name;
+//                pharmacyentity.mangerpharmacyid = pharmacy.mangerpharmacyid;
+//                _pharmacyservice.update(pharmacyentity);
 //            }
 //            else
 //            {
-//                throw new Exception("Pharmacy not found");
+//                throw new exception("pharmacy not found");
 //            }
 //        }
 //    }

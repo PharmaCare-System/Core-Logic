@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.BLL.Services.Chat
 {
-    internal interface IChatService
+    public interface IChatService
     {
     }
 }

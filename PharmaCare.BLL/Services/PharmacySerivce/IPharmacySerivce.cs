@@ -8,7 +8,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.BLL.Services.PharmacySerivce
 {
-    public interface IPharmacySerivce
+    public interface IPharmacyService
     {
         public IEnumerable<PharmacyReadDto> GetAll();
         public PharmacyReadDto GetById(int id);
