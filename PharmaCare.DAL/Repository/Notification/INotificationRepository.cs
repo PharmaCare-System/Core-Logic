@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using PharmaCare.DAL.Models.UserNotifications;
 using PharmaCare.DAL.Repository.GenericRepository;
 
-namespace Notification.Dal
+namespace PharmaCare.DAL.Repository.NotificationRepository
 {
-    public interface INotifacationRepository : IGenericRepository<Notifacation>
+    public interface INotificationRepository : IGenericRepository<Notification>
     {
     
 

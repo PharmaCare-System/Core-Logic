@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Notification.Dal;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models.UserNotifications;
 using PharmaCare.DAL.Repository.GenericRepository;
 
-namespace PharmaCareNot.DAL
+namespace PharmaCare.DAL.Repository.NotificationRepository
 {
-    public class NoticationRepository:GenericRepository<Notifacation>, INotifacationRepository
+    public class NotificationRepository : GenericRepository<Notification>, INotificationRepository
     {
-        public NoticationRepository(ApplicationDbContext context) : base(context)
+        public NotificationRepository(ApplicationDbContext context) : base(context)
         {
         }
     }
