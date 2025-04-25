@@ -20,7 +20,7 @@ namespace PharmaCare.DAL.Models
         public virtual ICollection<Order>? Orders { get; set; }
 
         // HTP Relation
-        public virtual ICollection<Messages>? Messages { get; set; }
+        public virtual ICollection<MessagesPharmacist>? Messages { get; set; }
 
         public virtual ICollection<Chat>? Chats { get; set; }
         public virtual ICollection<PharmacistChats>? pharmacistChats { get; set; }

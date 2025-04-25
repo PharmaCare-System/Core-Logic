@@ -11,7 +11,7 @@ namespace PharmaCare.DAL.Models
     public class Customer : UserBase
     {
         // Message need to convert to THP Relation
-        public virtual ICollection<Messages>? Messages { get; set; }
+        public virtual ICollection<MessagesCustomer>? Messages { get; set; }
         public virtual Chat? Chat { get; set; }
         public virtual ICollection<Purchase>? Purchases { get; set; }
         public virtual ShoppingCart? ShoppingCart { get; set; }
