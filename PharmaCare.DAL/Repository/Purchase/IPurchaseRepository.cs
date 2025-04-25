@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PharmaCare.DAL.Models;
 using PharmaCare.DAL.Repository.GenericRepository;
 
-namespace PharmaCare.DAL.Repositoryphar
+namespace PharmaCare.DAL.PurchaseRepository
 {
     public interface IPurchaseRepository : IGenericRepository<Purchase>
     {
