@@ -14,7 +14,7 @@ namespace PharmaCare.DAL.Models
         public DateTime HireDate { get; set; }
 
         // relations
-        public int PharmacyId { get; set; }
+        public int? PharmacyId { get; set; }
         public virtual Pharmacy? Pharmacy { get; set; }
 
         public virtual ICollection<Order>? Orders { get; set; }
@@ -23,7 +23,7 @@ namespace PharmaCare.DAL.Models
         public virtual ICollection<MessagesPharmacist>? Messages { get; set; }
 
         public virtual ICollection<Chat>? Chats { get; set; }
-        public virtual ICollection<PharmacistChats>? pharmacistChats { get; set; }
+        public virtual ICollection<PharmacistChats>? PharmacistChats { get; set; }
 
         public virtual ICollection<Prescription>? Prescriptions { get; set; }
         public virtual PharmacistAddress? Address { get; set; }

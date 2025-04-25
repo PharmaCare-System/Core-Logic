@@ -10,7 +10,8 @@ namespace PharmaCare.DAL.Configurations
         {
             builder.HasOne(a => a.Pharmacist)
                 .WithOne(p => p.Address)
-                .HasForeignKey<Address>(a => a.UserId);
+                .HasForeignKey<Address>(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -10,11 +10,11 @@ namespace PharmaCare.DAL.Models
         public string ImageURL { get; set; }
 
         // Customer upload Prescription
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
 
         // Pharmacist who review the prescription
-        public int PharmacistId { get; set; }
+        public int? PharmacistId { get; set; }
         public  Pharmacist? Pharmacist { get; set; }
     }
 }

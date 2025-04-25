@@ -42,12 +42,10 @@ namespace PharmaCare.DAL.Configurations
             //Purchase
             builder.HasOne(o=>o.Purchase)
                     .WithOne(p=>p.Order)
-                    .HasForeignKey<Purchase>(p=>p.OrderId);
+                    .HasForeignKey<Purchase>(p=>p.OrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            //M-N with Products
-            builder.HasMany(o => o.Products)
-                   .WithMany(p => p.Orders)
-                   .UsingEntity<ProductOrder>();
+           
 
             //Pharmacist
             builder.HasOne(o => o.Pharmacist)

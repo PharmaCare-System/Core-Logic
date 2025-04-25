@@ -10,9 +10,9 @@ namespace PharmaCare.DAL.Models.UserMessages
 
         // Sender may be Pharmacist or Customer
         public UserType UserType { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
-        public int ChatId { get; set; }
+        public int? ChatId { get; set; }
         public virtual Chat? Chat { get; set; }
     }
 }

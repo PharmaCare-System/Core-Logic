@@ -28,6 +28,7 @@ namespace PharmaCare.DAL.Enums
         CreditCard,
         DebitCard,
         PayPal,
-        BankTransfer
+        BankTransfer,
+        Cash
     }
 }

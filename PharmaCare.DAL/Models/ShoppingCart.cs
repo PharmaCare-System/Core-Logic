@@ -12,6 +12,6 @@ namespace PharmaCare.DAL.Models
         public Customer Customer { get; set; }
 
         public virtual ICollection<Product>? Products { get; set; } 
-        public virtual ICollection<CartProducts>? Cart_Products { get; set; }
+        public virtual ICollection<CartProducts>? CartProducts { get; set; }
     }
 }

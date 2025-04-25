@@ -42,34 +42,17 @@ namespace PharmaCare.DAL.Configurations
 
             // Relations
 
-
-            // Pharmacist send messages ( 1 to N): will be converted to THP relation
-
-
-            // pharmacist Access Chat (N to N):
-            builder.HasMany(p => p.Chats)
-                   .WithMany( c => c.pharmacists)
-                   .UsingEntity<PharmacistChats>();
-
-            // customer Review Purchase ( 1 to N)
+            // pharmacist Review prescriptions ( 1 to N)
             builder.HasMany(p => p.Prescriptions)
                    .WithOne(pr => pr.Pharmacist)
-                   .HasForeignKey(pr => pr.PharmacistId);
+                   .HasForeignKey(pr => pr.PharmacistId)
+                   .OnDelete(DeleteBehavior.SetNull);
 
             // pharmacist process Order ( 1 to N)
             builder.HasMany(p => p.Orders)
                    .WithOne(o => o.Pharmacist)
-                   .HasForeignKey(o => o.PharmacistId);
-
-            // pharmacist is manager ( 1 to 1)
-            builder.HasOne(p => p.Pharmacy)
-                   .WithOne(ph => ph.ManagerPharmacy)
-                   .HasForeignKey<Pharmacy>(ph => ph.MangerPharmacyId);
-
-            // pharmacist work in pharmacy (1 to N)
-            builder.HasOne(p => p.Pharmacy)
-                   .WithMany(ph=>ph.Pharmacists)
-                   .HasForeignKey(p=>p.PharmacyId);
+                   .HasForeignKey(o => o.PharmacistId)
+                   .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

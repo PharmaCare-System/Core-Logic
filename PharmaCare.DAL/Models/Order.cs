@@ -13,7 +13,7 @@ namespace PharmaCare.DAL.Models
         public OrderStatuses OrderStatus { get; set; }
 
         // Customer
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public virtual Customer? Customer { get; set; }
 
         // Purchase
@@ -24,7 +24,7 @@ namespace PharmaCare.DAL.Models
         public virtual ICollection<ProductOrder>? ProductOrders { get; set; }
 
         //pharmacist
-        public int PharmacistId { get; set; }
+        public int? PharmacistId { get; set; }
         public Pharmacist? Pharmacist { get; set; }
 
         //Notification

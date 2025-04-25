@@ -15,6 +15,19 @@ namespace PharmaCare.DAL.Configurations
             builder.HasMany(c => c.Messages)
                    .WithOne(m => m.Chat)
                    .HasForeignKey(m => m.ChatId);
+
+            // pharmacist Access Chat (N to N):
+            builder.HasMany(p => p.pharmacists)
+                   .WithMany(c => c.Chats)
+                   .UsingEntity<PharmacistChats>(
+                        pp => pp.HasOne(pc => pc.Pharmacist)
+                                .WithMany(p => p.PharmacistChats)
+                                .OnDelete(DeleteBehavior.Cascade),
+
+                        oo => oo.HasOne(po => po.Chat)
+                                .WithMany(p => p.pharmacistChats)
+                                .OnDelete(DeleteBehavior.Cascade)
+                );
         }
     }
 }
