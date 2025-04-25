@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PharmaCare.DAL.Repository.GenericRepository;
 
-namespace PharmaCare.DAL.Repository.Payment
+namespace PharmaCare.DAL.Repository.PaymentRepository
 {
     public interface IPaymentRepository : IGenericRepository<DAL.Models.Payment>
     {
