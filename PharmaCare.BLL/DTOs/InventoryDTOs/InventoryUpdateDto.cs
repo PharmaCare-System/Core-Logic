@@ -14,6 +14,5 @@ namespace PharmaCare.BLL.DTOs.InventoryDTOs
         public string Location { get; set; }
         public int QuantityStock { get; set; }
         public int PharmacyId { get; set; }
-     
     }
 }

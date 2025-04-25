@@ -9,14 +9,9 @@ namespace PharmaCare.BLL.DTOs.PharmayDTOs
 {
     public class PharmacyUpdateDto
     {
-
         public int Id { get; set; }
         public string Address { get; set; }
         public string Name { get; set; }
-
         public int MangerPharmacyId { get; set; }
-
-
-
     }
 }
