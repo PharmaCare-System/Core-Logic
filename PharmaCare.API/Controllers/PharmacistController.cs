@@ -9,21 +9,21 @@ namespace PharmaCare.API.Controllers
     [ApiController]
     public class PharmacistController : ControllerBase
     {
-        private readonly IPharmacistService _service;
-        public PharmacistController(IPharmacistService service)
+        private readonly IPharmacistService _pharmacistService;
+        public PharmacistController(IPharmacistService pharmacistService)
         {
-            _service = service;
+            _pharmacistService = pharmacistService;
         }
         [HttpGet]
         public IActionResult GetAll()
         {
-            var pharmacists = _service.GetAll();
+            var pharmacists = _pharmacistService.GetAll();
             return Ok(pharmacists);
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var pharmacist = _service.GetById(id);
+            var pharmacist = _pharmacistService.GetById(id);
             if (pharmacist == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            _service.Add(pharmacist);
+            _pharmacistService.Add(pharmacist);
             return CreatedAtAction(nameof(Get), pharmacist);
         }
         [HttpPut("{id}")]
@@ -47,23 +47,23 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            var existingPharmacist = _service.GetById(id);
+            var existingPharmacist = _pharmacistService.GetById(id);
             if (existingPharmacist == null)
             {
                 return NotFound();
             }
-            _service.Update(pharmacist);
+            _pharmacistService.Update(pharmacist);
             return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var pharmacist = _service.GetById(id);
+            var pharmacist = _pharmacistService.GetById(id);
             if (pharmacist == null)
             {
                 return NotFound();
             }
-            _service.Delete(id);
+            _pharmacistService.Delete(id);
             return NoContent();
         }
     }

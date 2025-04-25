@@ -10,20 +10,20 @@ namespace PharmaCare.API.Controllers
     [ApiController]
     public class InventoryController : ControllerBase
     {
-        private readonly IInventoryService _service;
-        public InventoryController(IInventoryService service) {
-            _service = service;
+        private readonly IInventoryService _inventoryService;
+        public InventoryController(IInventoryService inventoryService) {
+            _inventoryService = inventoryService;
         }
         [HttpGet]
         public IActionResult GetAll()
         {
-            var inventories = _service.GetAll();
+            var inventories = _inventoryService.GetAll();
             return Ok(inventories);
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var inventory = _service.GetById(id);
+            var inventory = _inventoryService.GetById(id);
             if (inventory == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            _service.Add(inventory);
+            _inventoryService.Add(inventory);
             return CreatedAtAction(nameof(GetById), inventory);
         }
         [HttpPut("{id}")]
@@ -47,24 +47,24 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            var existingInventory = _service.GetById(id);
+            var existingInventory = _inventoryService.GetById(id);
             if (existingInventory == null)
             {
                 return NotFound();
             }
-            _service.Update(inventory);
+            _inventoryService.Update(inventory);
             return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var inventory = _service.GetById(id);
+            var inventory = _inventoryService.GetById(id);
             if (inventory == null)
             {
                 return NotFound();
             }
 
-            _service.Delete(id);
+            _inventoryService.Delete(id);
             return NoContent();
         }
     }
