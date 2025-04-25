@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using PharmaCare.DAL.Models;
 using PharmaCare.DAL.Repository.GenericRepository;
 
-namespace inventory.DAL
+namespace PharmaCare.DAL.Repository.InventoryRepository
 {
     public interface IInventoryRepository: IGenericRepository<Inventory>
     {

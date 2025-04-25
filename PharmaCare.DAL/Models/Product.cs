@@ -29,6 +29,7 @@ namespace PharmaCare.DAL.Models
 
         public virtual ICollection<ProductCategory>? ProductCategories  { get; set; }
 
+
         public virtual ICollection<Cart_Products>?  Cart_Products  { get; set; }
 
 

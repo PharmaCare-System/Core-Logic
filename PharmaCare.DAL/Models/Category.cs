@@ -11,9 +11,10 @@ namespace PharmaCare.DAL.Models
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
+        public bool IsActive { get; set; } = true;
         // relations
-        public virtual ICollection<Product>? Medicines { get; set; }
-
         public virtual ICollection<ProductCategory>? ProductCategories { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
+
     }
 }

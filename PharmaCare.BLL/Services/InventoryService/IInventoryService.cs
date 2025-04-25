@@ -10,10 +10,10 @@ namespace PharmaCare.BLL.Services.InventoryService
 {
     public interface IInventoryService
     {
-        public IEnumerable<InventoryReadDto> GetAll();
-        public InventoryReadDto GetById(int id);
-        void Add(InventoryAddDto inventory);
-        void Update(InventoryUpdateDto inventory);
-        void Delete(int id);
+        public Task< IEnumerable<InventoryReadDto>> GetAllAsync();
+        public Task <InventoryReadDto>GetAsyncById(int id);
+        public Task AddAync(InventoryAddDto inventory);
+        public Task UpdateAsync(InventoryUpdateDto inventory,int id);
+        public Task DeleteAsync(int id);
     }
 }

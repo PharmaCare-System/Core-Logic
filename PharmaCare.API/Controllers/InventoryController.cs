@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PharmaCare.BLL.DTOs.InventoryDTOs;
 using PharmaCare.BLL.Services.InventoryService;
+using PharmaCare.DAL.ExtensionMethods;
 using PharmaCare.DAL.Models;
 
 namespace PharmaCare.API.Controllers
@@ -17,17 +18,14 @@ namespace PharmaCare.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var inventories = _service.GetAll();
+            var inventories = _service.GetAllAsync();
             return Ok(inventories);
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var inventory = _service.GetById(id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
+            var inventory = _service.GetAsyncById(id);
+            id.CheckIfNull(inventory);
             return Ok(inventory);
         }
         [HttpPost]
@@ -37,8 +35,8 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            _service.Add(inventory);
-            return CreatedAtAction(nameof(GetById), inventory);
+            _service.AddAync(inventory);
+            return CreatedAtAction(nameof(GetById), new {Message="Inventory Created Successfully"});
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, InventoryUpdateDto inventory)
@@ -47,24 +45,17 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            var existingInventory = _service.GetById(id);
-            if (existingInventory == null)
-            {
-                return NotFound();
-            }
-            _service.Update(inventory);
+            var existingInventory = _service.GetAsyncById(id);
+            id.CheckIfNull(existingInventory);
+            _service.UpdateAsync(inventory, id);
             return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var inventory = _service.GetById(id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
-
-            _service.Delete(id);
+            var inventory = _service.GetAsyncById(id);
+            id.CheckIfNull(inventory);
+            _service.DeleteAsync(id);
             return NoContent();
         }
     }
