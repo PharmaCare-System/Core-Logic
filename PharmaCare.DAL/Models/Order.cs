@@ -29,7 +29,7 @@ namespace PharmaCare.DAL.Models
 
 
         //pharmacy
-        public int PharmacyId { get; set; }
+        public int? PharmacyId { get; set; }
         public Pharmacy? pharmacy{ get; set; }
 
         public virtual ICollection<ProductOrder>? OrderProducts { get; set; }

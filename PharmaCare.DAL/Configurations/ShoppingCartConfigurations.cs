@@ -9,6 +9,8 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<ShoppingCart> builder)
         {
+            builder.HasKey(c=>c.Id);
+
             builder.Property(sh => sh.CreatedAt)
                    .HasColumnType("DATE")
                    .IsRequired();
@@ -17,12 +19,14 @@ namespace PharmaCare.DAL.Configurations
             builder.HasMany(sh => sh.Products)
                    .WithMany(p => p.ShoppingCarts)
                    .UsingEntity<CartProducts>(
-                        pp => pp.HasOne(c=>c.Product)
-                                .WithMany(p=>p.CartProducts)
+                        pp => pp.HasOne(c => c.Product)
+                                .WithMany(p => p.CartProducts)
+                                .HasForeignKey(c => c.ProductId)
                                 .OnDelete(DeleteBehavior.Cascade),
 
-                        cc => cc.HasOne(c=>c.ShoppingCart)
-                                .WithMany(sp=>sp.CartProducts)
+                        cc => cc.HasOne(c => c.ShoppingCart)
+                                .WithMany(sp => sp.CartProducts)
+                                .HasForeignKey(c => c.CartId)
                                 .OnDelete(DeleteBehavior.Cascade)
                     );
         }

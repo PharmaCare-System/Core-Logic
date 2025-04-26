@@ -14,9 +14,10 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Pharmacist> builder)
         {
+            builder.HasKey(p=>p.Id);
 
             builder.Property(c => c.Age)
-                   .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE()) - ", stored: true);
+                   .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE())", false);
 
             builder.Property(c => c.Password)
                    .HasMaxLength(100).IsRequired();

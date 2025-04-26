@@ -8,6 +8,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
+            builder.HasKey(r => r.Id);
             builder.Property(r => r.ReviewDate)
                    .HasColumnType("DATE")
                    .IsRequired();

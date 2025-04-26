@@ -13,6 +13,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.HasKey(c => c.Id);
             builder.Property(c => c.CategoryName)
                    .HasMaxLength(250).IsRequired();
         }

@@ -8,6 +8,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Chat> builder)
         {
+            builder.HasKey(c=>c.Id);
             builder.HasOne(c => c.Pharmacy)
                    .WithMany(ph => ph.Chats)
                    .HasForeignKey(c => c.PharmacyId)
@@ -24,10 +25,12 @@ namespace PharmaCare.DAL.Configurations
                    .UsingEntity<PharmacistChats>(
                         pp => pp.HasOne(pc => pc.Pharmacist)
                                 .WithMany(p => p.PharmacistChats)
+                                .HasForeignKey(pc => pc.PharmacistId)
                                 .OnDelete(DeleteBehavior.Cascade),
 
                         oo => oo.HasOne(po => po.Chat)
                                 .WithMany(p => p.pharmacistChats)
+                                .HasForeignKey(po => po.ChatId)
                                 .OnDelete(DeleteBehavior.Cascade)
                 );
         }

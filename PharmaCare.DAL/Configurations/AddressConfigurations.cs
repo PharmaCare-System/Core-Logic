@@ -10,7 +10,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-
+            builder.HasKey(a => a.Id);
             builder.Property(a => a.streetNumber)
                     .HasColumnType("SMALLINT")
                     .IsRequired();

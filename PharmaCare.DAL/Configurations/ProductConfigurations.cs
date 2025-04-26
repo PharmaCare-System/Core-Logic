@@ -9,6 +9,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            builder.HasKey(p => p.Id);
             builder.Property(p => p.Price)
                    .IsRequired();
 
@@ -44,24 +45,18 @@ namespace PharmaCare.DAL.Configurations
                    .UsingEntity<ProductCategory>(
                         cc => cc.HasOne(pc => pc.Category)
                                 .WithMany(c => c.ProductCategories)
+                                .HasForeignKey(pc => pc.CategoryId)
                                 .OnDelete(DeleteBehavior.Cascade),
 
                         pp => pp.HasOne(pc => pc.Product)
                                 .WithMany(p => p.ProductCategories)
+                                .HasForeignKey(pc=>pc.ProductId)
                                 .OnDelete(DeleteBehavior.Cascade)
                    );
 
-            builder.HasMany(o => o.Orders)
-                   .WithMany(p => p.Products)
-                   .UsingEntity<ProductOrder>(
-                        pp => pp.HasOne(po => po.Order)
-                                .WithMany(o => o.ProductOrders)
-                                .OnDelete(DeleteBehavior.Cascade),
-
-                        oo => oo.HasOne(po => po.Product)
-                                .WithMany(p => p.ProductOrders)
-                                .OnDelete(DeleteBehavior.Cascade)
-                   );
+            builder.HasMany(p => p.Orders)
+                   .WithMany(o => o.Products)
+                   .UsingEntity<ProductOrder>();
         }
     }
 }

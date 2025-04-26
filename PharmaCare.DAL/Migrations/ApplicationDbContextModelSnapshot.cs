@@ -220,6 +220,699 @@ namespace PharmaCare.DAL.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("PharmaCare.DAL.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Chat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique()
+                        .HasFilter("[CustomerId] IS NOT NULL");
+
+                    b.HasIndex("PharmacyId");
+
+                    b.ToTable("Chats");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE())", false);
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("DATE");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Inventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PharmacyId")
+                        .IsUnique()
+                        .HasFilter("[PharmacyId] IS NOT NULL");
+
+                    b.ToTable("Inventories");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("OrderType")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int?>("PharmacistId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("PharmacistId");
+
+                    b.HasIndex("PharmacyId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE())", false);
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("DATE");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PharmacyId");
+
+                    b.ToTable("Pharmacists");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.PharmacistChats", b =>
+                {
+                    b.Property<int>("PharmacistId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChatId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PharmacistId", "ChatId");
+
+                    b.HasIndex("ChatId");
+
+                    b.ToTable("PharmacistChats");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("MangerPharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MangerPharmacyId")
+                        .IsUnique()
+                        .HasFilter("[MangerPharmacyId] IS NOT NULL");
+
+                    b.ToTable("Pharmacies");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Prescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PharmacistId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("UploadDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("PharmacistId");
+
+                    b.ToTable("Prescriptions");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BarCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("BulkAllowed")
+                        .HasColumnType("BIT");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("PrescriptionRequired")
+                        .HasColumnType("BIT");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<int>("QuantityInStock")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InventoryId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductOrder", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("OrderId1");
+
+                    b.ToTable("ProductOrders");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductRel.CartProducts", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "CartId");
+
+                    b.HasIndex("CartId");
+
+                    b.ToTable("CartProducts");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductRel.ProductCategory", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsVendor")
+                        .HasColumnType("BIT");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<float>("TotalCost")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.HasIndex("PaymentId")
+                        .IsUnique();
+
+                    b.HasIndex("PharmacyId");
+
+                    b.ToTable("Purchases");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Rating")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("DATE");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("DATE");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique()
+                        .HasFilter("[CustomerId] IS NOT NULL");
+
+                    b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserAddress.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
+                    b.Property<short>("streetNumber")
+                        .HasColumnType("SMALLINT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+
+                    b.HasDiscriminator<int>("UserType");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserMessages.Messages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ChatId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MessageDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<string>("MessageText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatId");
+
+                    b.ToTable("Messages");
+
+                    b.HasDiscriminator<int>("UserType");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserNotifications.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+
+                    b.HasDiscriminator<string>("UserType");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserAddress.CustomerAddress", b =>
+                {
+                    b.HasBaseType("PharmaCare.DAL.Models.UserAddress.Address");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique()
+                        .HasFilter("[CustomerId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue(0);
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserAddress.PharmacistAddress", b =>
+                {
+                    b.HasBaseType("PharmaCare.DAL.Models.UserAddress.Address");
+
+                    b.Property<int>("PharmacistId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("PharmacistId")
+                        .IsUnique()
+                        .HasFilter("[PharmacistId] IS NOT NULL");
+
+                    b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserMessages.MessagesCustomer", b =>
+                {
+                    b.HasBaseType("PharmaCare.DAL.Models.UserMessages.Messages");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasDiscriminator().HasValue(0);
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserMessages.MessagesPharmacist", b =>
+                {
+                    b.HasBaseType("PharmaCare.DAL.Models.UserMessages.Messages");
+
+                    b.Property<int>("pharmacistId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("pharmacistId");
+
+                    b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserNotifications.CustomerNotification", b =>
+                {
+                    b.HasBaseType("PharmaCare.DAL.Models.UserNotifications.Notification");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasDiscriminator().HasValue("Customer");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserNotifications.PharmacyNotification", b =>
+                {
+                    b.HasBaseType("PharmaCare.DAL.Models.UserNotifications.Notification");
+
+                    b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("PharmacyId");
+
+                    b.HasDiscriminator().HasValue("Pharmacy");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -269,6 +962,422 @@ namespace PharmaCare.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Chat", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithOne("Chat")
+                        .HasForeignKey("PharmaCare.DAL.Models.Chat", "CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
+                        .WithMany("Chats")
+                        .HasForeignKey("PharmacyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Pharmacy");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Inventory", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
+                        .WithOne("inventory")
+                        .HasForeignKey("PharmaCare.DAL.Models.Inventory", "PharmacyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Pharmacy");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Order", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
+                        .WithMany("Orders")
+                        .HasForeignKey("PharmacistId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacy", "pharmacy")
+                        .WithMany("Orders")
+                        .HasForeignKey("PharmacyId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Pharmacist");
+
+                    b.Navigation("pharmacy");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacist", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
+                        .WithMany("Pharmacists")
+                        .HasForeignKey("PharmacyId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Pharmacy");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.PharmacistChats", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Chat", "Chat")
+                        .WithMany("pharmacistChats")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
+                        .WithMany("PharmacistChats")
+                        .HasForeignKey("PharmacistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("Pharmacist");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacy", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacist", "ManagerPharmacy")
+                        .WithOne("ManagedPharmacy")
+                        .HasForeignKey("PharmaCare.DAL.Models.Pharmacy", "MangerPharmacyId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("ManagerPharmacy");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Prescription", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("PharmacistId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Pharmacist");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Product", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Inventory", "Inventory")
+                        .WithMany("Products")
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductOrder", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Order", "Order")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmaCare.DAL.Models.Order", null)
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrderId1");
+
+                    b.HasOne("PharmaCare.DAL.Models.Product", "Product")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductRel.CartProducts", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmaCare.DAL.Models.Product", "Product")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductRel.ProductCategory", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Category", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmaCare.DAL.Models.Product", "Product")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Purchase", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithMany("Purchases")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PharmaCare.DAL.Models.Order", "Order")
+                        .WithOne("Purchase")
+                        .HasForeignKey("PharmaCare.DAL.Models.Purchase", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmaCare.DAL.Models.Payment", "Payment")
+                        .WithOne("Purchase")
+                        .HasForeignKey("PharmaCare.DAL.Models.Purchase", "PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
+                        .WithMany("purchases")
+                        .HasForeignKey("PharmacyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Payment");
+
+                    b.Navigation("Pharmacy");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Review", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PharmaCare.DAL.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithOne("ShoppingCart")
+                        .HasForeignKey("PharmaCare.DAL.Models.ShoppingCart", "CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserMessages.Messages", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Chat", "Chat")
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Chat");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserAddress.CustomerAddress", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithOne("Address")
+                        .HasForeignKey("PharmaCare.DAL.Models.UserAddress.CustomerAddress", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserAddress.PharmacistAddress", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
+                        .WithOne("Address")
+                        .HasForeignKey("PharmaCare.DAL.Models.UserAddress.PharmacistAddress", "PharmacistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pharmacist");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserMessages.MessagesCustomer", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithMany("Messages")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserMessages.MessagesPharmacist", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
+                        .WithMany("Messages")
+                        .HasForeignKey("pharmacistId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("Pharmacist");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserNotifications.CustomerNotification", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
+                        .WithMany("CustomerNotifications")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.UserNotifications.PharmacyNotification", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
+                        .WithMany("PharmacyNotifications")
+                        .HasForeignKey("PharmacyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pharmacy");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Category", b =>
+                {
+                    b.Navigation("ProductCategories");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Chat", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("pharmacistChats");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Customer", b =>
+                {
+                    b.Navigation("Address");
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("CustomerNotifications");
+
+                    b.Navigation("Messages");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Prescriptions");
+
+                    b.Navigation("Purchases");
+
+                    b.Navigation("Reviews");
+
+                    b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Inventory", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Order", b =>
+                {
+                    b.Navigation("OrderProducts");
+
+                    b.Navigation("ProductOrders");
+
+                    b.Navigation("Purchase");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Payment", b =>
+                {
+                    b.Navigation("Purchase");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacist", b =>
+                {
+                    b.Navigation("Address");
+
+                    b.Navigation("ManagedPharmacy");
+
+                    b.Navigation("Messages");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("PharmacistChats");
+
+                    b.Navigation("Prescriptions");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacy", b =>
+                {
+                    b.Navigation("Chats");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Pharmacists");
+
+                    b.Navigation("PharmacyNotifications");
+
+                    b.Navigation("inventory");
+
+                    b.Navigation("purchases");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.Product", b =>
+                {
+                    b.Navigation("CartProducts");
+
+                    b.Navigation("ProductCategories");
+
+                    b.Navigation("ProductOrders");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("CartProducts");
                 });
 #pragma warning restore 612, 618
         }

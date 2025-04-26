@@ -10,7 +10,7 @@ namespace PharmaCare.DAL.Configurations
         {
             builder.HasOne(phN => phN.Pharmacy)
                    .WithMany(ph => ph.PharmacyNotifications)
-                   .HasForeignKey(phN => phN.UserId)
+                   .HasForeignKey(phN => phN.PharmacyId)
                    .OnDelete(DeleteBehavior.Cascade);
 
         }

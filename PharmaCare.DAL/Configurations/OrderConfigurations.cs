@@ -15,6 +15,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            builder.HasKey(o => o.Id);
             builder.Property(o => o.OrderType)
                    .HasConversion<string>()
                    .HasMaxLength(10)
@@ -45,7 +46,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(o => o.pharmacy)
                    .WithMany(p => p.Orders)
                    .HasForeignKey(o => o.PharmacyId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.SetNull);
 
 
         }

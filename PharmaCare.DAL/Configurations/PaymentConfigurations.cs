@@ -8,6 +8,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
+            builder.HasKey(p=>p.Id);
             builder.Property(p => p.Type)
                    .HasConversion<string>()
                    .IsRequired();
