@@ -19,16 +19,16 @@ namespace PharmaCare.DAL.Repository.Category
                 .Where(c => c.IsActive == true)
                 .ToListAsync();
         }
+        
+     
 
-        public async Task<DAL.Models.Category> GetCategoryWithProductsAsync(int id)
+        public async Task<Models.Category> GetCategoryWithProductsAsync(int id)
         {
-            return await _DbSet
-                .Include(c => c.Products)
-                .FirstOrDefaultAsync(c => c.Id == id);
-
+            var categoryModel = await _DbSet
+                         .Include(c => c.Products)
+                         .FirstOrDefaultAsync(c => c.Id == id);
+            return categoryModel;
         }
-
-
     }
     }
   

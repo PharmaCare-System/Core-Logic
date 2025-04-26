@@ -9,8 +9,8 @@ namespace PharmaCare.DAL.Repository.Category
 {
     public interface ICategoryRepository : IGenericRepository<DAL.Models.Category>
     {
-        Task<DAL.Models.Category> GetCategoryWithProductsAsync(int id);
-        Task<IEnumerable<DAL.Models.Category>> GetActiveCategoriesAsync();
+       public Task<DAL.Models.Category> GetCategoryWithProductsAsync(int id);
+       public Task<IEnumerable<DAL.Models.Category>> GetActiveCategoriesAsync();
 
 
 

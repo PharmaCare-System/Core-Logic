@@ -7,7 +7,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.BLL.DTOs.PharmacistDTOs
 {
-    public class PharmacistUpdateDto
+    public class PharmacistUpdateDTO
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
