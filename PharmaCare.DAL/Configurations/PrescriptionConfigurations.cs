@@ -16,7 +16,7 @@ namespace PharmaCare.DAL.Configurations
             builder.Property(p => p.Status)
                    .HasConversion<string>()
                    .HasMaxLength(10)
-                   .IsRequired(false);
+                   .IsRequired();
 
             builder.Property(p => p.UploadDate)
                    .HasConversion<DateTime>()

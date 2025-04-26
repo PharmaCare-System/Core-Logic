@@ -26,7 +26,7 @@ namespace PharmaCare.DAL.Configurations
                    .IsRequired();
 
             builder.Property(c => c.DeliveryAddress)
-                    .HasMaxLength(100)
+                    .HasMaxLength(250)
                     .IsRequired();
 
             builder.Property(c => c.TotalPrice).IsRequired();
@@ -34,33 +34,20 @@ namespace PharmaCare.DAL.Configurations
 
             // Relations
 
-            // Customer
-            builder.HasOne(o=>o.Customer)
-                   .WithMany(c => c.Orders)
-                   .HasForeignKey(o => o.CustomerId);
-
             //Purchase
             builder.HasOne(o=>o.Purchase)
                     .WithOne(p=>p.Order)
                     .HasForeignKey<Purchase>(p=>p.OrderId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-           
-
-            //Pharmacist
-            builder.HasOne(o => o.Pharmacist)
-                   .WithMany(p => p.Orders)
-                   .HasForeignKey(o => o.PharmacistId);
 
             // Pharmacy
             builder.HasOne(o => o.pharmacy)
                    .WithMany(p => p.Orders)
-                   .HasForeignKey(o => o.PharmacyId);
+                   .HasForeignKey(o => o.PharmacyId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            // Notifications : TODO: it's already done in NotificationConfigurations, so what?
-            //builder.HasMany(o => o.Notifications)
-            //       .WithOne(n => n.Sender)
-            //       .HasForeignKey(o => o.SenderId);
+
         }
     }
 }

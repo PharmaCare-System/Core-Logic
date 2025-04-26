@@ -10,11 +10,13 @@ namespace PharmaCare.DAL.Configurations
         {
             builder.HasOne(c => c.Pharmacy)
                    .WithMany(ph => ph.Chats)
-                   .HasForeignKey(c => c.PharmacyId);
+                   .HasForeignKey(c => c.PharmacyId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(c => c.Messages)
                    .WithOne(m => m.Chat)
-                   .HasForeignKey(m => m.ChatId);
+                   .HasForeignKey(m => m.ChatId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
             // pharmacist Access Chat (N to N):
             builder.HasMany(p => p.pharmacists)

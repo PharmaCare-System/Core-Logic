@@ -28,7 +28,7 @@ namespace PharmaCare.DAL.Database
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Pharmacist> Pharmacists { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<ProductCategory> productCategories { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Payment> Payments { get; set; }
@@ -39,13 +39,12 @@ namespace PharmaCare.DAL.Database
         public DbSet<Messages> Messages { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
         public DbSet<CartProducts> CartProducts { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<PharmacistAddress> PharmacistAddresses { get; set; }
         public DbSet<MessagesCustomer> MessagesCustomers { get; set; }
         public DbSet<MessagesPharmacist> MessagesPharmacists { get; set; }
-        public DbSet<OrderNotification> OrderNotifications { get; set; }
-        public DbSet<MessageNotification> MessageNotifications { get; set; }
+        public DbSet<CustomerNotification> CustomerNotifications { get; set; }
+        public DbSet<PharmacyNotification> PharmacyNotifications { get; set; }
         public DbSet<PharmacistChats> PharmacistChats { get; set; }
         #endregion
 

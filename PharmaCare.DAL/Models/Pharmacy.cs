@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PharmaCare.DAL.Models.UserNotifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,6 @@ namespace PharmaCare.DAL.Models
         public virtual ICollection<Order>? Orders { get; set; }
         public virtual ICollection<Pharmacist>? Pharmacists { get; set; }
         public virtual ICollection<Chat>? Chats { get; set; }
+        public virtual ICollection<PharmacyNotification>? PharmacyNotifications { get; set; }
     }
 }

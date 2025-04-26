@@ -23,9 +23,6 @@ namespace PharmaCare.DAL.Configurations
                 .IsRequired()
                 .HasMaxLength(250);
 
-            builder.Property(i => i.QuantityStock)
-                .IsRequired()
-                .HasDefaultValue(0);
 
 
             // relations

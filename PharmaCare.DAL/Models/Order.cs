@@ -27,8 +27,6 @@ namespace PharmaCare.DAL.Models
         public int? PharmacistId { get; set; }
         public Pharmacist? Pharmacist { get; set; }
 
-        //Notification
-        public virtual ICollection<Notification>? Notifications { get; set; }
 
         //pharmacy
         public int PharmacyId { get; set; }
