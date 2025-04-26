@@ -7,6 +7,7 @@ namespace PharmaCare.DAL.Models
         public int Id { get; set; }
 
         // pharmacy and chat 1-N
+
         public int PharmacyId { get; set; }
         public virtual Pharmacy? Pharmacy { get; set; }
 

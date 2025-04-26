@@ -9,11 +9,11 @@ using PharmaCare.DAL.Database;
 
 #nullable disable
 
-namespace PharmaCare.DAL.Migrations
+namespace PharmaCare.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250426033155_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20250426112628_Test")]
+    partial class Test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
