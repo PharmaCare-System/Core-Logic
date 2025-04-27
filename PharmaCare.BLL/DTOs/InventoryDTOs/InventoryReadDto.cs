@@ -7,7 +7,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.BLL.DTOs.InventoryDTOs
 {
-    public class InventoryReadDto
+    public class InventoryReadDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

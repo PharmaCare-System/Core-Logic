@@ -37,12 +37,12 @@ namespace PharmaCare.DAL.Configurations
                 .HasDefaultValue(false);
 
             builder.HasOne(p => p.Inventory).WithMany(p=>p.Notifacations)
-                .HasForeignKey(n => n.SenderId)
+                .HasForeignKey(n => n.RecieverId)
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(p => p.order)
                 .WithMany(p => p.Notifications)
-                .HasForeignKey(n => n.SenderId)
+                .HasForeignKey(n => n.RecieverId)
                 .IsRequired(false) 
                 .OnDelete(DeleteBehavior.SetNull);
 

@@ -33,7 +33,7 @@ namespace PharmaCare.DAL.Configurations
 
             builder.HasMany(i => i.Notifacations)
                 .WithOne(n => n.Inventory)
-                .HasForeignKey(n => n.SenderId)
+                .HasForeignKey(n => n.RecieverId)
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasMany(i => i.Products)

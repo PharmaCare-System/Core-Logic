@@ -7,7 +7,6 @@ using Notification.Dal;
 using PharmaCare.API.Middleware;
 using PharmaCare.BLL.Services.AuthenticationService;
 using PharmaCare.BLL.Services.InventoryService;
-using PharmaCare.BLL.Services.NotifacationService;
 using PharmaCare.BLL.Services.PharmacistService;
 using PharmaCare.BLL.Services.PharmacySerivce;
 using PharmaCare.DAL;

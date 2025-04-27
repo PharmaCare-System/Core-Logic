@@ -18,7 +18,7 @@ namespace PharmaCare.BLL.Services.InventoryService
             _inventoryRepository = inventoryRepository;
         }
 
-        public async Task AddAync(InventoryAddDto inventory)
+        public async Task AddAsync(InventoryAddDTO inventory)
         {
             var inventoryModel = new Inventory
             {
@@ -38,10 +38,10 @@ namespace PharmaCare.BLL.Services.InventoryService
             _inventoryRepository.DeleteAsync(inventoryModel);
         }
 
-        public async Task<IEnumerable<InventoryReadDto>> GetAllAsync()
+        public async Task<IEnumerable<InventoryReadDTO>> GetAllAsync()
         {
             var inventories =await _inventoryRepository.GetAllAsync();
-           var inventoryDto = inventories.Select(i => new InventoryReadDto
+           var inventoryDto = inventories.Select(i => new InventoryReadDTO
            {
                Id = i.Id,
                Name = i.Name,
@@ -51,11 +51,11 @@ namespace PharmaCare.BLL.Services.InventoryService
             return inventoryDto;
         }
 
-        public async Task<InventoryReadDto> GetAsyncById(int id)
+        public async Task<InventoryReadDTO> GetAsyncById(int id)
         {
             var inventoryModel =await  _inventoryRepository.GetAsyncById(id);
             id.CheckIfNull(inventoryModel);
-            var inventoryDto = new InventoryReadDto
+            var inventoryDto = new InventoryReadDTO
             {
                 Id = inventoryModel.Id,
                 Name = inventoryModel.Name,
@@ -65,7 +65,7 @@ namespace PharmaCare.BLL.Services.InventoryService
             return inventoryDto;       
         }
 
-        public async Task UpdateAsync(InventoryUpdateDto inventory, int id)
+        public async Task UpdateAsync(InventoryUpdateDTO inventory, int id)
         {
             var inventoryModel = await _inventoryRepository.GetAsyncById(id);
             id.CheckIfNull(inventoryModel);

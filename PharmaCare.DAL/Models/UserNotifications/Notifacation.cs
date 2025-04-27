@@ -13,7 +13,7 @@ namespace PharmaCare.DAL.Models.UserNotifications
 
         public int Id { get; set; }
 
-        public int SenderId { get; set; }
+        public int RecieverId { get; set; }
 
         public SenderType Sender { get; set; }
 

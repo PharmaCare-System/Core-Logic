@@ -29,17 +29,17 @@ namespace PharmaCare.API.Controllers
             return Ok(inventory);
         }
         [HttpPost]
-        public IActionResult Add( InventoryAddDto inventory)
+        public IActionResult Add( InventoryAddDTO inventory)
         {
             if (inventory == null)
             {
                 return BadRequest();
             }
-            _service.AddAync(inventory);
+            _service.AddAsync(inventory);
             return CreatedAtAction(nameof(GetById), new {Message="Inventory Created Successfully"});
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, InventoryUpdateDto inventory)
+        public IActionResult Update(int id, InventoryUpdateDTO inventory)
         {
             if (id != inventory.Id)
             {

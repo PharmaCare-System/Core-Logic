@@ -8,12 +8,11 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.BLL.DTOs.NotifaciionDTOs
 {
-
-    public class NotifacationReadDto
+    
+    public class NotifacationAddDTO
     {
-        public int Id { get; set; }
 
-        public int SenderId { get; set; }
+        public int ReciverId { get; set; }
 
         public SenderType Sender { get; set; }
 
@@ -22,7 +21,9 @@ namespace PharmaCare.BLL.DTOs.NotifaciionDTOs
         public DateTime CreatedAt { get; set; }
 
         public bool IsRead { get; set; }
-   
+        public Inventory? Inventory { get; set; }
+
+        public Order? order { get; set; }
 
 
     }
