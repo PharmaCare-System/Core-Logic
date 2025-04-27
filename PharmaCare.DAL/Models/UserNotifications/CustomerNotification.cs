@@ -1,6 +1,6 @@
-﻿namespace PharmaCare.DAL.Models.UserMessages
+﻿namespace PharmaCare.DAL.Models.UserNotifications
 {
-    public class MessagesCustomer : Messages
+    public class CustomerNotification : Notification
     {
         public int CustomerId { get; set; }
         public virtual Customer? Customer { get; set; }

@@ -9,6 +9,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Messages> builder)
         {
+            builder.HasKey(m=>m.Id);
             builder.Property(m => m.MessageText)
                    .IsRequired();
 

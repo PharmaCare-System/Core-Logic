@@ -18,37 +18,28 @@ namespace PharmaCare.DAL.Configurations
 
             builder.HasKey(n => n.Id);
         
-            builder.Property(n => n.Sender)
+            builder.Property(n => n.UserType)
                 .IsRequired()
                 .HasConversion<string>() 
-                .HasMaxLength(20);
+                .HasMaxLength(20).IsRequired();
 
             builder.Property(n => n.Message)
                 .IsRequired()
-                .HasMaxLength(500);
+                .HasMaxLength(500).IsRequired();
 
             builder.Property(n => n.CreatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("GETDATE()");
 
             builder.Property(n => n.IsRead)
-                .IsRequired()
-                .HasDefaultValue(false);
+                .IsRequired();
 
-            builder.HasOne(p => p.Inventory).WithMany(p=>p.Notifications)
-                .HasForeignKey(n => n.SenderId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            builder.HasOne(p => p.order)
-                .WithMany(p => p.Notifications)
-                .HasForeignKey(n => n.SenderId)
-                .IsRequired(false) 
-                .OnDelete(DeleteBehavior.SetNull);
-
+            //relation
             builder
-               .HasDiscriminator<SenderType>(nameof(Notification.Sender))
-               .HasValue<OrderNotification>(SenderType.order)
-               .HasValue<MessageNotification>(SenderType.message);
+               .HasDiscriminator<UserType>(nameof(Notification.UserType))
+               .HasValue<CustomerNotification>(UserType.Customer)
+               .HasValue<PharmacyNotification>(UserType.Pharmacy);
         }
     }
+
 }

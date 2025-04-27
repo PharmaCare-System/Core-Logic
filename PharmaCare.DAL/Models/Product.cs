@@ -19,11 +19,12 @@ namespace PharmaCare.DAL.Models
         public virtual Inventory? Inventory { get; set; }
 
         public virtual ICollection<Order>? Orders { get; set; }
-        public virtual ICollection<Review>? Reviews { get; set; }
         public virtual ICollection<ProductOrder>? ProductOrders { get; set; }
+
+        public virtual ICollection<Review>? Reviews { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
         public virtual ICollection<Category>? Categories { get; set; }
         public virtual ICollection<ProductCategory>? ProductCategories  { get; set; }
-        public virtual ICollection<CartProducts>?  Cart_Products  { get; set; }
+        public virtual ICollection<CartProducts>?  CartProducts  { get; set; }
     }
 }

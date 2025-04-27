@@ -17,33 +17,32 @@ namespace PharmaCare.DAL.Configurations
 
             builder.Property(p => p.Name)
                 .IsRequired()
-                .HasMaxLength(100); 
+                .HasMaxLength(150); 
 
-            builder.Property(p => p.Address)
+            builder.Property(p => p.Location)
                 .IsRequired()
-                .HasMaxLength(200);
+                .HasMaxLength(250);
 
-            builder.Property(p => p.ManagerPharmacy)
-                .IsRequired();
 
             builder.HasMany(p => p.purchases)
                 .WithOne(p => p.Pharmacy) 
                 .HasForeignKey(p => p.PharmacyId)
-                .OnDelete(DeleteBehavior.SetNull); 
+                .OnDelete(DeleteBehavior.Cascade); 
 
             builder.HasOne(p => p.inventory)
                 .WithOne(i => i.Pharmacy) 
                 .HasForeignKey<Inventory>(i => i.PharmacyId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(p => p.Pharmacists)
                 .WithOne(p => p.Pharmacy)
                 .HasForeignKey(p => p.PharmacyId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasOne(p => p.ManagerPharmacy)
-                .WithOne(p => p.Pharmacy)
-                .HasForeignKey<Pharmacist>(p => p.PharmacyId);
+            builder.HasOne(p=>p.ManagerPharmacy)
+                   .WithOne(ph => ph.ManagedPharmacy)
+                   .HasForeignKey<Pharmacy>(p => p.MangerPharmacyId)
+                   .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
