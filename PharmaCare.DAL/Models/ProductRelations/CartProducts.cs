@@ -10,7 +10,7 @@ namespace PharmaCare.DAL.Models.ProductRel
     {
         public int ProductId { get; set; }
         public int CartId { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual ShoppingCart ShoppingCart { get; set; }
+        public virtual Product? Product { get; set; }
+        public virtual ShoppingCart? ShoppingCart { get; set; }
     }
 }

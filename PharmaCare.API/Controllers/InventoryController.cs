@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PharmaCare.BLL.DTOs.InventoryDTOs;
 using PharmaCare.BLL.Services.InventoryService;
+using PharmaCare.DAL.ExtensionMethods;
 using PharmaCare.DAL.Models;
 
 namespace PharmaCare.API.Controllers
@@ -17,54 +18,48 @@ namespace PharmaCare.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var inventories = _inventoryService.GetAll();
+            var inventories = _inventoryService.GetAllAsync();
+
             return Ok(inventories);
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var inventory = _inventoryService.GetById(id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
+            var inventory = _inventoryService.GetAsyncById(id);
+            id.CheckIfNull(inventory);
             return Ok(inventory);
         }
         [HttpPost]
-        public IActionResult Add( InventoryAddDto inventory)
+        public IActionResult Add( InventoryAddDTO inventory)
         {
             if (inventory == null)
             {
                 return BadRequest();
             }
-            _inventoryService.Add(inventory);
-            return CreatedAtAction(nameof(GetById), inventory);
+            _inventoryService.AddAsync(inventory);
+            return CreatedAtAction(nameof(GetById), new {Message="Inventory Created Successfully"});
+
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, InventoryUpdateDto inventory)
+        public IActionResult Update(int id, InventoryUpdateDTO inventory)
         {
             if (id != inventory.Id)
             {
                 return BadRequest();
             }
-            var existingInventory = _inventoryService.GetById(id);
-            if (existingInventory == null)
-            {
-                return NotFound();
-            }
-            _inventoryService.Update(inventory);
+            var existingInventory = _inventoryService.GetAsyncById(id);
+            id.CheckIfNull(existingInventory);
+            _inventoryService.UpdateAsync(inventory, id);
+
             return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var inventory = _inventoryService.GetById(id);
-            if (inventory == null)
-            {
-                return NotFound();
-            }
+            var inventory = _inventoryService.GetAsyncById(id);
+            id.CheckIfNull(inventory);
+            _inventoryService.DeleteAsync(id);
 
-            _inventoryService.Delete(id);
             return NoContent();
         }
     }

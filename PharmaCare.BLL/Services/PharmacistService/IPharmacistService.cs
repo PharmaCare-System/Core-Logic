@@ -10,10 +10,16 @@ namespace PharmaCare.BLL.Services.PharmacistService
 {
     public interface IPharmacistService
     {
-        public IEnumerable<PharmacistReadDto> GetAll();
-        public PharmacistReadDto GetById(int id);
-        void Add(PharmacistAddDto pharmacy);
-        void Update(PharmacistUpdateDto pharmacy);
-        void Delete(int id);
+        public Task <IEnumerable<PharmacistReadDTO>> GetAllAsync();
+        public Task <PharmacistReadDTO> GetAsyncById(int id);
+        public Task AddAsync(PharmacistAddDTO pharmacistDTO);
+        public Task UpdateAsync(PharmacistUpdateDTO pharmacistDTO, int id);
+        public Task DeleteAsync(int id);
+        public Task<IEnumerable<PharmacistReadDTO>> GetPharmacistsByPharmacyId(int pharmacyId);
+        public Task<PharmacistChatsDTO> GetPharmacistChats(int id);
+        public Task<IEnumerable<PharmacistReadDTO>> AvialbelForChat();
+
+
+
     }
 }

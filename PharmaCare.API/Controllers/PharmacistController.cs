@@ -17,13 +17,13 @@ namespace PharmaCare.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var pharmacists = _pharmacistService.GetAll();
+            var pharmacists = _pharmacistService.GetAllAsync();
             return Ok(pharmacists);
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var pharmacist = _pharmacistService.GetById(id);
+            var pharmacist = _pharmacistService.GetAsyncById(id);
             if (pharmacist == null)
             {
                 return NotFound();
@@ -31,39 +31,39 @@ namespace PharmaCare.API.Controllers
             return Ok(pharmacist);
         }
         [HttpPost]
-        public IActionResult Add( PharmacistAddDto pharmacist)
+        public IActionResult Add( PharmacistAddDTO pharmacist)
         {
             if (pharmacist == null)
             {
                 return BadRequest();
             }
-            _pharmacistService.Add(pharmacist);
+            _pharmacistService.AddAsync(pharmacist);
             return CreatedAtAction(nameof(Get), pharmacist);
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, PharmacistUpdateDto pharmacist)
+        public IActionResult Update(int id, PharmacistUpdateDTO pharmacist)
         {
             if (id != pharmacist.Id)
             {
                 return BadRequest();
             }
-            var existingPharmacist = _pharmacistService.GetById(id);
+            var existingPharmacist = _pharmacistService.GetAsyncById(id);
             if (existingPharmacist == null)
             {
                 return NotFound();
             }
-            _pharmacistService.Update(pharmacist);
+            _pharmacistService.UpdateAsync(pharmacist,existingPharmacist.Id);
             return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var pharmacist = _pharmacistService.GetById(id);
+            var pharmacist = _pharmacistService.GetAsyncById(id);
             if (pharmacist == null)
             {
                 return NotFound();
             }
-            _pharmacistService.Delete(id);
+            _pharmacistService.DeleteAsync(id);
             return NoContent();
         }
     }

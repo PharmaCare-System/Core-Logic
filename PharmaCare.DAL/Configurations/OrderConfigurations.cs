@@ -15,6 +15,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
+            builder.HasKey(o => o.Id);
             builder.Property(o => o.OrderType)
                    .HasConversion<string>()
                    .HasMaxLength(10)
@@ -26,7 +27,7 @@ namespace PharmaCare.DAL.Configurations
                    .IsRequired();
 
             builder.Property(c => c.DeliveryAddress)
-                    .HasMaxLength(100)
+                    .HasMaxLength(250)
                     .IsRequired();
 
             builder.Property(c => c.TotalPrice).IsRequired();
@@ -34,35 +35,20 @@ namespace PharmaCare.DAL.Configurations
 
             // Relations
 
-            // Customer
-            builder.HasOne(o=>o.Customer)
-                   .WithMany(c => c.Orders)
-                   .HasForeignKey(o => o.CustomerId);
-
             //Purchase
             builder.HasOne(o=>o.Purchase)
                     .WithOne(p=>p.Order)
-                    .HasForeignKey<Purchase>(p=>p.OrderId);
+                    .HasForeignKey<Purchase>(p=>p.OrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            //M-N with Products
-            builder.HasMany(o => o.Products)
-                   .WithMany(p => p.Orders)
-                   .UsingEntity<ProductOrder>();
-
-            //Pharmacist
-            builder.HasOne(o => o.Pharmacist)
-                   .WithMany(p => p.Orders)
-                   .HasForeignKey(o => o.PharmacistId);
 
             // Pharmacy
             builder.HasOne(o => o.pharmacy)
                    .WithMany(p => p.Orders)
-                   .HasForeignKey(o => o.PharmacyId);
+                   .HasForeignKey(o => o.PharmacyId)
+                   .OnDelete(DeleteBehavior.SetNull);
 
-            // Notifications : TODO: it's already done in NotificationConfigurations, so what?
-            //builder.HasMany(o => o.Notifications)
-            //       .WithOne(n => n.Sender)
-            //       .HasForeignKey(o => o.SenderId);
+
         }
     }
 }

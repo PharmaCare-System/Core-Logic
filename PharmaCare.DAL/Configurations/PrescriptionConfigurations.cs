@@ -13,10 +13,11 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Prescription> builder)
         {
+            builder.HasKey(p=> p.Id);
             builder.Property(p => p.Status)
                    .HasConversion<string>()
                    .HasMaxLength(10)
-                   .IsRequired(false);
+                   .IsRequired();
 
             builder.Property(p => p.UploadDate)
                    .HasConversion<DateTime>()

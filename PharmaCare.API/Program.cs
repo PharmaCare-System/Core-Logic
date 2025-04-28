@@ -1,4 +1,3 @@
-using inventory.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using PharmaCare.API.Middleware;
 using PharmaCare.BLL.Services.AuthenticationService;
 using PharmaCare.BLL.Services.InventoryService;
+
 using PharmaCare.BLL.Services.NotificationService;
 using PharmaCare.BLL.Services.PharmacistService;
 using PharmaCare.BLL.Services.PharmacySerivce;
@@ -54,7 +54,7 @@ namespace PharmaCare.API
 
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),b =>b.MigrationsAssembly("PharmaCare.API")));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                    .AddEntityFrameworkStores<ApplicationDbContext>();

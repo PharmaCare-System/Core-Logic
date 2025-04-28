@@ -8,15 +8,16 @@ namespace PharmaCare.DAL.Enums
 {
     public enum SenderType
     {
-        order = 1,
-        message = 2,
-        other = 3,
+        Order,
+        Message,
+        Inventory
     }
     public enum UserType
     {
         Customer,
         Pharmacist,
-        Admin
+        Admin,
+        Pharmacy
     }
     public enum OrderTypes
     {
@@ -28,6 +29,7 @@ namespace PharmaCare.DAL.Enums
         CreditCard,
         DebitCard,
         PayPal,
-        BankTransfer
+        BankTransfer,
+        Cash
     }
 }

@@ -1,7 +1,8 @@
 ﻿namespace PharmaCare.DAL.Models.UserAddress
 {
-    public class PharmacistAddress
+    public class PharmacistAddress : Address
     {
+        public int PharmacistId { get; set; }
         public virtual Pharmacist? Pharmacist { get; set; }
     }
 }
