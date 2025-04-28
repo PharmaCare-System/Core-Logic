@@ -19,6 +19,11 @@ using PharmaCarepharmacy.DAL.Repository;
 using pharmacy.DAL;
 using PharmaCare.DAL.Repository.UnitOfWork;
 using System.Text;
+using PharmaCare.DAL.Repository.Customers;
+using PharmaCare.BLL.Services.CustomerService;
+using PharmaCare.DAL.ProductRepository;
+using PharmaCare.DAL.Repository.ProductRepository;
+using PharmaCare.BLL.Services.ProductService;
 
 
 namespace PharmaCare.API
@@ -36,12 +41,16 @@ namespace PharmaCare.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-
-
+            //-------------------------------------------------------------------//
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
 
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            //-------------------------------------------------------------------//
 
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>

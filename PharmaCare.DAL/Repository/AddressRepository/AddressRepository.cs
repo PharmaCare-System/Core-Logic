@@ -8,11 +8,11 @@ using PharmaCare.DAL.Models;
 using PharmaCare.DAL.Models.UserAddress;
 using PharmaCare.DAL.Database;
 
-namespace PharmaCare.DAL.Repository.Addresses
+namespace PharmaCare.DAL.Repository.AddressRepository
 {
-    public class CustomerRepository : GenericRepository<Address>, ICustomerRepository 
+    public class AddressRepository : GenericRepository<Address>, IAddressRepository 
     {
-        public CustomerRepository(ApplicationDbContext context) : base(context)
+        public AddressRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

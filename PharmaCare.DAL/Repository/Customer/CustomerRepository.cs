@@ -6,13 +6,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PharmaCare.DAL.Repository.Customers
 {
     public class CustomerRepository : GenericRepository<Customer>, ICustomerRepository
     {
+        private readonly ApplicationDbContext _context;
+
         public CustomerRepository(ApplicationDbContext context) : base(context)
         {
+            _context = context;
+        }
+
+        public async Task<Customer> GetCustomerByEmail(string email)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
         }
     }
 }

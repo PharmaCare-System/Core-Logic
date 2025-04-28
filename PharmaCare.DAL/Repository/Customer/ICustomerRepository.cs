@@ -10,7 +10,6 @@ namespace PharmaCare.DAL.Repository.Customers
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-
-
+        public Task<Customer> GetCustomerByEmail(string email);
     }
 }

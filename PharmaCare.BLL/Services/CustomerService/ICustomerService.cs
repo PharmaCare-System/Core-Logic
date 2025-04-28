@@ -10,10 +10,11 @@ namespace PharmaCare.BLL.Services.CustomerService
     public interface ICustomerService
     {
         // Add, Update, Delete, GetAll, GetById
-        public IEnumerable<CustomerReadDTO> GetAll();
-        public CustomerReadDTO GetById(int id);
-        public void Add(CustomerAddDTO customer);
-        public void Update(CustomerUpdateDTO customer);
-        public void Delete(int id);
+        public Task<IEnumerable<CustomerReadDTO>> GetAllAsync();
+        public Task<CustomerReadDTO> GetAsyncById(int id);
+        public Task AddAsync(CustomerAddDTO customer);
+        public Task UpdateAsync(CustomerUpdateDTO customer, int id);
+        public Task DeleteAsync(int id);
+        public Task<CustomerReadDTO> GetCustomerByEmail(string email);
     }
 }

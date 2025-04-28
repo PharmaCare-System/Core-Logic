@@ -1,96 +1,114 @@
-﻿//using PharmaCare.BLL.DTOs.CustomerDTOs;
-//using PharmaCare.DAL.Repository.Customers;
-//using PharmaCare.DAL.Models;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Linq.Expressions;
-//using System.Reflection.Emit;
-//using System.Text;
-//using System.Threading.Tasks;
-//using PharmaCare.BLL.ExtensionMethods;
+﻿using PharmaCare.BLL.DTOs.CustomerDTOs;
+using PharmaCare.DAL.Repository.Customers;
+using PharmaCare.DAL.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
+using PharmaCare.DAL.ExtensionMethods;
 
 
-//namespace PharmaCare.BLL.Services.CustomerService
-//{
-//    public class CustomerService : ICustomerService
-//    {
-//        private readonly CustomerRepository _repository;
-//        public CustomerService(CustomerRepository repository)
-//        {
-//            _repository = repository;
-//        }
-//        public IEnumerable<CustomerReadDTO> GetAll()
-//        {
-//            var customersRead = _repository.GetAll()
-//                                            .Select(c => new CustomerReadDTO()
-//                                                    {
-//                                                        FirstName = c.FirstName,
-//                                                        LastName = c.LastName,
-//                                                        Phone = c.Phone,
-//                                                        Email = c.Email,
-//                                                        Birthday = c.Birthday,
-//                                                        Age = c.Age,
-//                                                        Id = c.Id,
-//                                                    }).ToList();
-//            return customersRead;
-            
-//        }
+namespace PharmaCare.BLL.Services.CustomerService
+{
+    public class CustomerService : ICustomerService
+    {
+        private readonly ICustomerRepository _customerRepository;
+        public CustomerService(ICustomerRepository customerRepository)
+        {
+            _customerRepository = customerRepository;
+        }
+        public async Task<IEnumerable<CustomerReadDTO>> GetAllAsync()
+        {
+            var customerModels = await _customerRepository.GetAllAsync();
 
-//        public CustomerReadDTO GetById(int id)
-//        {
-//            var customermodel = _repository.GetById(id); 
-//            id.CheckIfNull(customermodel);
+            var customerDTOs = customerModels
+            .Select(c => new CustomerReadDTO()
+            {
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                Phone = c.Phone,
+                Email = c.Email,
+                Birthday = c.Birthday,
+                Age = c.Age,
+                Id = c.Id,
+            }).ToList();
+            return customerDTOs;
+        }
 
-//            var customerRead = new CustomerReadDTO()
-//            {
-//                FirstName = customermodel.FirstName,
-//                LastName = customermodel.LastName,
-//                Id = customermodel.Id,
-//                Phone = customermodel.Phone,
-//                Email = customermodel.Email,
-//                Birthday = customermodel.Birthday,
-//                Age = customermodel.Age,
-//            };
-//            return customerRead;
-//        }
-//        public void Add(CustomerAddDTO customer)
-//        {
-//            var customerModel = new Customer()
-//            {
-//                FirstName = customer.FirstName,
-//                LastName = customer.LastName,
-//                Phone = customer.Phone,
-//                Email = customer.Email,
-//                Birthday = customer.Birthday,
-//                Password = customer.Password
-//            };
-//            _repository.Add(customerModel);
-//        }
+        public async Task<CustomerReadDTO> GetAsyncById(int id)
+        {
+            var customerModel = await _customerRepository.GetAsyncById(id);
+            id.CheckIfNull(customerModel);
 
-//        public void Delete(int id)
-//        {
-//            var customerToDelete = _repository.GetById(id);
-//            id.CheckIfNull<Customer>(customerToDelete);
+            var customerDTO = new CustomerReadDTO()
+            {
+                FirstName = customerModel.FirstName,
+                LastName = customerModel.LastName,
+                Id = customerModel.Id,
+                Phone = customerModel.Phone,
+                Email = customerModel.Email,
+                Birthday = customerModel.Birthday,
+                Age = customerModel.Age,
+            };
+            return customerDTO;
+        }
 
-//            _repository.Delete(customerToDelete);
-//        }
+        public async Task AddAsync(CustomerAddDTO customerDTO)
+        {
+            var customerModel = new Customer()
+            {
+                FirstName = customerDTO.FirstName,
+                LastName = customerDTO.LastName,
+                Phone = customerDTO.Phone,
+                Email = customerDTO.Email,
+                Birthday = customerDTO.Birthday,
+                Password = customerDTO.Password
+            };
+            await _customerRepository.AddAsync(customerModel);
+        }
 
+        public async Task DeleteAsync(int id)
+        {
+            var customerModel = await _customerRepository.GetAsyncById(id);
+            id.CheckIfNull(customerModel);
 
+            await _customerRepository.DeleteAsync(customerModel);
+        }
 
-//        public void Update(CustomerUpdateDTO customer, int id)
-//        {
-//            var customerModel = _repository.GetById(id);
-//            id.CheckIfNull(customerModel);
+        public async Task UpdateAsync(CustomerUpdateDTO customerDTO, int id)
+        {
+            var customerModel = await _customerRepository.GetAsyncById(id);
+            id.CheckIfNull(customerModel);
 
-//            customerModel.FirstName = customer.FirstName;
-//            customerModel.LastName = customer.LastName;
-//            customerModel.Phone = customer.Phone;
-//            customerModel.Email = customer.Email;
-//            customerModel.Birthday = customer.Birthday;
-//            customerModel.Password = customer.Password;
+            customerModel.FirstName = customerDTO.FirstName;
+            customerModel.LastName = customerDTO.LastName;
+            customerModel.Phone = customerDTO.Phone;
+            customerModel.Email = customerDTO.Email;
+            customerModel.Birthday = customerDTO.Birthday;
+            customerModel.Password = customerDTO.Password;
 
-//            _repository.Update(customerModel);
-//        }
-//    }
-//}
+            await _customerRepository.UpdateAsync(customerModel);
+        }
+
+        public async Task<CustomerReadDTO> GetCustomerByEmail(string email)
+        {
+            var customerModel = await _customerRepository.GetCustomerByEmail(email);
+            customerModel.Id.CheckIfNull(customerModel);
+
+            var customerDTO = new CustomerReadDTO()
+            {
+                Id = customerModel.Id,
+                FirstName = customerModel.FirstName,
+                LastName = customerModel.LastName,
+                Age = customerModel.Age,
+                Email = customerModel.Email,
+                Birthday = customerModel.Birthday,
+                Phone = customerModel.Phone
+            };
+            return customerDTO;
+        }
+    }
+}
