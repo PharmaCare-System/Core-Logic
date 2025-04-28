@@ -1,4 +1,5 @@
 ﻿using PharmaCare.BLL.DTOs.AddressDTOs;
+using PharmaCare.BLL.DTOs.AddressDTOs.CustomerAddressDTOs;
 using PharmaCare.BLL.DTOs.CustomerDTOs;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ namespace PharmaCare.BLL.Services.AddressService
 {
     public interface IAddressService
     {
-        public Task<IEnumerable<AddressReadDTO>> GetAllAsync();
-        public Task<AddressReadDTO> GetAsyncById(int id);
-        public Task AddAsync(AddressAddDTO addressDTO);
-        public Task UpdateAsync(AddressUpdateDTO addressDTO, int id);
-        public Task DeleteAsync(int id);
+        public Task AddCustomerAddressAsync(CustomerAddressAddDTO customerAddressDTO);
+        public Task AddPharmacistAddressAsync(PharmacistAddressAddDTO pharmacistAddressDTO);
+
+        public Task<CustomerAddressReadDTO> GetCustomerAsyncById(int id);
+        public Task<PharmacistAddressReadDTO> GetPharmacistAsyncById(int id);
+
+        public Task DeleteAddressByIdAsync(int id);
     }
 }
