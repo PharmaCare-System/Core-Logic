@@ -17,13 +17,13 @@ namespace PharmaCare.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var notifications = _notificationService.GetAll();
+            var notifications = _notificationService.GetAllAsync();
             return Ok(notifications);
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var notification = _notificationService.GetById(id);
+            var notification = _notificationService.GetAsyncById(id);
             if (notification == null)
             {
                 return NotFound();
@@ -31,7 +31,7 @@ namespace PharmaCare.API.Controllers
             return Ok(notification);
         }
         [HttpPost]
-        public IActionResult Add( NotificationAddDto notification)
+        public IActionResult Add( NotifacationAddDTO notification)
         {
             if (notification == null)
             {
@@ -41,25 +41,11 @@ namespace PharmaCare.API.Controllers
             return CreatedAtAction(nameof(GetById), notification);
 
         }
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, NotificationUpdateDto notification)
-        {
-            if (id != notification.Id)
-            {
-                return BadRequest();
-            }
-            var existingNotification = _notificationService.GetById(id);
-            if (existingNotification == null)
-            {
-                return NotFound();
-            }
-            _notificationService.Update(notification);
-            return NoContent();
-        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var notification = _notificationService.GetById(id);
+            var notification = _notificationService.GetAsyncById(id);
             if (notification == null)
             {
                 return NotFound();

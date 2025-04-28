@@ -1,4 +1,3 @@
-using inventory.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using PharmaCare.API.Middleware;
 using PharmaCare.BLL.Services.AuthenticationService;
 using PharmaCare.BLL.Services.InventoryService;
+
 using PharmaCare.BLL.Services.NotificationService;
 using PharmaCare.BLL.Services.PharmacistService;
 using PharmaCare.BLL.Services.PharmacySerivce;

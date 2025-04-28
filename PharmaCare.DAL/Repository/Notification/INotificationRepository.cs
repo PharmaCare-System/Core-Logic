@@ -8,9 +8,13 @@ using PharmaCare.DAL.Repository.GenericRepository;
 
 namespace PharmaCare.DAL.Repository.NotificationRepository
 {
+
     public interface INotificationRepository : IGenericRepository<Notification>
     {
-    
+        Task<IEnumerable<Notification>> GetUnreadNotificationsAsync(int userId);
+        Task MarkAsReadAsync(int notificationId);
+
+
 
     }
 }

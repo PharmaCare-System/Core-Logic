@@ -13,6 +13,7 @@ namespace PharmaCare.DAL.Models.UserNotifications
 
         public int Id { get; set; }
 
+        public int UserId { get; set; }
 
         public UserType UserType { get; set; }
 

@@ -7,7 +7,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.BLL.DTOs.PharmacistDTOs
 {
-    public class PharmacistAddDto
+    public class PharmacistAddDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,7 +17,7 @@ namespace PharmaCare.BLL.DTOs.PharmacistDTOs
         public string Phone { get; set; }
 
         public DateTime BirthDate { get; set; }
-        public DateTime HireDate { get; set; }
+        public DateTime HireDate { get; set; } = DateTime.Now;
 
 
         public int Age
@@ -38,7 +38,6 @@ namespace PharmaCare.BLL.DTOs.PharmacistDTOs
         }
         public string Password { get; set; }
 
-        public string Address { get; set; }
 
 
         public int PharmacyId { get; set; }
