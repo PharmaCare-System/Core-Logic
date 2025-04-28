@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PharmaCare.DAL.Repository.NotificationRepository;
+using PharmaCare.DAL.Repository.Notification.Customer;
+using PharmaCare.DAL.Repository.Notification.Pharmacy;
 using PharmaCare.DAL.Models.UserNotifications;
 using PharmaCare.BLL.DTOs.NotificationDTOs;
 using PharmaCare.BLL.Services.NotificationService;
@@ -13,10 +14,12 @@ namespace PharmaCare.BLL.Services.NotificationService
 {
     public class NotifacationService : INotificationService
     {
-        private readonly INotificationRepository _notifacationRepository;
-        public NotifacationService(INotificationRepository notifacationRepository)
+        private readonly ICustomerNotificationRepository _customerNotifacationRepository;
+        private readonly IPharmacyNotificationRepository _pharmacyNotifacationRepository;
+        public NotifacationService(ICustomerNotificationRepository customerNotificationRepository, IPharmacyNotificationRepository pharmacyNotifacationRepository)
         {
-            _notifacationRepository = notifacationRepository;
+            _customerNotifacationRepository = customerNotificationRepository;
+            _pharmacyNotifacationRepository = pharmacyNotifacationRepository;
         }
 
         public async Task Add(NotifacationAddDTO notifacationDto)
@@ -36,14 +39,25 @@ namespace PharmaCare.BLL.Services.NotificationService
 
         public async Task Delete(int id)
         {
-            var notifacationModel = await _notifacationRepository.GetAsyncById(id);
-            id.CheckIfNull(notifacationModel);
-           await _notifacationRepository.DeleteAsync(notifacationModel);
+
+            var notifacationModelCust = await _customerNotifacationRepository.GetAsyncById(id);
+
+            if(notifacationModelCust != null){
+                await _customerNotifacationRepository.DeleteAsync(notifacationModelCust);
+            }
+
+            var notifacationModelPha = await _pharmacyNotifacationRepository.GetAsyncById(id);
+            if (notifacationModelPha != null)
+            {
+                await _pharmacyNotifacationRepository.DeleteAsync(notifacationModelPha);
+            }
         }
 
         public async Task<IEnumerable<NotifacationReadDTO>> GetAllAsync()
         {
-            var notifacationModels = await _notifacationRepository.GetAllAsync();
+            // TODO: Edit to handel pharmacy also:
+            // - potential solution: get usertype as parmater
+            var notifacationModels = await _customerNotifacationRepository.GetAllAsync();
             var notifacationDTOs = notifacationModels.Select(n => new NotifacationReadDTO
             {
                 Id = n.Id,
@@ -58,7 +72,9 @@ namespace PharmaCare.BLL.Services.NotificationService
 
         public async Task<NotifacationReadDTO> GetAsyncById(int id)
         {
-            var notifacationModel = await _notifacationRepository.GetAsyncById(id);
+            // TODO: Edit to handel pharmacy also:
+            // - potential solution: get usertype as parmater
+            var notifacationModel = await _customerNotifacationRepository.GetAsyncById(id);
             id.CheckIfNull(notifacationModel);
             var notifacationDTO = new NotifacationReadDTO
             {
@@ -74,7 +90,9 @@ namespace PharmaCare.BLL.Services.NotificationService
 
         public async Task<IEnumerable<NotifacationReadDTO>> GetUnreadNotificationsAsync(int userId)
         {
-            var unreadNotificationsModels = await _notifacationRepository.GetUnreadNotificationsAsync(userId);
+            // TODO: Edit to handel pharmacy also:
+            // - potential solution: get usertype as parmater
+            var unreadNotificationsModels = await _customerNotifacationRepository.GetUnreadCustomerNotificationsAsync(userId);
             var unreadNotificationDTOs = unreadNotificationsModels.Select(n => new NotifacationReadDTO
             {
                 Id = n.Id,
@@ -91,10 +109,12 @@ namespace PharmaCare.BLL.Services.NotificationService
 
         public async Task MarkAsReadAsync(int notificationId)
         {
-            var notification = await _notifacationRepository.GetAsyncById(notificationId);
+            // TODO: Edit to handel pharmacy also:
+            // - potential solution: get usertype as parmater
+            var notification = await _customerNotifacationRepository.GetAsyncById(notificationId);
             notificationId.CheckIfNull(notification);
             notification.IsRead = true;
-            await _notifacationRepository.UpdateAsync(notification);
+            await _customerNotifacationRepository.UpdateAsync(notification);
         }
     }
 }

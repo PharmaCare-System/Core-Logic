@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models.UserNotifications;
 using PharmaCare.DAL.Repository.GenericRepository;
-using PharmaCare.DAL.Repository.NotificationRepository;
 
-namespace PharmaCareNot.DAL
+namespace PharmaCare.DAL.Repository.Notification.Pharmacy
 {
-    public class NotificationRepository:GenericRepository<Notification>, INotificationRepository
+    public class PharmacyNotificationRepository : GenericRepository<PharmacyNotification>, IPharmacyNotificationRepository
     {
-        public NotificationRepository(ApplicationDbContext context) : base(context)
+        public PharmacyNotificationRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public async Task<IEnumerable<Notification>> GetUnreadNotificationsAsync(int userId)
+        public async Task<IEnumerable<PharmacyNotification>> GetUnreadPharmacyNotificationsAsync(int userId)
         {
             return await _DbSet
                 .Where(n => n.UserId == userId && !n.IsRead)
@@ -35,5 +29,6 @@ namespace PharmaCareNot.DAL
         }
 
     }
-   
+
+
 }
