@@ -68,6 +68,5 @@ namespace PharmaCare.API.Controllers
             await _productService.DeleteAsync(id);
             return CreatedAtAction(nameof(GetAsyncById), new { Message = "Product Deleted Successfully" });
         }
-
     }
 }

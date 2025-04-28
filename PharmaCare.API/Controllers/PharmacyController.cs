@@ -15,12 +15,14 @@ namespace PharmaCare.API.Controllers
         {
             _pharmacyService = pharmacyService;
         }
+
         [HttpGet]
         public IActionResult GetAll()
         {
             var pharmacies = _pharmacyService.GetAll();
             return Ok(pharmacies);
         }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -31,6 +33,7 @@ namespace PharmaCare.API.Controllers
             }
             return Ok(pharmacy);
         }
+
         [HttpPost]
         public IActionResult Add(PharmacyAddDto pharmacy)
         {
@@ -41,6 +44,7 @@ namespace PharmaCare.API.Controllers
             _pharmacyService.Add(pharmacy);
             return CreatedAtAction(nameof(GetById), pharmacy);
         }
+
         [HttpPut("{id}")]
         public IActionResult Update(int id, PharmacyUpdateDto pharmacy)
         {
@@ -56,6 +60,7 @@ namespace PharmaCare.API.Controllers
             _pharmacyService.Update(pharmacy);
             return NoContent();
         }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -67,6 +72,5 @@ namespace PharmaCare.API.Controllers
             _pharmacyService.Delete(id);
             return NoContent();
         }
-
     }
 }

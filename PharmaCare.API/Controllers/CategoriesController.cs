@@ -12,22 +12,26 @@ namespace PharmaCare.API.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+
         public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
+
         [HttpGet]
         public IActionResult GetAll()
         {
             var categoryModels = _categoryService.GetAllAsync();
             return Ok(categoryModels);
         }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var categoryModel = _categoryService.GetAsyncById(id);
             return Ok(categoryModel);
         }
+
         [HttpPut("{id}")]
         public IActionResult Update( CategoryUpdateDTO categoryDTO,int id)
         {
@@ -56,8 +60,8 @@ namespace PharmaCare.API.Controllers
 
 
         }
-        [HttpGet("active")]
 
+        [HttpGet("active")]
         public IActionResult GetActive() {
             var categoryModels = _categoryService.GetActiveCategoriesAsync();
             return Ok(categoryModels);
@@ -68,6 +72,5 @@ namespace PharmaCare.API.Controllers
             var categoryModel = _categoryService.GetCategoryWithProductsAsync(id);
             return Ok(categoryModel);
         }
-
     }
 }

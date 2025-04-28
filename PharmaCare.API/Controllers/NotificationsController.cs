@@ -17,12 +17,14 @@ namespace PharmaCare.API.Controllers
         {
             _notifacationService = notifacationService;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var notificationModels = await _notifacationService.GetAllAsync();
             return Ok(notificationModels);
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -32,6 +34,7 @@ namespace PharmaCare.API.Controllers
 
             return Ok(notificationModel);
         }
+
         [HttpPost]
         public async Task<IActionResult> Add( NotifacationAddDTO notifacationDto)
         {
@@ -42,6 +45,7 @@ namespace PharmaCare.API.Controllers
             await _notifacationService.Add(notifacationDto);
             return CreatedAtAction(nameof(GetById), new { message = "Notification Created Successfully" });
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -66,8 +70,5 @@ namespace PharmaCare.API.Controllers
             await _notifacationService.MarkAsReadAsync(notificationId);
             return NoContent();
         }
-
-
-
     }
 }

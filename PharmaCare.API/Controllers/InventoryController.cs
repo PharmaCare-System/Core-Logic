@@ -12,9 +12,11 @@ namespace PharmaCare.API.Controllers
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryService _inventoryService;
+
         public InventoryController(IInventoryService inventoryService) {
             _inventoryService = inventoryService;
         }
+
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -22,6 +24,7 @@ namespace PharmaCare.API.Controllers
 
             return Ok(inventories);
         }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -29,6 +32,7 @@ namespace PharmaCare.API.Controllers
             id.CheckIfNull(inventory);
             return Ok(inventory);
         }
+
         [HttpPost]
         public IActionResult Add( InventoryAddDTO inventory)
         {
@@ -40,6 +44,7 @@ namespace PharmaCare.API.Controllers
             return CreatedAtAction(nameof(GetById), new {Message="Inventory Created Successfully"});
 
         }
+
         [HttpPut("{id}")]
         public IActionResult Update(int id, InventoryUpdateDTO inventory)
         {
@@ -53,6 +58,7 @@ namespace PharmaCare.API.Controllers
 
             return NoContent();
         }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

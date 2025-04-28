@@ -15,12 +15,14 @@ namespace PharmaCare.API.Controllers
         {
             _pharmacistService = pharmacistService;
         }
+
         [HttpGet]
         public IActionResult GetAll()
         {
             var pharmacisModel = _pharmacistService.GetAllAsync();
             return Ok(pharmacisModel);
         }
+
         [HttpGet("{id}")]
         public  IActionResult GetById(int id)
         { 
@@ -28,6 +30,7 @@ namespace PharmaCare.API.Controllers
             id.CheckIfNull(pharmacisModel);
             return Ok(pharmacisModel);
         }
+
         [HttpPost]
         public  IActionResult Add( PharmacistAddDTO pharmacistAddDto)
         {
@@ -38,6 +41,7 @@ namespace PharmaCare.API.Controllers
              _pharmacistService.AddAsync(pharmacistAddDto);
             return CreatedAtAction(nameof(GetById), new {message = "Pharmacist Added Successfully" });
         }
+
         [HttpPut("{id}")]
         public IActionResult Update(PharmacistUpdateDTO pharmacistUpdateDto, int id)
         {
@@ -46,24 +50,28 @@ namespace PharmaCare.API.Controllers
             _pharmacistService.UpdateAsync(pharmacistUpdateDto, id);
             return NoContent();
         }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _pharmacistService.DeleteAsync(id);
             return NoContent();
         }
+
         [HttpGet("pharmacy/{pharmacyId}")]
         public IActionResult GetPharmacistsByPharmacyId(int pharmacyId)
         {
             var pharmacisModels = _pharmacistService.GetPharmacistsByPharmacyId(pharmacyId);
             return Ok(pharmacisModels);
         }
+
         [HttpGet("available")]
         public IActionResult GetAvailableForChat()
         {
             var pharmacisModels = _pharmacistService.AvialbelForChat();
             return Ok(pharmacisModels);
         }
+
         [HttpGet("chat/{id}")]
         public IActionResult GetPharmacistChat(int id)
         {
