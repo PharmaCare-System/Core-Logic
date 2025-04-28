@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PharmaCare.BLL.DTOs.NotifaciionDTOs;
+using PharmaCare.BLL.DTOs.NotificationDTOs;
 using PharmaCare.BLL.Services.NotificationService;
 using PharmaCare.DAL.ExtensionMethods;
 

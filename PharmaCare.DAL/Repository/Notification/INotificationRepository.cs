@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using PharmaCare.DAL.Models.UserNotifications;
 using PharmaCare.DAL.Repository.GenericRepository;
 
-namespace Notification.Dal
+namespace PharmaCare.DAL.Repository.NotificationRepository
 {
-    public interface INotificationRepository : IGenericRepository<Notifacation>
+
+    public interface INotificationRepository : IGenericRepository<Notification>
     {
-        Task<IEnumerable<Notifacation>> GetUnreadNotificationsAsync(int userId);
+        Task<IEnumerable<Notification>> GetUnreadNotificationsAsync(int userId);
         Task MarkAsReadAsync(int notificationId);
 
 

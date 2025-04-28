@@ -13,7 +13,7 @@ namespace PharmaCare.BLL.DTOs.PrescriptionDTOs
         public DateTime UploadDate { get; set; }
         public PrescriptionStatus Status { get; set; }
 
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
 
     }

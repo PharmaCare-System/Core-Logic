@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Notification.Dal;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models.UserNotifications;
 using PharmaCare.DAL.Repository.GenericRepository;
+using PharmaCare.DAL.Repository.NotificationRepository;
 
 namespace PharmaCareNot.DAL
 {
-    public class NotificationRepository:GenericRepository<Notifacation>, INotificationRepository
+    public class NotificationRepository:GenericRepository<Notification>, INotificationRepository
     {
         public NotificationRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public async Task<IEnumerable<Notifacation>> GetUnreadNotificationsAsync(int userId)
+        public async Task<IEnumerable<Notification>> GetUnreadNotificationsAsync(int userId)
         {
             return await _DbSet
-                .Where(n => n.RecieverId == userId && !n.IsRead)
+                .Where(n => n.UserId == userId && !n.IsRead)
                 .ToListAsync();
         }
 

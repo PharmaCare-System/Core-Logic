@@ -10,7 +10,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-
+            builder.HasKey(a => a.Id);
             builder.Property(a => a.streetNumber)
                     .HasColumnType("SMALLINT")
                     .IsRequired();
@@ -23,14 +23,12 @@ namespace PharmaCare.DAL.Configurations
                     .HasMaxLength(50)
                     .IsRequired();
 
-
             // Relations
             builder.HasDiscriminator<UserType>(nameof(Address.UserType))
                    .HasValue<CustomerAddress>(UserType.Customer)
-                   .HasValue<PharmacistAddress>(UserType.Pharmacist);         
-
-
+                   .HasValue<PharmacistAddress>(UserType.Pharmacist);     
+            
+            
         }
     }
-
 }

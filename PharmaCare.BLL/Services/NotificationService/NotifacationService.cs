@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Notification.Dal;
-using PharmaCare.BLL.DTOs.NotifaciionDTOs;
+using PharmaCare.DAL.Repository.NotificationRepository;
+using PharmaCare.DAL.Models.UserNotifications;
+using PharmaCare.BLL.DTOs.NotificationDTOs;
 using PharmaCare.BLL.Services.NotificationService;
 using PharmaCare.DAL.ExtensionMethods;
 
@@ -20,16 +21,16 @@ namespace PharmaCare.BLL.Services.NotificationService
 
         public async Task Add(NotifacationAddDTO notifacationDto)
         {
-            var notifacationDTO = new DAL.Models.UserNotifications.Notifacation
-            {
-                RecieverId = notifacationDto.ReciverId,
-                Sender = notifacationDto.Sender,
-                Message = notifacationDto.Message,
-                CreatedAt = notifacationDto.CreatedAt,
-                IsRead = notifacationDto.IsRead,
-                Inventory = notifacationDto.Inventory,
-            };
-             await _notifacationRepository.AddAsync(notifacationDTO);
+            //var notifacationDTO = new Notification
+            //{
+            //    RecieverId = notifacationDto.UsesrId,
+            //    Sender = notifacationDto.Sender,
+            //    Message = notifacationDto.Message,
+            //    CreatedAt = notifacationDto.CreatedAt,
+            //    IsRead = notifacationDto.IsRead,
+            //    Inventory = notifacationDto.Inventory,
+            //};
+             //await _notifacationRepository.AddAsync(notifacationDTO);
 
         }
 
@@ -46,8 +47,8 @@ namespace PharmaCare.BLL.Services.NotificationService
             var notifacationDTOs = notifacationModels.Select(n => new NotifacationReadDTO
             {
                 Id = n.Id,
-                ReciverId = n.RecieverId,
-                Sender = n.Sender,
+                UserId = n.UserId,
+                UserType = n.UserType,
                 Message = n.Message,
                 CreatedAt = n.CreatedAt,
                 IsRead = n.IsRead
@@ -62,8 +63,8 @@ namespace PharmaCare.BLL.Services.NotificationService
             var notifacationDTO = new NotifacationReadDTO
             {
                 Id = notifacationModel.Id,
-                ReciverId = notifacationModel.RecieverId,
-                Sender = notifacationModel.Sender,
+                UserId = notifacationModel.UserId,
+                UserType = notifacationModel.UserType,
                 Message = notifacationModel.Message,
                 CreatedAt = notifacationModel.CreatedAt,
                 IsRead = notifacationModel.IsRead
@@ -77,8 +78,8 @@ namespace PharmaCare.BLL.Services.NotificationService
             var unreadNotificationDTOs = unreadNotificationsModels.Select(n => new NotifacationReadDTO
             {
                 Id = n.Id,
-                ReciverId = n.RecieverId,
-                Sender = n.Sender,
+                UserId = n.UserId,
+                UserType = n.UserType,
                 Message = n.Message,
                 CreatedAt = n.CreatedAt,
                 IsRead = n.IsRead

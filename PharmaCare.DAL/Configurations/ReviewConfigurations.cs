@@ -8,6 +8,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
+            builder.HasKey(r => r.Id);
             builder.Property(r => r.ReviewDate)
                    .HasColumnType("DATE")
                    .IsRequired();
@@ -22,12 +23,11 @@ namespace PharmaCare.DAL.Configurations
 
 
             // relations
-
             // reviews are in product
             builder.HasOne(r => r.Product)
                    .WithMany(p => p.Reviews)
-                   .HasForeignKey(r => r.ProductId);
-
+                   .HasForeignKey(r => r.ProductId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

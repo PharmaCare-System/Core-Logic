@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PharmaCare.DAL.Repository.GenericRepository;
 
-namespace PharmaCare.DAL.Repository.ShoppingCart
+namespace PharmaCare.DAL.Repository.ShoppingCartH
 {
     public interface IShoppingCartRepository : IGenericRepository<DAL.Models.ShoppingCart>
     {

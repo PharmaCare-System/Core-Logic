@@ -21,7 +21,6 @@ namespace PharmaCare.DAL.Enums
         Rejected,
         Cancelled,
         Expired
-
     }
     public enum PaymentStatus
     {

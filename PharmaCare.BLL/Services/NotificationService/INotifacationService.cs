@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
-using PharmaCare.BLL.DTOs.NotifaciionDTOs;
+using PharmaCare.BLL.DTOs.NotificationDTOs;
 using PharmaCare.DAL.Models;
 using PharmaCare.DAL.Models.UserNotifications;
 

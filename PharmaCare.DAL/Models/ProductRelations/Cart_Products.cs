@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Models.ProductRel
 {
-    public class Cart_Products
+    public class CartProducts
     {
         public int ProductId { get; set; }
         public int CartId { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual ShoppingCart ShoppingCart { get; set; }
-
+        public virtual Product? Product { get; set; }
+        public virtual ShoppingCart? ShoppingCart { get; set; }
     }
 }

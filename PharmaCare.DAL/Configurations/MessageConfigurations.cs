@@ -9,6 +9,7 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Messages> builder)
         {
+            builder.HasKey(m=>m.Id);
             builder.Property(m => m.MessageText)
                    .IsRequired();
 
@@ -16,11 +17,10 @@ namespace PharmaCare.DAL.Configurations
                 .HasColumnType("DATE")
                 .IsRequired();
 
-            // relations: THP (customer and pharmcist)
+            // relations: THP (customer and pharmacist)
             builder.HasDiscriminator<UserType>(nameof(Messages.UserType))
                    .HasValue<MessagesCustomer>(UserType.Customer)
                    .HasValue<MessagesPharmacist>(UserType.Pharmacist);
         }
     }
-
 }

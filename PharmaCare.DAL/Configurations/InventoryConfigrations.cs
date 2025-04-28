@@ -9,7 +9,7 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.DAL.Configurations
 {
-    public class InventoryConfigrations : IEntityTypeConfiguration<Inventory>
+    public class InventoryConfigurations : IEntityTypeConfiguration<Inventory>
     {
         public void Configure(EntityTypeBuilder<Inventory> builder)
         {
@@ -21,27 +21,17 @@ namespace PharmaCare.DAL.Configurations
 
             builder.Property(i => i.Location)
                 .IsRequired()
-                .HasMaxLength(200);
+                .HasMaxLength(250);
 
-            builder.Property(i => i.QuantityStock)
-                .IsRequired()
-                .HasDefaultValue(0);
-            builder.HasOne(i => i.Pharmacy)
-               .WithOne(p => p.inventory)
-               .HasForeignKey<Inventory>(i => i.PharmacyId)
-               .OnDelete(DeleteBehavior.SetNull); 
 
-            builder.HasMany(i => i.Notifacations)
-                .WithOne(n => n.Inventory)
-                .HasForeignKey(n => n.RecieverId)
-                .OnDelete(DeleteBehavior.SetNull);
+
+            // relations
+
 
             builder.HasMany(i => i.Products)
                 .WithOne(p => p.Inventory)
                 .HasForeignKey(p => p.InventoryId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

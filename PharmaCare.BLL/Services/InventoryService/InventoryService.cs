@@ -24,7 +24,6 @@ namespace PharmaCare.BLL.Services.InventoryService
             {
                 Name = inventory.Name,
                 Location = inventory.Location,
-                QuantityStock = inventory.QuantityStock,
                 PharmacyId = inventory.PharmacyId,
 
             };
@@ -46,7 +45,6 @@ namespace PharmaCare.BLL.Services.InventoryService
                Id = i.Id,
                Name = i.Name,
                Location = i.Location,
-               QuantityStock = i.QuantityStock,
            });
             return inventoryDto;
         }
@@ -60,7 +58,6 @@ namespace PharmaCare.BLL.Services.InventoryService
                 Id = inventoryModel.Id,
                 Name = inventoryModel.Name,
                 Location = inventoryModel.Location,
-                QuantityStock = inventoryModel.QuantityStock
             };
             return inventoryDto;       
         }
@@ -71,7 +68,6 @@ namespace PharmaCare.BLL.Services.InventoryService
             id.CheckIfNull(inventoryModel);
             inventoryModel.Name = inventory.Name;
             inventoryModel.Location = inventory.Location;
-            inventoryModel.QuantityStock = inventory.QuantityStock;
             inventoryModel.PharmacyId = inventory.PharmacyId;
             await _inventoryRepository.UpdateAsync(inventoryModel);
 

@@ -23,7 +23,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
             {
                 UploadDate = prescriptionDTO.UploadDate,
                 Status = prescriptionDTO.Status,
-                Image = prescriptionDTO.Image
+                ImageURL = prescriptionDTO.Image
             };
             await _prescriptionsRepository.AddAsync(prescriptionModel);
         }
@@ -46,7 +46,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
                 Id = p.Id,
                 UploadDate = p.UploadDate,
                 Status = p.Status,
-                Image = p.Image
+                Image = p.ImageURL
             }).ToList();
             return prescriptionDTOs;
 
@@ -62,7 +62,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
                 Id = prescriptionModel.Id,
                 UploadDate = prescriptionModel.UploadDate,
                 Status = prescriptionModel.Status,
-                Image = prescriptionModel.Image
+                Image = prescriptionModel.ImageURL
             };
             return prescriptionDTO;
         }
@@ -75,7 +75,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
                 Id = p.Id,
                 UploadDate = p.UploadDate,
                 Status = p.Status,
-                Image = p.Image
+                Image = p.ImageURL
             }).ToList();
             return prescriptionDTOs;
 
@@ -89,7 +89,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
                 Id = p.Id,
                 UploadDate = p.UploadDate,
                 Status = p.Status,
-                Image = p.Image
+                Image = p.ImageURL
             }).ToList();
             return prescriptionDTOs;
         }
@@ -102,7 +102,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
                 Id = p.Id,
                 UploadDate = p.UploadDate,
                 Status = p.Status,
-                Image = p.Image
+                Image = p.ImageURL
             }).ToList();
             return prescriptionDTOs;
         }
@@ -113,7 +113,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
             id.CheckIfNull(prescriptionModel);
             prescriptionModel.UploadDate = prescriptionDTO.UploadDate;
             prescriptionModel.Status = prescriptionDTO.Status;
-            prescriptionModel.Image = prescriptionDTO.Image;
+            prescriptionModel.ImageURL = prescriptionDTO.Image;
             await _prescriptionsRepository.UpdateAsync(prescriptionModel);
 
         }

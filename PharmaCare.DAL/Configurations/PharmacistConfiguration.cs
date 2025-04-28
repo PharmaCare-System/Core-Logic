@@ -14,9 +14,10 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Pharmacist> builder)
         {
+            builder.HasKey(p=>p.Id);
 
             builder.Property(c => c.Age)
-                   .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE()) - ", stored: true);
+                   .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE())", false);
 
             builder.Property(c => c.Password)
                    .HasMaxLength(100).IsRequired();
@@ -42,37 +43,17 @@ namespace PharmaCare.DAL.Configurations
 
             // Relations
 
-
-            // Pharmacist send messages ( 1 to N): will be converted to THP relation
-
-
-            // pharmacist Access Chat (N to N):
-            builder.HasMany(p => p.Chats)
-                   .WithMany( c => c.pharmacists)
-                   .UsingEntity<PharmacistChats>();
-
-            // customer Review Purchase ( 1 to N)
+            // pharmacist Review prescriptions ( 1 to N)
             builder.HasMany(p => p.Prescriptions)
                    .WithOne(pr => pr.Pharmacist)
-                   .HasForeignKey(pr => pr.PharamcistId);
+                   .HasForeignKey(pr => pr.PharmacistId)
+                   .OnDelete(DeleteBehavior.SetNull);
 
             // pharmacist process Order ( 1 to N)
             builder.HasMany(p => p.Orders)
                    .WithOne(o => o.Pharmacist)
-                   .HasForeignKey(o => o.PharmacistId);
-
-            // pharmacist is manager ( 1 to 1)
-            builder.HasOne(p => p.Pharmacy)
-                   .WithOne(ph => ph.ManagerPharmacy)
-                   .HasForeignKey<Pharmacy>(ph => ph.MangerPharmacyId);
-
-            // pharmacist work in pharmacy (1 to N)
-            builder.HasOne(p => p.Pharmacy)
-                   .WithMany(ph=>ph.Pharmacists)
-                   .HasForeignKey(p=>p.PharmacyId);
-
-
-
+                   .HasForeignKey(o => o.PharmacistId)
+                   .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

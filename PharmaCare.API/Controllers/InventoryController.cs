@@ -11,20 +11,21 @@ namespace PharmaCare.API.Controllers
     [ApiController]
     public class InventoryController : ControllerBase
     {
-        private readonly IInventoryService _service;
-        public InventoryController(IInventoryService service) {
-            _service = service;
+        private readonly IInventoryService _inventoryService;
+        public InventoryController(IInventoryService inventoryService) {
+            _inventoryService = inventoryService;
         }
         [HttpGet]
         public IActionResult GetAll()
         {
-            var inventories = _service.GetAllAsync();
+            var inventories = _inventoryService.GetAllAsync();
+
             return Ok(inventories);
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var inventory = _service.GetAsyncById(id);
+            var inventory = _inventoryService.GetAsyncById(id);
             id.CheckIfNull(inventory);
             return Ok(inventory);
         }
@@ -35,8 +36,9 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            _service.AddAsync(inventory);
+            _inventoryService.AddAsync(inventory);
             return CreatedAtAction(nameof(GetById), new {Message="Inventory Created Successfully"});
+
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, InventoryUpdateDTO inventory)
@@ -45,17 +47,19 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            var existingInventory = _service.GetAsyncById(id);
+            var existingInventory = _inventoryService.GetAsyncById(id);
             id.CheckIfNull(existingInventory);
-            _service.UpdateAsync(inventory, id);
+            _inventoryService.UpdateAsync(inventory, id);
+
             return NoContent();
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var inventory = _service.GetAsyncById(id);
+            var inventory = _inventoryService.GetAsyncById(id);
             id.CheckIfNull(inventory);
-            _service.DeleteAsync(id);
+            _inventoryService.DeleteAsync(id);
+
             return NoContent();
         }
     }

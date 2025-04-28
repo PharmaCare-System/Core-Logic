@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Repository.GenericRepository;
-using PharmaCare.DAL.RepositoryProduc;
+using PharmaCare.DAL.ProductRepository;
 
 namespace PharmaCare.DAL.Repository.Product
 {
