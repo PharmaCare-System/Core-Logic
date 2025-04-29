@@ -8,10 +8,9 @@ using PharmaCare.DAL.Enums;
 
 namespace PharmaCare.DAL.Models.UserNotifications
 {
-    public abstract class Notification
+    public abstract class Notification : Base
     {
 
-        public int Id { get; set; }
 
         public int UserId { get; set; }
 

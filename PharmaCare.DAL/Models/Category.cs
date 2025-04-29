@@ -7,9 +7,8 @@ using PharmaCare.DAL.Models.ProductRel;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Category
+    public class Category : Base
     {
-        public int Id { get; set; }
         public string CategoryName { get; set; }
         public bool IsActive { get; set; } = true;
         // relations

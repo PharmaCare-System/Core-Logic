@@ -4,9 +4,8 @@ using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Order
+    public class Order : Base
     {
-        public int Id;
         public OrderTypes OrderType { get; set; }
         public string DeliveryAddress { get; set; }
         public double TotalPrice { get; set; }

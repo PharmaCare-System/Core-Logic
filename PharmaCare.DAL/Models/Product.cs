@@ -2,9 +2,8 @@
 
 namespace PharmaCare.DAL.Models
 {
-    public class Product
+    public class Product : Base
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public float Price { get; set; }
         public DateTime ExpiryDate { get; set; }
