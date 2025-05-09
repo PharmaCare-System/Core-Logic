@@ -29,6 +29,7 @@ namespace PharmaCare.API.Controllers
            var reviews = _reviewService.GetAsyncById(Id);
             return Ok(reviews);
         }
+        [HttpPost]
         public IActionResult Add(ReviewAddDto reviewAddDto)
         {    
             _reviewService.AddAsync(reviewAddDto);
