@@ -1,8 +1,7 @@
 ﻿namespace PharmaCare.DAL.Models
 {
-    public class Review 
+    public class Review : Base
     {
-            public int Id { get; set; }
             public DateTime ReviewDate { get; set; }
             public int Rating { get; set; }
             public string Comment { get; set; }
