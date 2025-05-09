@@ -17,14 +17,14 @@ namespace PharmaCare.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var pharmacies = _pharmacyService.GetAll();
+            var pharmacies =   _pharmacyService.GetAll();
             return Ok(pharmacies);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var pharmacy = _pharmacyService.GetById(id);
             if (pharmacy == null)

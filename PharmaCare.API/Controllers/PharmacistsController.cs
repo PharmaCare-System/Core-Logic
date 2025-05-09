@@ -17,65 +17,65 @@ namespace PharmaCare.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var pharmacisModel = _pharmacistService.GetAllAsync();
+            var pharmacisModel = await _pharmacistService.GetAllAsync();
             return Ok(pharmacisModel);
         }
 
         [HttpGet("{id}")]
-        public  IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         { 
-            var pharmacisModel =  _pharmacistService.GetAsyncById(id);
+            var pharmacisModel =  await _pharmacistService.GetAsyncById(id);
             id.CheckIfNull(pharmacisModel);
             return Ok(pharmacisModel);
         }
 
         [HttpPost]
-        public  IActionResult Add( PharmacistAddDTO pharmacistAddDto)
+        public async Task<IActionResult> Add( PharmacistAddDTO pharmacistAddDto)
         {
             if (pharmacistAddDto == null)
             {
                 return BadRequest();
             }
-             _pharmacistService.AddAsync(pharmacistAddDto);
+             await _pharmacistService.AddAsync(pharmacistAddDto);
             return CreatedAtAction(nameof(GetById), new {message = "Pharmacist Added Successfully" });
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(PharmacistUpdateDTO pharmacistUpdateDto, int id)
+        public async Task<IActionResult> Update(PharmacistUpdateDTO pharmacistUpdateDto, int id)
         {
             id.CheckIfNull(pharmacistUpdateDto);
-            var pharmacisModel = _pharmacistService.GetAsyncById(id);
-            _pharmacistService.UpdateAsync(pharmacistUpdateDto, id);
+            var pharmacisModel = await _pharmacistService.GetAsyncById(id);
+           await _pharmacistService.UpdateAsync(pharmacistUpdateDto, id);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _pharmacistService.DeleteAsync(id);
+           await _pharmacistService.DeleteAsync(id);
             return NoContent();
         }
 
         [HttpGet("pharmacy/{pharmacyId}")]
-        public IActionResult GetPharmacistsByPharmacyId(int pharmacyId)
+        public async Task<IActionResult> GetPharmacistsByPharmacyId(int pharmacyId)
         {
-            var pharmacisModels = _pharmacistService.GetPharmacistsByPharmacyId(pharmacyId);
+            var pharmacisModels = await _pharmacistService.GetPharmacistsByPharmacyId(pharmacyId);
             return Ok(pharmacisModels);
         }
 
         [HttpGet("available")]
-        public IActionResult GetAvailableForChat()
+        public async Task<IActionResult> GetAvailableForChat()
         {
-            var pharmacisModels = _pharmacistService.AvialbelForChat();
+            var pharmacisModels = await _pharmacistService.AvialbelForChat();
             return Ok(pharmacisModels);
         }
 
         [HttpGet("chat/{id}")]
-        public IActionResult GetPharmacistChat(int id)
+        public async Task<IActionResult> GetPharmacistChat(int id)
         {
-            var pharmacisModel = _pharmacistService.GetPharmacistChats(id);
+            var pharmacisModel = await _pharmacistService.GetPharmacistChats(id);
             id.CheckIfNull(pharmacisModel);
             return Ok(pharmacisModel);
         }

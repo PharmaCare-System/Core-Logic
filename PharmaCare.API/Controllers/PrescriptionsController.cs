@@ -18,64 +18,64 @@ namespace PharmaCare.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var prescriptionModels = _prescriptionService.GetAllAsync();
+            var prescriptionModels =  await _prescriptionService.GetAllAsync();
             return Ok(prescriptionModels);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var prescriptionModel = _prescriptionService.GetAsyncById(id);
+            var prescriptionModel = await _prescriptionService.GetAsyncById(id);
             return Ok(prescriptionModel);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(PrescriptionUpdateDTO prescriptionDTO, int id)
+        public async Task<IActionResult> Update(PrescriptionUpdateDTO prescriptionDTO, int id)
         {
             id.CheckIfNull(prescriptionDTO);
             var prescriptionModel = _prescriptionService.GetAsyncById(id);
-            _prescriptionService.UpdateAsync(prescriptionDTO, id);
+           await _prescriptionService.UpdateAsync(prescriptionDTO, id);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _prescriptionService.DeleteAsync(id);
+           await _prescriptionService.DeleteAsync(id);
             return NoContent();
         }
 
         [HttpPost]
-        public IActionResult Add(PrescriptionAddDTO prescriptionDTO)
+        public async Task<IActionResult> Add(PrescriptionAddDTO prescriptionDTO)
         {
             if (prescriptionDTO == null)
             {
                 return BadRequest();
             }
-            _prescriptionService.AddAsync(prescriptionDTO);
+           await _prescriptionService.AddAsync(prescriptionDTO);
             return CreatedAtAction(nameof(GetById), new { Message = "Prescription Created Successfully" });
         }
 
         [HttpGet("status")]
-        public IActionResult GetByStatus(string status)
+        public async Task<IActionResult> GetByStatus(string status)
         {
-            var prescriptionModels = _prescriptionService.GetPrescriptionsByStatusAsync(status);
+            var prescriptionModels = await _prescriptionService.GetPrescriptionsByStatusAsync(status);
             return Ok(prescriptionModels);
         }
 
         [HttpGet("pharmacy/{pharmacyId}")]
-        public IActionResult GetByPharmacyId(int pharmacyId)
+        public async Task<IActionResult> GetByPharmacyId(int pharmacyId)
         {
-            var prescriptionModels = _prescriptionService.GetPrescriptionsByPharmacyIdAsync(pharmacyId);
+            var prescriptionModels = await _prescriptionService.GetPrescriptionsByPharmacyIdAsync(pharmacyId);
             return Ok(prescriptionModels);
         }
 
         [HttpGet("doctor/{doctorId}")]
-        public IActionResult GetByDoctorId(int doctorId)
+        public async Task<IActionResult> GetByDoctorId(int doctorId)
         {
-            var prescriptionModels = _prescriptionService.GetPrescriptionsByDoctorIdAsync(doctorId);
+            var prescriptionModels = await _prescriptionService.GetPrescriptionsByDoctorIdAsync(doctorId);
             return Ok(prescriptionModels);
         }
     }
