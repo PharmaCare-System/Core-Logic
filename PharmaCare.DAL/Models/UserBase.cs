@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Models
 {
-    public class UserBase 
+    public class UserBase : Base
     {
-        public int Id { get; set; }
         public int Age { get; set; }
         public string Password { get; set; }
         public DateTime Birthday { get; set; }

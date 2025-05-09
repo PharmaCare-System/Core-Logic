@@ -7,10 +7,8 @@ using PharmaCare.DAL.Enums;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Payment
+    public class Payment : Base
     {
-        public int Id { get; set; }
-
         public PaymentType Type { get; set; }
         public PaymentStatus Status { get; set; }
 

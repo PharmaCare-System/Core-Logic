@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PharmaCare.API.Migrations
+namespace PharmaCare.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -56,7 +56,8 @@ namespace PharmaCare.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                    CategoryName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -228,9 +229,9 @@ namespace PharmaCare.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    streetNumber = table.Column<short>(type: "SMALLINT", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    streetNumber = table.Column<short>(type: "SMALLINT", nullable: false),
                     UserType = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     PharmacistId = table.Column<int>(type: "int", nullable: true)
@@ -415,6 +416,7 @@ namespace PharmaCare.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     UserType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -510,6 +512,8 @@ namespace PharmaCare.API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ManagerId = table.Column<int>(type: "int", nullable: false),
                     PharmacyId = table.Column<int>(type: "int", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: false, computedColumnSql: "DATEDIFF(YEAR, [Birthday], GETDATE())", stored: false),
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),

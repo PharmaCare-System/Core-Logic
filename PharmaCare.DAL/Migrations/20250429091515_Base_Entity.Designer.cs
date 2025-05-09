@@ -9,11 +9,11 @@ using PharmaCare.DAL.Database;
 
 #nullable disable
 
-namespace PharmaCare.API.Migrations
+namespace PharmaCare.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250426103645_Initial")]
-    partial class Initial
+    [Migration("20250429091515_Base_Entity")]
+    partial class Base_Entity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,6 +236,47 @@ namespace PharmaCare.API.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -249,8 +290,46 @@ namespace PharmaCare.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<int>("PharmacyId")
                         .HasColumnType("int");
@@ -282,6 +361,28 @@ namespace PharmaCare.API.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("DATE");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -292,10 +393,26 @@ namespace PharmaCare.API.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -320,10 +437,48 @@ namespace PharmaCare.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -350,13 +505,51 @@ namespace PharmaCare.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("DeliveryAddress")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("OrderStatus")
                         .IsRequired()
@@ -396,6 +589,44 @@ namespace PharmaCare.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -425,6 +656,28 @@ namespace PharmaCare.API.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("DATE");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -438,10 +691,32 @@ namespace PharmaCare.API.Migrations
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -486,6 +761,33 @@ namespace PharmaCare.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -493,6 +795,17 @@ namespace PharmaCare.API.Migrations
 
                     b.Property<int?>("MangerPharmacyId")
                         .HasColumnType("int");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -516,12 +829,50 @@ namespace PharmaCare.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("ImageURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<int?>("PharmacistId")
                         .HasColumnType("int");
@@ -557,6 +908,28 @@ namespace PharmaCare.API.Migrations
                     b.Property<bool>("BulkAllowed")
                         .HasColumnType("BIT");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("DATE");
 
@@ -565,6 +938,22 @@ namespace PharmaCare.API.Migrations
 
                     b.Property<int>("InventoryId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -645,11 +1034,49 @@ namespace PharmaCare.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
                     b.Property<bool>("IsVendor")
                         .HasColumnType("BIT");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -696,8 +1123,46 @@ namespace PharmaCare.API.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("NVARCHAR");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -728,8 +1193,46 @@ namespace PharmaCare.API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("DATE");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.HasKey("Id");
 
@@ -758,6 +1261,44 @@ namespace PharmaCare.API.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
+
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
@@ -784,12 +1325,50 @@ namespace PharmaCare.API.Migrations
                     b.Property<int?>("ChatId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
                     b.Property<DateTime>("MessageDate")
                         .HasColumnType("DATE");
 
                     b.Property<string>("MessageText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
@@ -818,6 +1397,33 @@ namespace PharmaCare.API.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("DeletedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeletedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("DeletedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIT")
+                        .HasDefaultValue(false);
+
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
@@ -825,6 +1431,20 @@ namespace PharmaCare.API.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedByName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<DateTime>("ModifiedDateTime")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserType")
                         .IsRequired()

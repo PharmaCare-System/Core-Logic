@@ -2,7 +2,7 @@
 
 namespace PharmaCare.DAL.Models
 {
-    public class ShoppingCart
+    public class ShoppingCart : Base
     {
         public int Id { get; set; }
 
