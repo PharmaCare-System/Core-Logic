@@ -16,11 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Services\ReviewService\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PharmaCare.DAL\PharmaCare.DAL.csproj" />
   </ItemGroup>
 
