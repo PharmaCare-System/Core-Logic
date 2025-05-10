@@ -10,5 +10,13 @@ namespace PharmaCare.DAL.Repository.Orders
 {
     public interface IOrderRepository : IGenericRepository<Order>
     {
+        Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(int customerId);
+        Task<IEnumerable<Order>> GetOrdersByPharmacyIdAsync(int pharmacyId);
+        Task<IEnumerable<Order>> GetOrdersByPharmacistIdAsync(int pharmacistId);
+        Task<List<Order>> GetOrderProductsAsync(int orderId);
+
+
+
+
     }
 }
