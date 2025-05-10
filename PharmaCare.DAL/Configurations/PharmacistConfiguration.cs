@@ -51,31 +51,6 @@ namespace PharmaCare.DAL.Configurations
             //---------------------
 
 
-            builder.Property(c => c.Age)
-                   .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE())", false);
-
-            builder.Property(c => c.Password)
-                   .HasMaxLength(100).IsRequired();
-
-            builder.Property(c => c.Email)
-                    .HasMaxLength(100)
-                    .IsRequired();
-
-            builder.Property(c => c.FirstName)
-                    .HasMaxLength(25)
-                    .IsRequired();
-            builder.Property(c => c.LastName)
-                    .HasMaxLength(25)
-                    .IsRequired();
-
-            builder.Property(c => c.Phone)
-                   .HasMaxLength(15)
-                   .IsRequired();
-
-            builder.Property(c => c.Birthday)
-                    .HasColumnType("DATE")
-                    .IsRequired();
-
             // Relations
 
             // pharmacist Review prescriptions ( 1 to N)

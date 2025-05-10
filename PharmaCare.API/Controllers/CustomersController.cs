@@ -39,6 +39,7 @@ namespace PharmaCare.API.Controllers
         public async Task<IActionResult> AddAsync(CustomerAddDTO customerDTO)
         {
             await _customerService.AddAsync(customerDTO);
+
             return CreatedAtAction(nameof(GetAsyncById), new { Message = "Created Successfully" });
         }
 

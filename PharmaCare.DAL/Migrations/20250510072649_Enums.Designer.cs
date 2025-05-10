@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PharmaCare.DAL.Database;
 
@@ -11,9 +12,11 @@ using PharmaCare.DAL.Database;
 namespace PharmaCare.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250510072649_Enums")]
+    partial class Enums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,31 +166,16 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Birthday")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -204,10 +192,6 @@ namespace PharmaCare.DAL.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -369,11 +353,13 @@ namespace PharmaCare.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Age")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE())", false);
 
-                    b.Property<string>("ApplicationUserId1")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("DATE");
 
                     b.Property<int>("CreatedById")
                         .HasColumnType("int");
@@ -397,10 +383,25 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("DeletedDateTime")
                         .HasColumnType("DATE");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("BIT")
                         .HasDefaultValue(false);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("ModifiedById")
                         .HasColumnType("int");
@@ -413,9 +414,17 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .HasColumnType("DATE");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.HasIndex("ApplicationUserId1");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Customers");
                 });
@@ -639,11 +648,13 @@ namespace PharmaCare.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Age")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("DATEDIFF(YEAR, [Birthday], GETDATE())", false);
 
-                    b.Property<string>("ApplicationUserId1")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("DATE");
 
                     b.Property<int>("CreatedById")
                         .HasColumnType("int");
@@ -667,6 +678,16 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("DeletedDateTime")
                         .HasColumnType("DATE");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
@@ -677,6 +698,11 @@ namespace PharmaCare.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("BIT")
                         .HasDefaultValue(false);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
@@ -692,12 +718,20 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .HasColumnType("DATE");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<int?>("PharmacyId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
-                    b.HasIndex("ApplicationUserId1");
+                    b.HasKey("Id");
 
                     b.HasIndex("PharmacyId");
 
@@ -1571,15 +1605,6 @@ namespace PharmaCare.DAL.Migrations
                     b.Navigation("Pharmacy");
                 });
 
-            modelBuilder.Entity("PharmaCare.DAL.Models.Customer", b =>
-                {
-                    b.HasOne("PharmaCare.DAL.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId1");
-
-                    b.Navigation("ApplicationUser");
-                });
-
             modelBuilder.Entity("PharmaCare.DAL.Models.Inventory", b =>
                 {
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
@@ -1616,16 +1641,10 @@ namespace PharmaCare.DAL.Migrations
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacist", b =>
                 {
-                    b.HasOne("PharmaCare.DAL.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId1");
-
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
                         .WithMany("Pharmacists")
                         .HasForeignKey("PharmacyId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Pharmacy");
                 });

@@ -9,6 +9,7 @@ namespace PharmaCare.BLL.DTOs.AuthenticationDTOs
 {
     public class RegisterDTO
     {
+
         [Required(ErrorMessage = "First name is required!")]
         [MaxLength(50, ErrorMessage = "First name can not exceed 50 characters")]
         public string FirstName { get; set; }
@@ -30,6 +31,7 @@ namespace PharmaCare.BLL.DTOs.AuthenticationDTOs
         [Required(ErrorMessage ="Birthdate is required!")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
+        public int Age { get;set; }
 
         [Required(ErrorMessage = "Email is required!")]
         [EmailAddress(ErrorMessage = "Invalid email address")]

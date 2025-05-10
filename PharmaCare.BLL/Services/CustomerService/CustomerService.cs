@@ -27,12 +27,12 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerDTOs = customerModels
             .Select(c => new CustomerReadDTO()
             {
-                FirstName = c.FirstName,
-                LastName = c.LastName,
-                Phone = c.Phone,
-                Email = c.Email,
-                Birthday = c.Birthday,
-                Age = c.Age,
+                FirstName = c.ApplicationUser.FirstName,
+                LastName = c.ApplicationUser.LastName,
+                Phone = c.ApplicationUser.Phone,
+                Email = c.ApplicationUser.Email,
+                Birthday = c.ApplicationUser.Birthday,
+                Age = c.ApplicationUser.Age,
                 Id = c.Id,
             }).ToList();
             return customerDTOs;
@@ -45,28 +45,20 @@ namespace PharmaCare.BLL.Services.CustomerService
 
             var customerDTO = new CustomerReadDTO()
             {
-                FirstName = customerModel.FirstName,
-                LastName = customerModel.LastName,
+                FirstName = customerModel.ApplicationUser.FirstName,
+                LastName = customerModel.ApplicationUser.LastName,
                 Id = customerModel.Id,
-                Phone = customerModel.Phone,
-                Email = customerModel.Email,
-                Birthday = customerModel.Birthday,
-                Age = customerModel.Age,
+                Phone = customerModel.ApplicationUser.Phone,
+                Email = customerModel.ApplicationUser.Email,
+                Birthday = customerModel.ApplicationUser.Birthday,
+                Age = customerModel.ApplicationUser.Age,
             };
             return customerDTO;
         }
 
         public async Task AddAsync(CustomerAddDTO customerDTO)
         {
-            var customerModel = new Customer()
-            {
-                FirstName = customerDTO.FirstName,
-                LastName = customerDTO.LastName,
-                Phone = customerDTO.Phone,
-                Email = customerDTO.Email,
-                Birthday = customerDTO.Birthday,
-                Password = customerDTO.Password
-            };
+            var customerModel = new Customer();
             await _customerRepository.AddAsync(customerModel);
         }
 
@@ -83,12 +75,12 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerModel = await _customerRepository.GetAsyncById(id);
             id.CheckIfNull(customerModel);
 
-            customerModel.FirstName = customerDTO.FirstName;
-            customerModel.LastName = customerDTO.LastName;
-            customerModel.Phone = customerDTO.Phone;
-            customerModel.Email = customerDTO.Email;
-            customerModel.Birthday = customerDTO.Birthday;
-            customerModel.Password = customerDTO.Password;
+            customerModel.ApplicationUser.FirstName = customerDTO.FirstName;
+            customerModel.ApplicationUser.LastName = customerDTO.LastName;
+            customerModel.ApplicationUser.Phone = customerDTO.Phone;
+            customerModel.ApplicationUser.Email = customerDTO.Email;
+            customerModel.ApplicationUser.Birthday = customerDTO.Birthday;
+
 
             await _customerRepository.UpdateAsync(customerModel);
         }
@@ -101,12 +93,12 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerDTO = new CustomerReadDTO()
             {
                 Id = customerModel.Id,
-                FirstName = customerModel.FirstName,
-                LastName = customerModel.LastName,
-                Age = customerModel.Age,
-                Email = customerModel.Email,
-                Birthday = customerModel.Birthday,
-                Phone = customerModel.Phone
+                FirstName = customerModel.ApplicationUser.FirstName,
+                LastName = customerModel.ApplicationUser.LastName,
+                Age = customerModel.ApplicationUser.Age,
+                Email = customerModel.ApplicationUser.Email,
+                Birthday = customerModel.ApplicationUser.Birthday,
+                Phone = customerModel.ApplicationUser.Phone
             };
             return customerDTO;
         }

@@ -14,12 +14,39 @@ using PharmaCare.DAL.Models.UserNotifications;
 using System.Runtime.Intrinsics.Arm;
 using PharmaCare.DAL.Models.UserMessages;
 using PharmaCare.DAL.Models.ProductRel;
+using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
+using PharmaCare.DAL.Migrations;
 
 namespace PharmaCare.DAL.Database
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         #region DbSets
+
+        // remove customers & phamracists => Application User
+        /*
+         var Vendors= await _context.Users.OfType<Vendor>().ToListAsync();   لو عاوز تعمل get 
+
+            var vendor= new Vendor
+            {
+                UserName = "student1",
+                Email = "student1@example.com",
+                NationalId = "123456789",
+                University = "MIT",
+                Level = 3
+            };
+
+            var result = await _userManager.CreateAsync(vendor, "P@ssword123");
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(vendor, "Student");
+
+
+
+            }
+         
+         */
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> CustomerAddresses { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -62,8 +89,40 @@ namespace PharmaCare.DAL.Database
 
             base.OnModelCreating(builder);
         }
-        
-    
-    
+
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<BaseEntity>() )
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedById = 0;
+                        entry.Entity.CreatedByName = "name";
+                        entry.Entity.CreatedDateTime = DateTime.Now;
+                        break;
+                    
+                    case EntityState.Modified:
+                            entry.Entity.ModifiedById = 0;
+                            entry.Entity.ModifiedByName = "name";
+                            entry.Entity.ModifiedDateTime = DateTime.Now;
+                            break;
+                    
+                    case EntityState.Deleted:
+                        entry.Entity.DeletedById = 0;
+                        entry.Entity.DeletedByName = "name";
+                        entry.Entity.DeletedDateTime = DateTime.Now;
+                        entry.Entity.IsDeleted = true;
+                        entry.State = EntityState.Modified;
+
+                        break;
+                    
+                        
+                }
+            }
+            return base.SaveChanges();
+        }
+
+
     }
 }

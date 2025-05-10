@@ -3,7 +3,7 @@ using PharmaCare.DAL.Enums;
 using PharmaCare.DAL.Models.UserNotifications;
 namespace PharmaCare.DAL.Models.UserMessages
 {
-    public abstract class Messages :  Base
+    public abstract class Messages :  BaseEntity
     {
         public string MessageText { get; set; }
         public DateTime MessageDate { get; set; }  

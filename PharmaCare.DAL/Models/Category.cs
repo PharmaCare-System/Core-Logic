@@ -7,7 +7,7 @@ using PharmaCare.DAL.Models.ProductRel;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Category : Base
+    public class Category : BaseEntity
     {
         public string CategoryName { get; set; }
         public bool IsActive { get; set; } = true;

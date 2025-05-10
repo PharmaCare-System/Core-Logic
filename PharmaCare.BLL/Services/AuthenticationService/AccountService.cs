@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PharmaCare.BLL.DTOs.AuthenticationDTOs;
@@ -16,12 +17,14 @@ namespace PharmaCare.BLL.Services.AuthenticationService
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AccountService(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public AccountService(UserManager<ApplicationUser> userManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
         public async Task<string> LoginAsync(LoginDTO loginDTO)
         {
@@ -34,9 +37,13 @@ namespace PharmaCare.BLL.Services.AuthenticationService
                 return null;
 
             var claims = await _userManager.GetClaimsAsync(userEmail);
+
             return GenerateToken(claims);
         }
-
+        /*
+         1. for customer
+        2. only Admin create any user
+         */
         public async Task<string> RegisterAsync(RegisterDTO registerDTO)
         {
             if(registerDTO.Password != registerDTO.ConfirmPassword)
@@ -82,6 +89,50 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             string token = handler.WriteToken(jwtSecurityToken);
 
             return token;
+        }
+
+        public async Task<string> CreateRole(RoleAddDTO roleAddDTO)
+        {
+            var result = await _roleManager.CreateAsync(new IdentityRole
+            {
+                Name = roleAddDTO.Name,
+                NormalizedName = roleAddDTO.Name.ToUpper()
+            });
+            if (result.Succeeded)
+            {
+                return "Created Successfully";
+            }
+            return null;
+        } 
+
+        public async Task<string> AssignRole(AssignRoleDTO roleAssignDTO)
+        {
+            var user = await _userManager.FindByIdAsync(roleAssignDTO.userId);
+            var role = await _roleManager.FindByIdAsync(roleAssignDTO.RoleId);
+
+            if(user !=null && role != null)
+            {
+                List<Claim> claims = new List<Claim>() { 
+                    new Claim(ClaimTypes.Role,role.Name),
+                    new Claim(ClaimTypes.Name,user.Id),
+                };
+
+                var result = await _userManager.AddToRoleAsync(user,role.Name);
+                
+                return "Assigned successfully"; ;
+            }
+            return null;
+        }
+
+        public async Task<List<RoleReadDTO>> GetAllRoles()
+        {
+            var roles = await _roleManager.Roles
+                                    .Select(a => new RoleReadDTO
+                                    {
+                                        Id = a.Id,
+                                        Name = a.Name
+                                    }).ToListAsync();
+            return roles;
         }
     }
 }

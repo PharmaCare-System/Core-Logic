@@ -26,17 +26,17 @@ public class PharmacistService : IPharmacistService
 
     public async Task AddAsync(PharmacistAddDTO pharmacistAddDto)
     {
-        var pharmacistModel = new Pharmacist
-        {
-            FirstName = pharmacistAddDto.FirstName,
-            LastName = pharmacistAddDto.LastName,
-            Email = pharmacistAddDto.Email,
-            IsActive = true,
-            Phone = pharmacistAddDto.Phone,
-            PharmacyId = pharmacistAddDto.PharmacyId,
-            Age = pharmacistAddDto.Age,
-            ManagerId = pharmacistAddDto.ManagerPharmacistId,
-        };
+        var pharmacistModel = new Pharmacist();
+        //{
+        //    FirstName = pharmacistAddDto.FirstName,
+        //    LastName = pharmacistAddDto.LastName,
+        //    Email = pharmacistAddDto.Email,
+        //    IsActive = true,
+        //    Phone = pharmacistAddDto.Phone,
+        //    PharmacyId = pharmacistAddDto.PharmacyId,
+        //    Age = pharmacistAddDto.Age,
+        //    ManagerId = pharmacistAddDto.ManagerPharmacistId,
+        //};
         await _pharmacistRepository.AddAsync(pharmacistModel);
     }
 
@@ -55,10 +55,10 @@ public class PharmacistService : IPharmacistService
         var pharmacistDTOs = pharmacistsModels.Select(p => new PharmacistReadDTO
         {
             Id = p.Id,
-            FirstName = p.FirstName,
-            LastName = p.LastName,
-            Email = p.Email,
-            Phone = p.Phone,
+            FirstName = p.ApplicationUser.FirstName,
+            LastName = p.ApplicationUser.LastName,
+            Email = p.ApplicationUser.Email,
+            Phone = p.ApplicationUser.Phone,
             PharmacyId = p.PharmacyId,
             ManagerPharmacistId = p.ManagerId
         }).ToList();
@@ -71,10 +71,10 @@ public class PharmacistService : IPharmacistService
         var pharmacistDTO = new PharmacistReadDTO
         {
             Id = pharmacistModel.Id,
-            FirstName = pharmacistModel.FirstName,
-            LastName = pharmacistModel.LastName,
-            Email = pharmacistModel.Email,
-            Phone = pharmacistModel.Phone,
+            FirstName = pharmacistModel.ApplicationUser.FirstName,
+            LastName = pharmacistModel.ApplicationUser.LastName,
+            Email = pharmacistModel.ApplicationUser.Email,
+            Phone = pharmacistModel.ApplicationUser.Phone,
             PharmacyId = pharmacistModel.PharmacyId,
             ManagerPharmacistId = pharmacistModel.ManagerId
         };
@@ -88,8 +88,8 @@ public class PharmacistService : IPharmacistService
         var pharmacistDTO = new PharmacistChatsDTO
         {
             Id = pharmacistModel.Id,
-            FirstName = pharmacistModel.FirstName,
-            LastName = pharmacistModel.LastName,
+            FirstName = pharmacistModel.ApplicationUser.FirstName,
+            LastName = pharmacistModel.ApplicationUser.LastName,
             Messages = pharmacistModel.Messages.Select(m => new PharmacistChatMessageDTO
             {
                 Id = m.Id,
@@ -110,10 +110,10 @@ public class PharmacistService : IPharmacistService
         var pharmacistDTOs = pharmacistsModels.Select(p => new PharmacistReadDTO
         {
             Id = p.Id,
-            FirstName = p.FirstName,
-            LastName = p.LastName,
-            Email = p.Email,
-            Phone = p.Phone,
+            FirstName = p.ApplicationUser.FirstName,
+            LastName = p.ApplicationUser.LastName,
+            Email = p.ApplicationUser.Email,
+            Phone = p.ApplicationUser.Phone,
             PharmacyId = p.PharmacyId,
             ManagerPharmacistId = p.ManagerId
         }).ToList();
@@ -126,13 +126,13 @@ public class PharmacistService : IPharmacistService
     {
         var pharmacistModel = await _pharmacistRepository.GetAsyncById(id);
         id.CheckIfNull(pharmacistModel);
-        pharmacistModel.FirstName = pharmacistDTO.FirstName;
-        pharmacistModel.LastName = pharmacistDTO.LastName;
-        pharmacistModel.Email = pharmacistDTO.Email;
-        pharmacistModel.Phone = pharmacistDTO.Phone;
-        pharmacistModel.Age = pharmacistDTO.Age;
+        pharmacistModel.ApplicationUser.FirstName = pharmacistDTO.FirstName;
+        pharmacistModel.ApplicationUser.LastName = pharmacistDTO.LastName;
+        pharmacistModel.ApplicationUser.Email = pharmacistDTO.Email;
+        pharmacistModel.ApplicationUser.Phone = pharmacistDTO.Phone;
+        pharmacistModel.ApplicationUser.Age = pharmacistDTO.Age;
 
-        pharmacistModel.Password = pharmacistDTO.Password;
+        //pharmacistModel.ApplicationUser.Password = pharmacistDTO.Password;
 
         pharmacistModel.PharmacyId = pharmacistDTO.PharmacyId;
 
@@ -147,10 +147,10 @@ public class PharmacistService : IPharmacistService
         var pharmacistDTOs = pharmacistsModels.Select(p => new PharmacistReadDTO
         {
             Id = p.Id,
-            FirstName = p.FirstName,
-            LastName = p.LastName,
-            Email = p.Email,
-            Phone = p.Phone,
+            FirstName = p.ApplicationUser.FirstName,
+            LastName = p.ApplicationUser.LastName,
+            Email = p.ApplicationUser.Email,
+            Phone = p.ApplicationUser.Phone,
             PharmacyId = p.PharmacyId,
             ManagerPharmacistId = p.ManagerId
         }).ToList();

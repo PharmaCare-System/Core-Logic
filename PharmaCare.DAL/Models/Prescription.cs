@@ -2,7 +2,7 @@
 
 namespace PharmaCare.DAL.Models
 {
-    public class Prescription : Base
+    public class Prescription : BaseEntity
     {
         public int Id { get; set; }
         public DateTime UploadDate { get; set; }
