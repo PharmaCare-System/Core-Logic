@@ -18,12 +18,11 @@ namespace PharmaCare.DAL.Repository.Pharmacists
         }
         public async Task<IEnumerable<Pharmacist>> GetAllAsync()
         {
-            return await _context.Pharmacists.Include(p=>p.ApplicationUser).ToListAsync();
+            return await _context.Users.OfType<Pharmacist>().ToListAsync();
         }
         public async Task<IEnumerable<Pharmacist>> AvialbelForChat()
         {
-            var pharmacists = await _context.Pharmacists
-                .Include(p => p.ApplicationUser)
+            var pharmacists = await _context.Users.OfType<Pharmacist>()
                 .Where(p => p.IsActive == true)
                 .ToListAsync();
             return pharmacists;
@@ -31,7 +30,7 @@ namespace PharmaCare.DAL.Repository.Pharmacists
 
         public async Task<IEnumerable<Pharmacist>> GetPharmacistByPharmacyId(int id)
         {
-            var pharmacists = await _context.Pharmacists
+            var pharmacists = await _context.Users.OfType<Pharmacist>()
                 .Where(p => p.PharmacyId == id)
                 .ToListAsync();
             return pharmacists;
@@ -39,7 +38,7 @@ namespace PharmaCare.DAL.Repository.Pharmacists
 
         public async Task<Pharmacist> GetPharmacistChats(int id)
         {
-            var pharmacist = await _context.Pharmacists
+            var pharmacist = await _context.Users.OfType<Pharmacist>()
                 .Include(p => p.Chats)
                 .ThenInclude(p=>p.Messages)
                 .FirstOrDefaultAsync(p => p.Id == id);

@@ -21,6 +21,12 @@ using PharmaCare.BLL.Services.CustomerService;
 using PharmaCare.DAL.ProductRepository;
 using PharmaCare.DAL.Repository.ProductRepository;
 using PharmaCare.BLL.Services.ProductService;
+using PharmaCare.BLL.Services.CategoryService;
+using PharmaCare.BLL.Services.Category;
+using PharmaCare.BLL.Services.Chat;
+using pharmacare.bll.services.pharmacyserivce;
+using PharmaCare.DAL.Repository.Category;
+using PharmaCare.DAL.Repository.Pharmacists;
 
 
 namespace PharmaCare.API
@@ -47,13 +53,25 @@ namespace PharmaCare.API
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
+
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ChatService, ChatService>();
+
+            builder.Services.AddScoped<IPharmacistService, PharmacistService>();
+            builder.Services.AddScoped<IPharmacyService, PharmacyService>();
+
+            builder.Services.AddScoped<IPharmacistRepository, PharmacistRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            // Service registrations
             //-------------------------------------------------------------------//
 
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                                        b => b.MigrationsAssembly("PharmaCare.DAL")));
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddAuthentication(options =>

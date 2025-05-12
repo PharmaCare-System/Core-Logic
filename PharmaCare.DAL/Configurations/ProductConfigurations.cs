@@ -92,7 +92,17 @@ namespace PharmaCare.DAL.Configurations
 
             builder.HasMany(p => p.Orders)
                    .WithMany(o => o.Products)
-                   .UsingEntity<ProductOrder>();
+                   .UsingEntity<ProductOrder>(
+                        j => j.HasOne(po => po.Order)
+                              .WithMany(o => o.ProductOrders)
+                              .HasForeignKey(po => po.OrderRefId)
+                              .OnDelete(DeleteBehavior.Cascade),
+                        j => j.HasOne(po => po.Product)
+                              .WithMany(p => p.ProductOrders)
+                              .HasForeignKey(po => po.ProductId)
+                              .OnDelete(DeleteBehavior.Cascade),
+                        j => j.HasKey(po => new { po.ProductId, po.OrderRefId })
+                   );
         }
     }
 }

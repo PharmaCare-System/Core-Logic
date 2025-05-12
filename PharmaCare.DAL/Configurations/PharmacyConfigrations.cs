@@ -77,7 +77,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(p=>p.ManagerPharmacy)
                    .WithOne(ph => ph.ManagedPharmacy)
                    .HasForeignKey<Pharmacy>(p => p.MangerPharmacyId)
-                   .OnDelete(DeleteBehavior.SetNull);
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

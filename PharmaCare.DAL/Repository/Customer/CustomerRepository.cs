@@ -21,13 +21,12 @@ namespace PharmaCare.DAL.Repository.Customers
 
         public async Task<IEnumerable<Customer>> GetAllAsync()
         {
-            return await _context.Customers.Include(c => c.ApplicationUser).ToListAsync();
+            return await _context.Users.OfType<Customer>().ToListAsync();
         }
 
         public async Task<Customer> GetCustomerByEmail(string email)
         {
-            return await _context.Customers.Include(c=>c.ApplicationUser)
-                                           .FirstOrDefaultAsync(c => c.ApplicationUser.Email == email);
+            return await _context.Users.OfType<Customer>().FirstOrDefaultAsync(c => c.Email == email);
         }
     }
 }

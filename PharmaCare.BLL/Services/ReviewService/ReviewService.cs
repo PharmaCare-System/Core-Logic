@@ -75,7 +75,7 @@ namespace PharmaCare.BLL.Services.ReviewService
             var userReviewsDtos = new UserReviewsDto
             {
                 userID = customerId,
-                userName = reviews.FirstOrDefault().Customer.ApplicationUser.FirstName + " " + reviews.FirstOrDefault().Customer.ApplicationUser.LastName,
+                userName = reviews.FirstOrDefault().Customer.FirstName + " " + reviews.FirstOrDefault().Customer.LastName,
                 UserReviews = reviews.Select(r => new ReviewReadDto
                 {
                     Id = r.Id,

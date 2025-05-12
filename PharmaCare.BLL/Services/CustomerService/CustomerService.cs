@@ -27,12 +27,12 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerDTOs = customerModels
             .Select(c => new CustomerReadDTO()
             {
-                FirstName = c.ApplicationUser.FirstName,
-                LastName = c.ApplicationUser.LastName,
-                Phone = c.ApplicationUser.Phone,
-                Email = c.ApplicationUser.Email,
-                Birthday = c.ApplicationUser.Birthday,
-                Age = c.ApplicationUser.Age,
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                Phone = c.PhoneNumber,
+                Email = c.Email,
+                Birthday = c.Birthday,
+                Age = c.Age,
                 Id = c.Id,
             }).ToList();
             return customerDTOs;
@@ -45,13 +45,13 @@ namespace PharmaCare.BLL.Services.CustomerService
 
             var customerDTO = new CustomerReadDTO()
             {
-                FirstName = customerModel.ApplicationUser.FirstName,
-                LastName = customerModel.ApplicationUser.LastName,
+                FirstName = customerModel.FirstName,
+                LastName = customerModel.LastName,
                 Id = customerModel.Id,
-                Phone = customerModel.ApplicationUser.Phone,
-                Email = customerModel.ApplicationUser.Email,
-                Birthday = customerModel.ApplicationUser.Birthday,
-                Age = customerModel.ApplicationUser.Age,
+                Phone = customerModel.PhoneNumber,
+                Email = customerModel.Email,
+                Birthday = customerModel.Birthday,
+                Age = customerModel.Age,
             };
             return customerDTO;
         }
@@ -75,11 +75,11 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerModel = await _customerRepository.GetAsyncById(id);
             id.CheckIfNull(customerModel);
 
-            customerModel.ApplicationUser.FirstName = customerDTO.FirstName;
-            customerModel.ApplicationUser.LastName = customerDTO.LastName;
-            customerModel.ApplicationUser.Phone = customerDTO.Phone;
-            customerModel.ApplicationUser.Email = customerDTO.Email;
-            customerModel.ApplicationUser.Birthday = customerDTO.Birthday;
+            customerModel.FirstName = customerDTO.FirstName;
+            customerModel.LastName = customerDTO.LastName;
+            customerModel.PhoneNumber = customerDTO.Phone;
+            customerModel.Email = customerDTO.Email;
+            customerModel.Birthday = customerDTO.Birthday;
 
 
             await _customerRepository.UpdateAsync(customerModel);
@@ -93,12 +93,12 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerDTO = new CustomerReadDTO()
             {
                 Id = customerModel.Id,
-                FirstName = customerModel.ApplicationUser.FirstName,
-                LastName = customerModel.ApplicationUser.LastName,
-                Age = customerModel.ApplicationUser.Age,
-                Email = customerModel.ApplicationUser.Email,
-                Birthday = customerModel.ApplicationUser.Birthday,
-                Phone = customerModel.ApplicationUser.Phone
+                FirstName = customerModel.FirstName,
+                LastName = customerModel.LastName,
+                Age = customerModel.Age,
+                Email = customerModel.Email,
+                Birthday = customerModel.Birthday,
+                Phone = customerModel.PhoneNumber
             };
             return customerDTO;
         }

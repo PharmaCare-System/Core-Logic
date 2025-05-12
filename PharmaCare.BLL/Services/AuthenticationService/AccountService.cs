@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PharmaCare.BLL.DTOs.AuthenticationDTOs;
+using PharmaCare.BLL.Services.CustomerService;
+using PharmaCare.BLL.Services.PharmacistService;
+using PharmaCare.BLL.Services.PharmacySerivce;
 using PharmaCare.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -17,14 +20,25 @@ namespace PharmaCare.BLL.Services.AuthenticationService
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IPharmacyService _pharmacyService;
+        private readonly IPharmacistService _pharmacistService;
+        private readonly ICustomerService _customerService;
 
-        public AccountService(UserManager<ApplicationUser> userManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
+        public AccountService(UserManager<ApplicationUser> userManager, 
+                              IConfiguration configuration, 
+                              RoleManager<IdentityRole<int>> roleManager,
+                              IPharmacyService pharmacyService,
+                              IPharmacistService pharmacistService,
+                              ICustomerService customerService)
         {
             _userManager = userManager;
             _configuration = configuration;
             _roleManager = roleManager;
+            _pharmacyService = pharmacyService;
+            _pharmacistService = pharmacistService;
+            _customerService = customerService;
         }
         public async Task<string> LoginAsync(LoginDTO loginDTO)
         {
@@ -37,14 +51,44 @@ namespace PharmaCare.BLL.Services.AuthenticationService
                 return null;
 
             var claims = await _userManager.GetClaimsAsync(userEmail);
-
+            
             return GenerateToken(claims);
         }
         /*
          1. for customer
         2. only Admin create any user
          */
-        public async Task<string> RegisterAsync(RegisterDTO registerDTO)
+        
+        public async Task<string> RegisterPharmacyAsync(RegisterCustomerDTO registerDTO)
+        {
+            // create the pharmacist with it
+            if(registerDTO.Password != registerDTO.ConfirmPassword)
+                return "Passwords do not match";
+
+            var user = new ApplicationUser()
+            {
+               Email = registerDTO.Email,
+               UserName = registerDTO.Email
+            };
+
+            var result = await _userManager.CreateAsync(user, registerDTO.Password);
+
+            if(result.Succeeded)
+            {
+                List<Claim> claims = new List<Claim>();
+
+                claims.Add(new Claim("Role", "Admin"));
+                claims.Add(new Claim("Email", registerDTO.Email));
+
+                await _userManager.AddClaimsAsync(user, claims);
+                //_pharmacyService.Add()
+                
+                return GenerateToken(claims);
+            }
+            return null;
+        }
+        
+        public async Task<string> RegisterCustomerAsync(RegisterCustomerDTO registerDTO)
         {
             if(registerDTO.Password != registerDTO.ConfirmPassword)
                 return "Passwords do not match";
@@ -69,6 +113,7 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             }
             return null;
         }
+        
         public string GenerateToken(IList<Claim> claims)
         {
             var secreteKeyString = _configuration.GetSection("SecretKey").Value;
@@ -93,7 +138,7 @@ namespace PharmaCare.BLL.Services.AuthenticationService
 
         public async Task<string> CreateRole(RoleAddDTO roleAddDTO)
         {
-            var result = await _roleManager.CreateAsync(new IdentityRole
+            var result = await _roleManager.CreateAsync(new IdentityRole<int>
             {
                 Name = roleAddDTO.Name,
                 NormalizedName = roleAddDTO.Name.ToUpper()
@@ -114,7 +159,7 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             {
                 List<Claim> claims = new List<Claim>() { 
                     new Claim(ClaimTypes.Role,role.Name),
-                    new Claim(ClaimTypes.Name,user.Id),
+                    //new Claim(ClaimTypes.Name,user.Id),
                 };
 
                 var result = await _userManager.AddToRoleAsync(user,role.Name);

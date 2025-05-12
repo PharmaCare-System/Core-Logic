@@ -14,7 +14,6 @@ namespace PharmaCare.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Pharmacist> builder)
         {
-            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.CreatedById)
                    .IsRequired();
@@ -57,7 +56,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasMany(p => p.Prescriptions)
                    .WithOne(pr => pr.Pharmacist)
                    .HasForeignKey(pr => pr.PharmacistId)
-                   .OnDelete(DeleteBehavior.SetNull);
+                   .OnDelete(DeleteBehavior.Cascade);
 
             // pharmacist process Order ( 1 to N)
             builder.HasMany(p => p.Orders)
