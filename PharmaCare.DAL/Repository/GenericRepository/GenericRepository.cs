@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PharmaCare.DAL.Database;
+using PharmaCare.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Repository.GenericRepository
 {
-	public class GenericRepository<T> : IGenericRepository<T> where T : class
+	public class GenericRepository<T> : IGenericRepository<T> where T : Base
 	{
 		public readonly ApplicationDbContext _context;
 		public readonly DbSet<T> _DbSet;
@@ -34,9 +35,10 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 		{
 			await _context.SaveChangesAsync();
 		}
-		public async Task DeleteAsync(T entity)
-		{
-			_DbSet.Remove(entity);
+		public async Task SoftDelete(T entity)
+		{	
+			entity.IsDeleted = true;
+			entity.DeletedDateTime = DateTime.Now;
 			await _context.SaveChangesAsync();
 		}
 		public async Task<IEnumerable<T>> GetAllAsync()
