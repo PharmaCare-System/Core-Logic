@@ -66,8 +66,6 @@ namespace PharmaCare.DAL.Database
             {
                 if (typeof(Base).IsAssignableFrom(entityType.ClrType))
                 {
-                    builder.Entity(entityType.ClrType).Property("CreatedAt").HasDefaultValueSql("CURRENT_TIMESTAMP");
-                    builder.Entity(entityType.ClrType).Property("UpdatedAt").HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
                     builder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
                 }
 

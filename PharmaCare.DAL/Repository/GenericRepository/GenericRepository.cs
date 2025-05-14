@@ -37,8 +37,6 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 		}
 		public async Task SoftDelete(T entity)
 		{	
-			entity.IsDeleted = true;
-			entity.DeletedDateTime = DateTime.Now;
 			await _context.SaveChangesAsync();
 		}
 		public async Task<IEnumerable<T>> GetAllAsync()
