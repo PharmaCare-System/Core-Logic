@@ -7,8 +7,8 @@ using PharmaCare.DAL.Models;
 
 namespace PharmaCare.DAL.Repository.GenericRepository
 {
-	public interface IGenericRepository<T> where T : Base
-	{
+	public interface IGenericRepository<T> where T : BaseEntity
+    {
 		Task AddAsync(T entity);
 		Task<IEnumerable<T>> GetAllAsync();
 		IQueryable<T> GetQueryable();

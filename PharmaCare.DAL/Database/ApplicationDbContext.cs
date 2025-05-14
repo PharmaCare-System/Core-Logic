@@ -19,6 +19,7 @@ using PharmaCare.DAL.Models.UserMessages;
 using PharmaCare.DAL.Models.ProductRel;
 using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 using PharmaCare.DAL.Migrations;
+using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Database
 {
@@ -93,7 +94,7 @@ namespace PharmaCare.DAL.Database
             base.OnModelCreating(builder);
             foreach (var entityType in builder.Model.GetEntityTypes())
             {
-                if (typeof(Base).IsAssignableFrom(entityType.ClrType))
+                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
                 {
                     builder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
                 }
@@ -103,7 +104,7 @@ namespace PharmaCare.DAL.Database
        private static LambdaExpression ConvertFilterExpression(Type entityType)
         {
             var parameter = Expression.Parameter(entityType, "e");
-            var prop = Expression.Property(parameter, nameof(Base.IsDeleted));
+            var prop = Expression.Property(parameter, nameof(BaseEntity.IsDeleted));
             var body = Expression.Equal(prop, Expression.Constant(false));
             return Expression.Lambda(body, parameter);
         }
