@@ -16,6 +16,6 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 		Task<T> GetAsyncById(int id);
 		Task UpdateAsync(T entity);
 		Task SoftDelete(T entity);
-        Task<PagedResult<T>> GetPagedAsync(Expression<Func<T, bool>> filter,PaginationParameters parameters);
+
     }
 }

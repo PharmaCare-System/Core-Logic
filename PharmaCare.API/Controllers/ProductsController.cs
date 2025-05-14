@@ -68,5 +68,13 @@ namespace PharmaCare.API.Controllers
             await _productService.DeleteAsync(id);
             return CreatedAtAction(nameof(GetAsyncById), new { Message = "Product Deleted Successfully" });
         }
+        [HttpGet("search")]
+        public async Task<IActionResult> GetPagedProductsAsync(string? term, string? sort, int page, int limit)
+        {
+            var pagedProducts = await _productService.GetPagedProductsAsync(term, sort, page, limit);
+            if (pagedProducts == null)
+                return NotFound();
+            return Ok(pagedProducts);   
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
+using System.Linq.Dynamic.Core;
 
 namespace PharmaCare.DAL.Repository.GenericRepository
 {
@@ -45,35 +46,7 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 			return await _DbSet.ToListAsync();
 		}
 
-        public async Task<PagedResult<T>> GetPagedAsync(Expression<Func<T, bool>> filter, PaginationParameters parameters)
-        {
-			var Query = _DbSet.Where(filter).AsQueryable();
-            //oprtional if we needed sorting and searching
-
-            //        if (!string.IsNullOrEmpty(parameters.SortBy))
-            //        {
-            //            var sortOrder = parameters.IsAscending ? "ascending" : "descending";
-            //Query = Query.OrderBy($"{parameters.SortBy}{sortOrder}");
-            //        }
-            //        if (!string.IsNullOrEmpty(parameters.SearchTerm))
-            //        {
-            //            Query = Query.Where($"Name.Contains(@0)", parameters.SearchTerm);
-            //        }
-
-
-
-            var totalCount = Query.Count();
-			var items = await Query.Skip((parameters.PageNumber - 1) * parameters.PageSize)
-				.Take(parameters.PageSize)
-				.ToListAsync();
-			return new PagedResult<T>
-			{
-				Items = items,
-				TotalCount = totalCount,
-				PageNumber= parameters.PageNumber,
-				PageSize = parameters.PageSize
-            };
-
+    
         }
     }
-}
+
