@@ -2,7 +2,7 @@
 
 namespace PharmaCare.DAL.Models.UserAddress
 {
-    public abstract class Address : Base
+    public abstract class Address : BaseEntity
     {
         public string Country { get; set; }
         public string City { get; set; }

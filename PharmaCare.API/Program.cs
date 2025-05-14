@@ -63,7 +63,7 @@ namespace PharmaCare.API
             }).AddJwtBearer("Pharma", options =>
             {
                 var secreteKeyString = builder.Configuration.GetSection("SecretKey").Value;
-                var secreteKeyBytes = Encoding.ASCII.GetBytes(secreteKeyString);
+                var secreteKeyBytes = Encoding.UTF8.GetBytes(secreteKeyString);
                 SecurityKey secreteKey = new SymmetricSecurityKey(secreteKeyBytes);
 
                 options.TokenValidationParameters = new TokenValidationParameters()

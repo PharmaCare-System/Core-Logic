@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Pharmacy : Base
+    public class Pharmacy : BaseEntity
     {
         public string Name { get; set; }
         public string Location { get; set; }

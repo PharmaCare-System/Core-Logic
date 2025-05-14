@@ -4,7 +4,7 @@ using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Order : Base
+    public class Order : BaseEntity
     {
         public OrderTypes OrderType { get; set; }
         public string DeliveryAddress { get; set; }

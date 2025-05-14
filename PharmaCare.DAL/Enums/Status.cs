@@ -8,25 +8,25 @@ namespace PharmaCare.DAL.Enums
 {
    public enum OrderStatuses
     {
-        Pending,
-        Processing,
-        Shipped,
-        Delivered
+        Pending = 1,
+        Processing = 2,
+        Shipped = 3,
+        Delivered = 4
     }
 
     public enum PrescriptionStatus
     {
-        Pending,
-        Approved,
-        Rejected,
-        Cancelled,
-        Expired
+        Pending = 1,
+        Approved = 2,
+        Rejected = 3,
+        Cancelled = 4,
+        Expired = 5
     }
     public enum PaymentStatus
     {
-        Pending,
-        Completed,
-        Failed,
-        Refunded
+        Pending = 1,
+        Completed = 2,
+        Failed = 3,
+        Refunded = 4
     }
 }

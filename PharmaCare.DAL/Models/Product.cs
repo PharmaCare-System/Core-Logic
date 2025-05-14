@@ -2,7 +2,7 @@
 
 namespace PharmaCare.DAL.Models
 {
-    public class Product : Base
+    public class Product : BaseEntity
     {
         public string Name { get; set; }
         public float Price { get; set; }

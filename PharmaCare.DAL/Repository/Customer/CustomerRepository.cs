@@ -19,9 +19,15 @@ namespace PharmaCare.DAL.Repository.Customers
             _context = context;
         }
 
+        public async Task<IEnumerable<Customer>> GetAllAsync()
+        {
+            return await _context.Customers.Include(c => c.ApplicationUser).ToListAsync();
+        }
+
         public async Task<Customer> GetCustomerByEmail(string email)
         {
-            return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
+            return await _context.Customers.Include(c=>c.ApplicationUser)
+                                           .FirstOrDefaultAsync(c => c.ApplicationUser.Email == email);
         }
     }
 }

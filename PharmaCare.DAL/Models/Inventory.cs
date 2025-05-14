@@ -8,7 +8,7 @@ using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Inventory : Base
+    public class Inventory : BaseEntity
     {
         public string Name { get; set; }
         public string Location  { get; set; }

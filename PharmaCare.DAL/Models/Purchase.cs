@@ -3,7 +3,7 @@ using PharmaCare.DAL.Enums;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Purchase : Base
+    public class Purchase : BaseEntity
     {
         public float TotalCost { get; set; }
         public bool IsVendor { get; set; } = false; // if true, customerId = another pharmacyId

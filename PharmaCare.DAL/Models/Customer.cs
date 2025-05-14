@@ -9,8 +9,12 @@ using PharmaCare.DAL.Models.UserMessages;
 using PharmaCare.DAL.Models.UserNotifications;
 namespace PharmaCare.DAL.Models
 {
-    public class Customer : UserBase
+    public class Customer : BaseEntity
     {
+        // Application
+        public int ApplicationUserId { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
+
         // Message need to convert to THP Relation
         public virtual ICollection<MessagesCustomer>? Messages { get; set; }
         public virtual Chat? Chat { get; set; }

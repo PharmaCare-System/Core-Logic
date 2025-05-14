@@ -2,7 +2,7 @@
 
 namespace PharmaCare.DAL.Models
 {
-    public class Chat : Base
+    public class Chat : BaseEntity
     {
 
 

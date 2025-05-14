@@ -16,10 +16,14 @@ namespace PharmaCare.DAL.Repository.Pharmacists
         {
 
         }
-
+        public async Task<IEnumerable<Pharmacist>> GetAllAsync()
+        {
+            return await _context.Pharmacists.Include(p=>p.ApplicationUser).ToListAsync();
+        }
         public async Task<IEnumerable<Pharmacist>> AvialbelForChat()
         {
             var pharmacists = await _context.Pharmacists
+                .Include(p => p.ApplicationUser)
                 .Where(p => p.IsActive == true)
                 .ToListAsync();
             return pharmacists;

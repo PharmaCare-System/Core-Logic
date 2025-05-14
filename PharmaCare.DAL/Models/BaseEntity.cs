@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Base
+    public class BaseEntity
     {
         public int Id {  get; set; }
         public int CreatedById { get; set; }

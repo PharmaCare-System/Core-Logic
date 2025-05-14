@@ -9,8 +9,11 @@ using PharmaCare.DAL.Models.UserMessages;
 
 namespace PharmaCare.DAL.Models
 {
-    public class Pharmacist : UserBase
+    public class Pharmacist : BaseEntity
     {
+        public int ApplicationUserId { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
+        //---------
         public DateTime HireDate { get; set; }
         public bool IsActive { get; set; } = true;
         public int ManagerId { get; set; } 
