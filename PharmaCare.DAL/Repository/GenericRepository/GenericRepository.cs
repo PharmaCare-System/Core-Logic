@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PharmaCare.DAL.Repository.GenericRepository
 {
-	public class GenericRepository<T> : IGenericRepository<T> where T : Base
+	public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 	{
 		public readonly ApplicationDbContext _context;
 		public readonly DbSet<T> _DbSet;
