@@ -36,7 +36,7 @@ namespace PharmaCare.BLL.Services.Category
             var categoryModel = await _categoryRepository.GetAsyncById(id);
             id.CheckIfNull(categoryModel);
             categoryModel.IsActive = false;
-            await _categoryRepository.DeleteAsync(categoryModel);
+            await _categoryRepository.SoftDelete(categoryModel);
         }
 
         public async Task<IEnumerable<CategoryReadDTO>> GetActiveCategoriesAsync()  

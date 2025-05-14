@@ -67,7 +67,7 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerModel = await _customerRepository.GetAsyncById(id);
             id.CheckIfNull(customerModel);
 
-            await _customerRepository.DeleteAsync(customerModel);
+            await _customerRepository.SoftDelete(customerModel);
         }
 
         public async Task UpdateAsync(CustomerUpdateDTO customerDTO, int id)

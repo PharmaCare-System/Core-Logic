@@ -47,7 +47,7 @@ public class PharmacistService : IPharmacistService
         var pharmacistModel = await _pharmacistRepository.GetAsyncById(id);
         id.CheckIfNull(pharmacistModel);
         pharmacistModel.IsActive = false;
-        await _pharmacistRepository.DeleteAsync(pharmacistModel);
+        await _pharmacistRepository.SoftDelete(pharmacistModel);
     }
     public async Task<IEnumerable<PharmacistReadDTO>> GetAllAsync()
     {

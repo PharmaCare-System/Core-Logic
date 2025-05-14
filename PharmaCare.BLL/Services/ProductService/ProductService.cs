@@ -41,7 +41,7 @@ namespace PharmaCare.BLL.Services.ProductService
             var productModel = await _productRepository.GetAsyncById(id);
             id.CheckIfNull(productModel);
 
-            await _productRepository.DeleteAsync(productModel);
+            await _productRepository.SoftDelete(productModel);
         }
 
         public async Task<IEnumerable<ProductReadDTO>> GetAllAsync()

@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using PharmaCare.DAL.Models;
-using PharmaCare.DAL.Configurations;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection.Emit;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using PharmaCare.DAL.Configurations;
+using PharmaCare.DAL.Migrations;
+using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Models.ProductRel;
 using PharmaCare.DAL.Models.UserAddress;
-using PharmaCare.DAL.Models.UserNotifications;
-using System.Runtime.Intrinsics.Arm;
 using PharmaCare.DAL.Models.UserMessages;
+
 using PharmaCare.DAL.Models.ProductRel;
 using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 using PharmaCare.DAL.Migrations;
@@ -88,7 +91,23 @@ namespace PharmaCare.DAL.Database
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             base.OnModelCreating(builder);
+            foreach (var entityType in builder.Model.GetEntityTypes())
+            {
+                if (typeof(Base).IsAssignableFrom(entityType.ClrType))
+                {
+                    builder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
+                }
+
+            }
         }
+       private static LambdaExpression ConvertFilterExpression(Type entityType)
+        {
+            var parameter = Expression.Parameter(entityType, "e");
+            var prop = Expression.Property(parameter, nameof(Base.IsDeleted));
+            var body = Expression.Equal(prop, Expression.Constant(false));
+            return Expression.Lambda(body, parameter);
+        }
+
 
         public override int SaveChanges()
         {
