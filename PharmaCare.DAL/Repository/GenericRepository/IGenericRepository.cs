@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using PharmaCare.DAL.Models;
@@ -15,5 +16,6 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 		Task<T> GetAsyncById(int id);
 		Task UpdateAsync(T entity);
 		Task SoftDelete(T entity);
-	}
+        Task<PagedResult<T>> GetPagedAsync(Expression<Func<T, bool>> filter,PaginationParameters parameters);
+    }
 }
