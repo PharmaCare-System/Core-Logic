@@ -14,7 +14,7 @@ namespace PharmaCare.DAL.Models
         public Customer? Customer { get; set; }
 
         // Pharmacist who review the prescription
-        public int PharmacistId { get; set; }
+        public int? PharmacistId { get; set; }
         public  Pharmacist? Pharmacist { get; set; }
     }
 }

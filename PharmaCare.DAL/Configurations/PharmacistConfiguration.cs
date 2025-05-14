@@ -55,14 +55,13 @@ namespace PharmaCare.DAL.Configurations
             // pharmacist Review prescriptions ( 1 to N)
             builder.HasMany(p => p.Prescriptions)
                    .WithOne(pr => pr.Pharmacist)
-                   .HasForeignKey(pr => pr.PharmacistId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .HasForeignKey(pr => pr.PharmacistId);
 
             // pharmacist process Order ( 1 to N)
             builder.HasMany(p => p.Orders)
                    .WithOne(o => o.Pharmacist)
                    .HasForeignKey(o => o.PharmacistId)
-                   .OnDelete(DeleteBehavior.SetNull);
+                   .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(c => c.Pharmacy)
                    .WithMany(ph => ph.Chats)
                    .HasForeignKey(c => c.PharmacyId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(c => c.Messages)
                    .WithOne(m => m.Chat)
