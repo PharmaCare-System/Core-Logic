@@ -66,7 +66,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasMany(i => i.Products)
                 .WithOne(p => p.Inventory)
                 .HasForeignKey(p => p.InventoryId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

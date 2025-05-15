@@ -12,8 +12,8 @@ using PharmaCare.DAL.Database;
 namespace PharmaCare.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250514041227_init")]
-    partial class init
+    [Migration("20250515184158_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -358,7 +358,7 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("DATE");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeletedById")
@@ -394,8 +394,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId")
-                        .IsUnique()
-                        .HasFilter("[CustomerId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("PharmacyId");
 
@@ -458,14 +457,13 @@ namespace PharmaCare.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("PharmacyId")
+                    b.Property<int>("PharmacyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PharmacyId")
-                        .IsUnique()
-                        .HasFilter("[PharmacyId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Inventories");
                 });
@@ -489,7 +487,7 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("DATE");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeletedById")
@@ -534,10 +532,10 @@ namespace PharmaCare.DAL.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("PharmacistId")
+                    b.Property<int>("PharmacistId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PharmacyId")
+                    b.Property<int>("PharmacyId")
                         .HasColumnType("int");
 
                     b.Property<double>("TotalPrice")
@@ -714,7 +712,7 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("DATE");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeletedById")
@@ -919,7 +917,7 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("DATE");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeletedById")
@@ -1008,7 +1006,7 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("DATE");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeletedById")
@@ -1078,7 +1076,7 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("DATE");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeletedById")
@@ -1111,8 +1109,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId")
-                        .IsUnique()
-                        .HasFilter("[CustomerId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -1354,7 +1351,7 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PharmacyId")
+                    b.Property<int>("PharmacyId")
                         .HasColumnType("int");
 
                     b.HasIndex("PharmacyId");
@@ -1494,7 +1491,8 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithOne("Chat")
                         .HasForeignKey("PharmaCare.DAL.Models.Chat", "CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
                         .WithMany("Chats")
@@ -1512,7 +1510,8 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
                         .WithOne("inventory")
                         .HasForeignKey("PharmaCare.DAL.Models.Inventory", "PharmacyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Pharmacy");
                 });
@@ -1522,16 +1521,20 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
                         .WithMany("Orders")
-                        .HasForeignKey("PharmacistId");
+                        .HasForeignKey("PharmacistId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "pharmacy")
                         .WithMany("Orders")
                         .HasForeignKey("PharmacyId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Customer");
 
@@ -1545,13 +1548,13 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Chat", "Chat")
                         .WithMany("pharmacistChats")
                         .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
                         .WithMany("PharmacistChats")
                         .HasForeignKey("PharmacistId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Chat");
@@ -1564,7 +1567,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Pharmacist", "ManagerPharmacy")
                         .WithOne("ManagedPharmacy")
                         .HasForeignKey("PharmaCare.DAL.Models.Pharmacy", "MangerPharmacyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ManagerPharmacy");
@@ -1575,7 +1578,8 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithMany("Prescriptions")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
                         .WithMany("Prescriptions")
@@ -1591,7 +1595,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Inventory", "Inventory")
                         .WithMany("Products")
                         .HasForeignKey("InventoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Inventory");
@@ -1606,13 +1610,13 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Order", "Order")
                         .WithMany("ProductOrders")
                         .HasForeignKey("OrderRefId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Product", "Product")
                         .WithMany("ProductOrders")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -1625,13 +1629,13 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.ShoppingCart", "ShoppingCart")
                         .WithMany("CartProducts")
                         .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Product", "Product")
                         .WithMany("CartProducts")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -1644,13 +1648,13 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Category", "Category")
                         .WithMany("ProductCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Product", "Product")
                         .WithMany("ProductCategories")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -1663,24 +1667,25 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithMany("Purchases")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Order", "Order")
                         .WithOne("Purchase")
                         .HasForeignKey("PharmaCare.DAL.Models.Purchase", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Payment", "Payment")
                         .WithOne("Purchase")
                         .HasForeignKey("PharmaCare.DAL.Models.Purchase", "PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
                         .WithMany("purchases")
                         .HasForeignKey("PharmacyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -1697,12 +1702,13 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithMany("Reviews")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("PharmaCare.DAL.Models.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -1715,7 +1721,8 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithOne("ShoppingCart")
                         .HasForeignKey("PharmaCare.DAL.Models.ShoppingCart", "CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });
@@ -1725,7 +1732,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Chat");
                 });
@@ -1750,7 +1757,8 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
                         .WithMany("Pharmacists")
                         .HasForeignKey("PharmacyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Pharmacy");
                 });
@@ -1760,7 +1768,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithOne("Address")
                         .HasForeignKey("PharmaCare.DAL.Models.UserAddress.CustomerAddress", "CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Customer");
                 });
@@ -1780,7 +1788,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithMany("Messages")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -1791,7 +1799,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Pharmacist", "Pharmacist")
                         .WithMany("Messages")
                         .HasForeignKey("pharmacistId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Pharmacist");
@@ -1802,7 +1810,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Customer", "Customer")
                         .WithMany("CustomerNotifications")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -1813,7 +1821,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
                         .WithMany("PharmacyNotifications")
                         .HasForeignKey("PharmacyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Pharmacy");

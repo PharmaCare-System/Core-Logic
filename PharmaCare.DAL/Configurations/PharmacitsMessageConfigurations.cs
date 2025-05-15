@@ -11,7 +11,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(mc => mc.Pharmacist)
                 .WithMany(c => c.Messages)
                 .HasForeignKey(m => m.pharmacistId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

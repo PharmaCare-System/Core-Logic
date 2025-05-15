@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PharmaCare.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -244,7 +244,7 @@ namespace PharmaCare.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(type: "DATE", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
@@ -263,8 +263,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_ShoppingCarts_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -297,8 +296,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Address_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -315,8 +313,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_CartProducts_ShoppingCarts_CartId",
                         column: x => x.CartId,
                         principalTable: "ShoppingCarts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -326,7 +323,7 @@ namespace PharmaCare.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PharmacyId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
@@ -345,8 +342,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Chats_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -357,7 +353,7 @@ namespace PharmaCare.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Location = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    PharmacyId = table.Column<int>(type: "int", nullable: true),
+                    PharmacyId = table.Column<int>(type: "int", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
@@ -407,8 +403,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Products_Inventories_InventoryId",
                         column: x => x.InventoryId,
                         principalTable: "Inventories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -425,14 +420,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_ProductCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProductCategories_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -445,7 +438,7 @@ namespace PharmaCare.DAL.Migrations
                     Rating = table.Column<byte>(type: "TINYINT", nullable: false),
                     Comment = table.Column<string>(type: "NVARCHAR", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
@@ -464,14 +457,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Reviews_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Reviews_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -504,14 +495,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Messages_Chats_ChatId",
                         column: x => x.ChatId,
                         principalTable: "Chats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Messages_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -545,8 +534,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Notifications_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -559,9 +547,9 @@ namespace PharmaCare.DAL.Migrations
                     DeliveryAddress = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     TotalPrice = table.Column<double>(type: "float", nullable: false),
                     OrderStatus = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
-                    PharmacistId = table.Column<int>(type: "int", nullable: true),
-                    PharmacyId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    PharmacistId = table.Column<int>(type: "int", nullable: false),
+                    PharmacyId = table.Column<int>(type: "int", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
@@ -580,8 +568,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -604,14 +591,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_ProductOrders_Orders_OrderRefId",
                         column: x => x.OrderRefId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProductOrders_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -647,7 +632,7 @@ namespace PharmaCare.DAL.Migrations
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ManagerId = table.Column<int>(type: "int", nullable: false),
-                    PharmacyId = table.Column<int>(type: "int", nullable: true)
+                    PharmacyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -662,8 +647,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Pharmacists_Pharmacies_PharmacyId",
                         column: x => x.PharmacyId,
                         principalTable: "Pharmacies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -677,7 +661,7 @@ namespace PharmaCare.DAL.Migrations
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "DATE", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     PharmacyId = table.Column<int>(type: "int", nullable: false),
                     PaymentId = table.Column<int>(type: "int", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
@@ -698,26 +682,22 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Purchases_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Purchases_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Purchases_Payments_PaymentId",
                         column: x => x.PaymentId,
                         principalTable: "Payments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Purchases_Pharmacies_PharmacyId",
                         column: x => x.PharmacyId,
                         principalTable: "Pharmacies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -734,14 +714,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_PharmacistChats_Chats_ChatId",
                         column: x => x.ChatId,
                         principalTable: "Chats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PharmacistChats_Pharmacists_PharmacistId",
                         column: x => x.PharmacistId,
                         principalTable: "Pharmacists",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -753,7 +731,7 @@ namespace PharmaCare.DAL.Migrations
                     UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     PharmacistId = table.Column<int>(type: "int", nullable: true),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
                     CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
@@ -773,8 +751,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Prescriptions_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Prescriptions_Pharmacists_PharmacistId",
                         column: x => x.PharmacistId,
@@ -844,8 +821,7 @@ namespace PharmaCare.DAL.Migrations
                 name: "IX_Chats_CustomerId",
                 table: "Chats",
                 column: "CustomerId",
-                unique: true,
-                filter: "[CustomerId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Chats_PharmacyId",
@@ -856,8 +832,7 @@ namespace PharmaCare.DAL.Migrations
                 name: "IX_Inventories_PharmacyId",
                 table: "Inventories",
                 column: "PharmacyId",
-                unique: true,
-                filter: "[PharmacyId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_ChatId",
@@ -981,8 +956,7 @@ namespace PharmaCare.DAL.Migrations
                 name: "IX_ShoppingCarts_CustomerId",
                 table: "ShoppingCarts",
                 column: "CustomerId",
-                unique: true,
-                filter: "[CustomerId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Address_Pharmacists_PharmacistId",
@@ -996,8 +970,7 @@ namespace PharmaCare.DAL.Migrations
                 table: "CartProducts",
                 column: "ProductId",
                 principalTable: "Products",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Chats_Pharmacies_PharmacyId",
@@ -1011,32 +984,28 @@ namespace PharmaCare.DAL.Migrations
                 table: "Inventories",
                 column: "PharmacyId",
                 principalTable: "Pharmacies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Messages_Pharmacists_pharmacistId",
                 table: "Messages",
                 column: "pharmacistId",
                 principalTable: "Pharmacists",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.SetNull);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Notifications_Pharmacies_PharmacyId",
                 table: "Notifications",
                 column: "PharmacyId",
                 principalTable: "Pharmacies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Orders_Pharmacies_PharmacyId",
                 table: "Orders",
                 column: "PharmacyId",
                 principalTable: "Pharmacies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.SetNull);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Orders_Pharmacists_PharmacistId",
@@ -1050,8 +1019,7 @@ namespace PharmaCare.DAL.Migrations
                 table: "Pharmacies",
                 column: "MangerPharmacyId",
                 principalTable: "Pharmacists",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />

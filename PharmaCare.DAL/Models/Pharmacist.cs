@@ -18,7 +18,7 @@ namespace PharmaCare.DAL.Models
         public int ManagerId { get; set; } 
 
         // relations
-        public int? PharmacyId { get; set; }
+        public int PharmacyId { get; set; }
         public virtual Pharmacy? Pharmacy { get; set; }
         public virtual Pharmacy? ManagedPharmacy { get; set; }
 

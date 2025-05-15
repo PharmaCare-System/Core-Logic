@@ -62,22 +62,22 @@ namespace PharmaCare.DAL.Configurations
             builder.HasMany(p => p.purchases)
                 .WithOne(p => p.Pharmacy) 
                 .HasForeignKey(p => p.PharmacyId)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.NoAction); 
 
             builder.HasOne(p => p.inventory)
                 .WithOne(i => i.Pharmacy) 
                 .HasForeignKey<Inventory>(i => i.PharmacyId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(p => p.Pharmacists)
                 .WithOne(p => p.Pharmacy)
                 .HasForeignKey(p => p.PharmacyId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(p=>p.ManagerPharmacy)
                    .WithOne(ph => ph.ManagedPharmacy)
                    .HasForeignKey<Pharmacy>(p => p.MangerPharmacyId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

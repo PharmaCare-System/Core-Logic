@@ -13,7 +13,7 @@ namespace PharmaCare.DAL.Models
         public int OrderId { get; set; }
         public virtual Order? Order { get; set; }
 
-        public int? CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
         public int PharmacyId { get; set; }

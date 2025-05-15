@@ -61,7 +61,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasMany(p => p.Orders)
                    .WithOne(o => o.Pharmacist)
                    .HasForeignKey(o => o.PharmacistId)
-                   .OnDelete(DeleteBehavior.ClientSetNull);
+                   .OnDelete(DeleteBehavior.ClientNoAction);
         }
     }
 }
