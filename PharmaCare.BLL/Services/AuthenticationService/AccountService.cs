@@ -3,10 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PharmaCare.BLL.DTOs.AuthenticationDTOs;
+using PharmaCare.BLL.DTOs.PharmacistDTOs;
+using PharmaCare.BLL.DTOs.PharmayDTOs;
 using PharmaCare.BLL.Services.CustomerService;
 using PharmaCare.BLL.Services.PharmacistService;
 using PharmaCare.BLL.Services.PharmacySerivce;
 using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Repository.Customers;
+using PharmaCare.DAL.Repository.Pharmacists;
+using pharmacy.DAL;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,23 +27,23 @@ namespace PharmaCare.BLL.Services.AuthenticationService
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly IConfiguration _configuration;
-        private readonly IPharmacyService _pharmacyService;
-        private readonly IPharmacistService _pharmacistService;
-        private readonly ICustomerService _customerService;
+        private readonly IPharmacyRepository _pharmacyRepository;
+        private readonly IPharmacistRepository _pharmacistRepository;
+        private readonly ICustomerRepository _customerRepository;
 
         public AccountService(UserManager<ApplicationUser> userManager, 
                               IConfiguration configuration, 
                               RoleManager<IdentityRole<int>> roleManager,
-                              IPharmacyService pharmacyService,
-                              IPharmacistService pharmacistService,
-                              ICustomerService customerService)
+                              IPharmacyRepository pharmacyRepository,
+                              IPharmacistRepository pharmacistRepository,
+                              ICustomerRepository customerRepository)
         {
             _userManager = userManager;
             _configuration = configuration;
             _roleManager = roleManager;
-            _pharmacyService = pharmacyService;
-            _pharmacistService = pharmacistService;
-            _customerService = customerService;
+            _pharmacyRepository = pharmacyRepository;
+            _pharmacistRepository = pharmacistRepository;
+            _customerRepository = customerRepository;
         }
         public async Task<string> LoginAsync(LoginDTO loginDTO)
         {
@@ -59,11 +64,33 @@ namespace PharmaCare.BLL.Services.AuthenticationService
         2. only Admin create any user
          */
         
-        public async Task<string> RegisterPharmacyAsync(RegisterCustomerDTO registerDTO)
+        public async Task<string> RegisterPharmacyAsync(RegitserPharmacyAndAdminDTO registerDTO)
         {
             // create the pharmacist with it
             if(registerDTO.Password != registerDTO.ConfirmPassword)
                 return "Passwords do not match";
+            // create pharmacy
+
+            var PharmacyModel = new Pharmacy()
+            {
+                Name = registerDTO.Name,
+                Location = registerDTO.Address 
+            };
+            await _pharmacyRepository.AddAsync(PharmacyModel);
+
+            var PharmacistModel = new Pharmacist
+            {
+                FirstName = registerDTO.FirstName,
+                LastName = registerDTO.LastName,
+                Email = registerDTO.Email,
+                PhoneNumber = registerDTO.PhoneNumber,
+                PharmacyId =PharmacyModel.Id,
+                Age = registerDTO.Age,
+            };
+            await _pharmacistRepository.AddAsync(PharmacistModel);
+
+            PharmacyModel.MangerPharmacyId = PharmacistModel.Id;
+            await _pharmacyRepository.UpdateAsync(PharmacyModel);
 
             var user = new ApplicationUser()
             {
@@ -81,17 +108,92 @@ namespace PharmaCare.BLL.Services.AuthenticationService
                 claims.Add(new Claim("Email", registerDTO.Email));
 
                 await _userManager.AddClaimsAsync(user, claims);
-                //_pharmacyService.Add()
+
+                // create role if not exist
+                var Allroles = await GetAllRoles();
+                if(Allroles.FirstOrDefault(x => x.Name == "Admin") == null)
+                {
+                    await CreateRole(new RoleAddDTO() { Name = "Admin" });
+                }
+                AssignRole(new AssignRoleDTO()
+                {
+                    userId = PharmacistModel.Id,
+                    RoleId = (await GetAllRoles()).FirstOrDefault(x => x.Name == "Admin").Id
+
+                });
                 
                 return GenerateToken(claims);
             }
             return null;
         }
-        
+        public async Task<string> RegisterPharmacistAsync(RegitserPharmacistDTO registerDTO)
+        {
+            // create the pharmacist with it
+            if (registerDTO.Password != registerDTO.ConfirmPassword)
+                return "Passwords do not match";
+            // create pharmacy
+
+            var PharmacistModel = new Pharmacist
+            {
+                FirstName = registerDTO.FirstName,
+                LastName = registerDTO.LastName,
+                Email = registerDTO.Email,
+                PhoneNumber = registerDTO.PhoneNumber,
+                PharmacyId = registerDTO.pharmacyId,
+                Age = registerDTO.Age,
+            };
+
+
+            var user = new ApplicationUser()
+            {
+                Email = registerDTO.Email,
+                UserName = registerDTO.Email
+            };
+
+            var result = await _userManager.CreateAsync(user, registerDTO.Password);
+
+            if (result.Succeeded)
+            {
+                List<Claim> claims = new List<Claim>();
+
+                claims.Add(new Claim("Role", "Pharmacist"));
+                claims.Add(new Claim("Email", registerDTO.Email));
+
+                await _userManager.AddClaimsAsync(user, claims);
+
+                var Allroles = await GetAllRoles();
+
+                if (Allroles.FirstOrDefault(x => x.Name == "Pharmacist") == null)
+                {
+                    await CreateRole(new RoleAddDTO() { Name = "Pharmacist" });
+                }
+                AssignRole(new AssignRoleDTO()
+                {
+                    userId = PharmacistModel.Id,
+                    RoleId = (await GetAllRoles()).FirstOrDefault(x => x.Name == "Pharmacist").Id
+
+                });
+
+                return GenerateToken(claims);
+            }
+            return null;
+        }
+
         public async Task<string> RegisterCustomerAsync(RegisterCustomerDTO registerDTO)
         {
             if(registerDTO.Password != registerDTO.ConfirmPassword)
                 return "Passwords do not match";
+
+            var customerModel = new Customer()
+            {
+                FirstName = registerDTO.FirstName,
+                LastName = registerDTO.LastName,
+                Age = registerDTO.Age,
+                Email = registerDTO.Email,
+                Birthday = registerDTO.BirthDate,
+                PhoneNumber = registerDTO.PhoneNumber
+            };
+            await _customerRepository.AddAsync(customerModel);
 
             var user = new ApplicationUser()
             {
@@ -105,10 +207,23 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             {
                 List<Claim> claims = new List<Claim>();
 
-                claims.Add(new Claim("Role", "Admin"));
+                claims.Add(new Claim("Role", "Customer"));
                 claims.Add(new Claim("Email", registerDTO.Email));
 
                 await _userManager.AddClaimsAsync(user, claims);
+                var Allroles = await GetAllRoles();
+
+                if (Allroles.FirstOrDefault(x => x.Name == "Customer") == null)
+                {
+                    await CreateRole(new RoleAddDTO() { Name = "Customer" });
+                }
+                AssignRole(new AssignRoleDTO()
+                {
+                    userId = customerModel.Id,
+                    RoleId = (await GetAllRoles()).FirstOrDefault(x => x.Name == "Customer").Id
+
+                });
+
                 return GenerateToken(claims);
             }
             return null;
@@ -152,8 +267,8 @@ namespace PharmaCare.BLL.Services.AuthenticationService
 
         public async Task<string> AssignRole(AssignRoleDTO roleAssignDTO)
         {
-            var user = await _userManager.FindByIdAsync(roleAssignDTO.userId);
-            var role = await _roleManager.FindByIdAsync(roleAssignDTO.RoleId);
+            var user = await _userManager.FindByIdAsync(roleAssignDTO.userId.ToString());
+            var role = await _roleManager.FindByIdAsync(roleAssignDTO.RoleId.ToString());
 
             if(user !=null && role != null)
             {
@@ -179,5 +294,6 @@ namespace PharmaCare.BLL.Services.AuthenticationService
                                     }).ToListAsync();
             return roles;
         }
+
     }
 }

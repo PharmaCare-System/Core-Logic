@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using PharmaCare.BLL.DTOs.AuthenticationDTOs;
+using PharmaCare.BLL.DTOs.PharmayDTOs;
 using PharmaCare.BLL.Services.AuthenticationService;
 
 namespace PharmaCare.API.Controllers
@@ -26,10 +28,22 @@ namespace PharmaCare.API.Controllers
                 return Ok(token);
             return Unauthorized();
         }
+
         [HttpPost("pharmacy/register")]
-        public async Task<ActionResult> RegisterPharmacyAsync(RegisterCustomerDTO registerDTO)
+        public async Task<ActionResult> RegisterPharmacyAsync(RegitserPharmacyAndAdminDTO registerDTO)
         {
             var token = await _accountService.RegisterPharmacyAsync(registerDTO);
+
+            if (token != null)
+                return Ok(token);
+            return Unauthorized();
+        }
+
+        [Authorize(Roles ="Admin")]
+        [HttpPost("pharmacy/register/pharmacist")]
+        public async Task<ActionResult> RegisterPharmacist(RegitserPharmacistDTO registerDTO)
+        {
+            var token = await _accountService.RegisterPharmacistAsync(registerDTO);
 
             if (token != null)
                 return Ok(token);
@@ -46,6 +60,7 @@ namespace PharmaCare.API.Controllers
             return Unauthorized();
         }
 
+        [Authorize(Roles ="Adming")]
         [HttpPost("CreateRole")]
         public async Task<ActionResult> CreateRole(RoleAddDTO roleAdd)
         {
@@ -56,8 +71,9 @@ namespace PharmaCare.API.Controllers
             }
             return Ok();
         }
-        [HttpPost("AssignRoleToUser")]
 
+        [Authorize(Roles ="Adming")]
+        [HttpPost("AssignRoleToUser")]
         public async Task<ActionResult> AssignRoleToUser(AssignRoleDTO roleAssignDTO)
         {
             var result = _accountService.AssignRole(roleAssignDTO);
@@ -67,8 +83,9 @@ namespace PharmaCare.API.Controllers
             }
             return Ok(result);
         }
-        [HttpGet("AllRoles")]
 
+        [HttpGet("AllRoles")]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> GetAllRoles()
         {
             var result = _accountService.GetAllRoles();

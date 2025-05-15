@@ -26,17 +26,16 @@ public class PharmacistService : IPharmacistService
 
     public async Task AddAsync(PharmacistAddDTO pharmacistAddDto)
     {
-        var pharmacistModel = new Pharmacist();
-        //{
-        //    FirstName = pharmacistAddDto.FirstName,
-        //    LastName = pharmacistAddDto.LastName,
-        //    Email = pharmacistAddDto.Email,
-        //    IsActive = true,
-        //    Phone = pharmacistAddDto.Phone,
-        //    PharmacyId = pharmacistAddDto.PharmacyId,
-        //    Age = pharmacistAddDto.Age,
-        //    ManagerId = pharmacistAddDto.ManagerId,
-        //};
+        var pharmacistModel = new Pharmacist()
+        {
+            FirstName = pharmacistAddDto.FirstName,
+            LastName = pharmacistAddDto.LastName,
+            Email = pharmacistAddDto.Email,
+            IsActive = true,
+            PhoneNumber = pharmacistAddDto.Phone,
+            PharmacyId = pharmacistAddDto.PharmacyId,
+            Age = pharmacistAddDto.Age,
+        };
         await _pharmacistRepository.AddAsync(pharmacistModel);
     }
 
@@ -60,7 +59,6 @@ public class PharmacistService : IPharmacistService
             Email = p.Email,
             Phone = p.PhoneNumber,
             PharmacyId = p.PharmacyId,
-            ManagerPharmacistId = p.ManagerId
         }).ToList();
         return pharmacistDTOs;
     }
@@ -114,7 +112,6 @@ public class PharmacistService : IPharmacistService
             Email = p.Email,
             Phone = p.PhoneNumber,
             PharmacyId = p.PharmacyId,
-            ManagerPharmacistId = p.ManagerId
         }).ToList();
         return pharmacistDTOs;
     }
@@ -135,7 +132,6 @@ public class PharmacistService : IPharmacistService
 
         pharmacistModel.PharmacyId = pharmacistDTO.PharmacyId;
 
-        pharmacistModel.ManagerId = pharmacistDTO.ManagerPharmacistId;
 
         await _pharmacistRepository.UpdateAsync(pharmacistModel);
 
@@ -151,7 +147,6 @@ public class PharmacistService : IPharmacistService
             Email = p.Email,
             Phone = p.PhoneNumber,
             PharmacyId = p.PharmacyId,
-            ManagerPharmacistId = p.ManagerId
         }).ToList();
         return pharmacistDTOs;
     }
