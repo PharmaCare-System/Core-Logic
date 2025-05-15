@@ -33,7 +33,7 @@ namespace PharmaCare.BLL.Services.PresctiptionService
             var prescriptionModel = await _prescriptionsRepository.GetAsyncById(id);
             
             id.CheckIfNull(prescriptionModel);
-            _prescriptionsRepository.DeleteAsync(prescriptionModel);
+            _prescriptionsRepository.SoftDelete(prescriptionModel);
 
            
         }

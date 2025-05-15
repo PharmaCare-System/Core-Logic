@@ -41,7 +41,7 @@ namespace PharmaCare.BLL.Services.OrderService
         {
             var order = await _orderRepository.GetAsyncById(orderId);
            orderId.CheckIfNull(order);
-            await _orderRepository.DeleteAsync(order);
+            await _orderRepository.SoftDelete(order);
 
         }
 

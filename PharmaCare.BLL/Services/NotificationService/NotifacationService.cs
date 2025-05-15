@@ -38,7 +38,7 @@ namespace PharmaCare.BLL.Services.NotificationService
         {
             var notifacationModel = await _notifacationRepository.GetAsyncById(id);
             id.CheckIfNull(notifacationModel);
-           await _notifacationRepository.DeleteAsync(notifacationModel);
+           await _notifacationRepository.SoftDelete(notifacationModel);
         }
 
         public async Task<IEnumerable<NotifacationReadDTO>> GetAllAsync()

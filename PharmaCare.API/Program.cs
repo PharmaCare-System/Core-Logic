@@ -1,32 +1,29 @@
+using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PharmaCare.API.Middleware;
+using PharmaCare.BLL.DTOs.ProductDTOs;
 using PharmaCare.BLL.Services.AuthenticationService;
+using PharmaCare.BLL.Services.CustomerService;
 using PharmaCare.BLL.Services.InventoryService;
 using PharmaCare.BLL.Services.NotificationService;
 using PharmaCare.BLL.Services.PharmacistService;
 using PharmaCare.BLL.Services.PharmacySerivce;
+using PharmaCare.BLL.Services.ProductService;
 using PharmaCare.DAL;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
+using PharmaCare.DAL.ProductRepository;
+using PharmaCare.DAL.Repository.Customers;
+using PharmaCare.DAL.Repository.ProductRepository;
+using PharmaCare.DAL.Repository.UnitOfWork;
 using PharmaCareInv.DAL;
 using PharmaCarepharmacy.DAL.Repository;
 using pharmacy.DAL;
-using PharmaCare.DAL.Repository.UnitOfWork;
-using System.Text;
-using PharmaCare.DAL.Repository.Customers;
-using PharmaCare.BLL.Services.CustomerService;
-using PharmaCare.DAL.ProductRepository;
-using PharmaCare.DAL.Repository.ProductRepository;
-using PharmaCare.BLL.Services.ProductService;
-using PharmaCare.BLL.Services.CategoryService;
-using PharmaCare.BLL.Services.Category;
-using PharmaCare.BLL.Services.Chat;
-using pharmacare.bll.services.pharmacyserivce;
-using PharmaCare.DAL.Repository.Category;
-using PharmaCare.DAL.Repository.Pharmacists;
+
 
 
 namespace PharmaCare.API
@@ -66,6 +63,13 @@ namespace PharmaCare.API
             // Service registrations
             //-------------------------------------------------------------------//
 
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.CreateMap<Product, ProductReadDTO>();
+                // Add other mappings here
+            }, typeof(Program).Assembly);
+            builder.Services.AddScoped<IMapper, Mapper>();
+
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -93,6 +97,7 @@ namespace PharmaCare.API
             });
 
             var app = builder.Build();
+            
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

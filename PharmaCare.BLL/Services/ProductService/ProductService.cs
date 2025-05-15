@@ -1,4 +1,5 @@
-﻿using PharmaCare.BLL.DTOs.ProductDTOs;
+﻿using AutoMapper;
+using PharmaCare.BLL.DTOs.ProductDTOs;
 using PharmaCare.DAL.ExtensionMethods;
 using PharmaCare.DAL.Models;
 using PharmaCare.DAL.ProductRepository;
@@ -13,10 +14,12 @@ namespace PharmaCare.BLL.Services.ProductService
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository,IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
         public async Task AddAsync(ProductAddDTO productDTO)
         {
@@ -41,7 +44,7 @@ namespace PharmaCare.BLL.Services.ProductService
             var productModel = await _productRepository.GetAsyncById(id);
             id.CheckIfNull(productModel);
 
-            await _productRepository.DeleteAsync(productModel);
+            await _productRepository.SoftDelete(productModel);
         }
 
         public async Task<IEnumerable<ProductReadDTO>> GetAllAsync()
@@ -103,6 +106,25 @@ namespace PharmaCare.BLL.Services.ProductService
             };
 
             return productDTO;
+        }
+
+        public async Task<PagedResult<ProductReadDTO>> GetPagedProductsAsync(string? term, string? sort, int page=1, int limit=10)
+        {
+
+            {
+                var pagedProducts = await _productRepository.GetPagedProductsAsync(term, sort, page, limit);
+
+                var itemsDto = _mapper.Map<IEnumerable<ProductReadDTO>>(pagedProducts.Items);
+
+                return new PagedResult<ProductReadDTO>
+                {
+                    Items = itemsDto,
+                    TotalCount = pagedProducts.TotalCount,
+                    PageNumber = pagedProducts.PageNumber,
+                    PageSize = pagedProducts.PageSize
+                };
+
+            }
         }
 
         public async Task UpdateAsync(ProductUpdateDTO productDTO, int id)

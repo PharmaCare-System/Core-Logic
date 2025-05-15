@@ -37,7 +37,7 @@ namespace PharmaCare.BLL.Services.ReviewService
         {
             var review =await _ReviewRepository.GetAsyncById(id);
             id.CheckIfNull(review);
-          await _ReviewRepository.DeleteAsync(review);
+          await _ReviewRepository.SoftDelete(review);
         }
 
         public async Task<IEnumerable<ReviewReadDto>> GetAllAsync()
@@ -76,6 +76,7 @@ namespace PharmaCare.BLL.Services.ReviewService
             {
                 userID = customerId,
                 userName = reviews.FirstOrDefault().Customer.FirstName + " " + reviews.FirstOrDefault().Customer.LastName,
+
                 UserReviews = reviews.Select(r => new ReviewReadDto
                 {
                     Id = r.Id,
