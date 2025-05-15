@@ -18,12 +18,13 @@ using PharmaCare.DAL.Models.UserMessages;
 
 using PharmaCare.DAL.Models.ProductRel;
 using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
+using Microsoft.AspNetCore.Identity;
 using PharmaCare.DAL.Migrations;
 using PharmaCare.DAL.Models.UserNotifications;
 
 namespace PharmaCare.DAL.Database
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>,int>
     {
         #region DbSets
 
@@ -51,13 +52,12 @@ namespace PharmaCare.DAL.Database
             }
          
          */
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Address> CustomerAddresses { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<Pharmacist> Pharmacists { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -71,7 +71,6 @@ namespace PharmaCare.DAL.Database
         public DbSet<ProductOrder> ProductOrders { get; set; }
         public DbSet<CartProducts> CartProducts { get; set; }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<PharmacistAddress> PharmacistAddresses { get; set; }
         public DbSet<MessagesCustomer> MessagesCustomers { get; set; }
         public DbSet<MessagesPharmacist> MessagesPharmacists { get; set; }
         public DbSet<CustomerNotification> CustomerNotifications { get; set; }
@@ -89,6 +88,10 @@ namespace PharmaCare.DAL.Database
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ApplicationUser>().ToTable("AspNetUsers");
+            builder.Entity<Customer>().ToTable("Customers");
+            builder.Entity<Pharmacist>().ToTable("Pharmacists");
+            
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             base.OnModelCreating(builder);
@@ -110,6 +113,38 @@ namespace PharmaCare.DAL.Database
         }
 
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedById = 0;
+                        entry.Entity.CreatedByName = "name";
+                        entry.Entity.CreatedDateTime = DateTime.Now;
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Entity.ModifiedById = 0;
+                        entry.Entity.ModifiedByName = "name";
+                        entry.Entity.ModifiedDateTime = DateTime.Now;
+                        break;
+
+                    case EntityState.Deleted:
+                        entry.Entity.DeletedById = 0;
+                        entry.Entity.DeletedByName = "name";
+                        entry.Entity.DeletedDateTime = DateTime.Now;
+                        entry.Entity.IsDeleted = true;
+                        entry.State = EntityState.Modified;
+
+                        break;
+
+
+                }
+            }   
+            return base.SaveChangesAsync(cancellationToken);
+        }
         public override int SaveChanges()
         {
             foreach (var entry in ChangeTracker.Entries<BaseEntity>() )

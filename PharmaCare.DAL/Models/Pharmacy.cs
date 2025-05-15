@@ -11,7 +11,7 @@ namespace PharmaCare.DAL.Models
     {
         public string Name { get; set; }
         public string Location { get; set; }
-        public int? MangerPharmacyId { get; set; }
+        public int MangerPharmacyId { get; set; }
         public ICollection<Purchase>? purchases { get; set; }
         public Inventory? inventory { get; set; }
         public Pharmacist? ManagerPharmacy { get; set; }

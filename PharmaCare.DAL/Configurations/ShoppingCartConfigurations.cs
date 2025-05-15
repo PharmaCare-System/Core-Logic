@@ -57,12 +57,12 @@ namespace PharmaCare.DAL.Configurations
                         pp => pp.HasOne(c => c.Product)
                                 .WithMany(p => p.CartProducts)
                                 .HasForeignKey(c => c.ProductId)
-                                .OnDelete(DeleteBehavior.Cascade),
+                                .OnDelete(DeleteBehavior.NoAction),
 
                         cc => cc.HasOne(c => c.ShoppingCart)
                                 .WithMany(sp => sp.CartProducts)
                                 .HasForeignKey(c => c.CartId)
-                                .OnDelete(DeleteBehavior.Cascade)
+                                .OnDelete(DeleteBehavior.NoAction)
                     );
         }
     }

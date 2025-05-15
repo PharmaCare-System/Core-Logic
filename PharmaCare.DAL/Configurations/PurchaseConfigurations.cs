@@ -63,7 +63,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(p => p.Payment)
                    .WithOne(p => p.Purchase)
                    .HasForeignKey<Purchase>(p => p.PaymentId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

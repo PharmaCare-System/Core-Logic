@@ -82,17 +82,27 @@ namespace PharmaCare.DAL.Configurations
                         cc => cc.HasOne(pc => pc.Category)
                                 .WithMany(c => c.ProductCategories)
                                 .HasForeignKey(pc => pc.CategoryId)
-                                .OnDelete(DeleteBehavior.Cascade),
+                                .OnDelete(DeleteBehavior.NoAction),
 
                         pp => pp.HasOne(pc => pc.Product)
                                 .WithMany(p => p.ProductCategories)
                                 .HasForeignKey(pc=>pc.ProductId)
-                                .OnDelete(DeleteBehavior.Cascade)
+                                .OnDelete(DeleteBehavior.NoAction)
                    );
 
             builder.HasMany(p => p.Orders)
                    .WithMany(o => o.Products)
-                   .UsingEntity<ProductOrder>();
+                   .UsingEntity<ProductOrder>(
+                        j => j.HasOne(po => po.Order)
+                              .WithMany(o => o.ProductOrders)
+                              .HasForeignKey(po => po.OrderRefId)
+                              .OnDelete(DeleteBehavior.NoAction),
+                        j => j.HasOne(po => po.Product)
+                              .WithMany(p => p.ProductOrders)
+                              .HasForeignKey(po => po.ProductId)
+                              .OnDelete(DeleteBehavior.NoAction),
+                        j => j.HasKey(po => new { po.ProductId, po.OrderRefId })
+                   );
         }
     }
 }

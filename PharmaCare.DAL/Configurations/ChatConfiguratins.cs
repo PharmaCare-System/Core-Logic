@@ -48,12 +48,12 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(c => c.Pharmacy)
                    .WithMany(ph => ph.Chats)
                    .HasForeignKey(c => c.PharmacyId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(c => c.Messages)
                    .WithOne(m => m.Chat)
                    .HasForeignKey(m => m.ChatId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
 
             // pharmacist Access Chat (N to N):
             builder.HasMany(p => p.pharmacists)
@@ -62,12 +62,12 @@ namespace PharmaCare.DAL.Configurations
                         pp => pp.HasOne(pc => pc.Pharmacist)
                                 .WithMany(p => p.PharmacistChats)
                                 .HasForeignKey(pc => pc.PharmacistId)
-                                .OnDelete(DeleteBehavior.Cascade),
+                                .OnDelete(DeleteBehavior.NoAction),
 
                         oo => oo.HasOne(po => po.Chat)
                                 .WithMany(p => p.pharmacistChats)
                                 .HasForeignKey(po => po.ChatId)
-                                .OnDelete(DeleteBehavior.Cascade)
+                                .OnDelete(DeleteBehavior.NoAction)
                 );
         }
     }

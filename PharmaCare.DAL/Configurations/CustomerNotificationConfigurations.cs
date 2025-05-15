@@ -11,7 +11,7 @@ namespace PharmaCare.DAL.Configurations
             builder.HasOne(cn => cn.Customer)
                 .WithMany(c => c.CustomerNotifications)
                 .HasForeignKey(cn => cn.CustomerId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
     }

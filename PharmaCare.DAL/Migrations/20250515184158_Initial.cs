@@ -15,7 +15,8 @@ namespace PharmaCare.DAL.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -29,7 +30,22 @@ namespace PharmaCare.DAL.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -57,30 +73,21 @@ namespace PharmaCare.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Age = table.Column<int>(type: "int", nullable: false, computedColumnSql: "DATEDIFF(YEAR, [Birthday], GETDATE())", stored: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Birthday = table.Column<DateTime>(type: "DATE", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,7 +97,17 @@ namespace PharmaCare.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -103,7 +120,7 @@ namespace PharmaCare.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -124,7 +141,7 @@ namespace PharmaCare.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -146,7 +163,7 @@ namespace PharmaCare.DAL.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,8 +180,8 @@ namespace PharmaCare.DAL.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,7 +204,7 @@ namespace PharmaCare.DAL.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -204,13 +221,40 @@ namespace PharmaCare.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_AspNetUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ShoppingCarts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(type: "DATE", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -219,8 +263,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_ShoppingCarts_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -234,7 +277,17 @@ namespace PharmaCare.DAL.Migrations
                     streetNumber = table.Column<short>(type: "SMALLINT", nullable: false),
                     UserType = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
-                    PharmacistId = table.Column<int>(type: "int", nullable: true)
+                    PharmacistId = table.Column<int>(type: "int", nullable: true),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -243,8 +296,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Address_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -261,8 +313,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_CartProducts_ShoppingCarts_CartId",
                         column: x => x.CartId,
                         principalTable: "ShoppingCarts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -272,7 +323,17 @@ namespace PharmaCare.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PharmacyId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -281,8 +342,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Chats_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -293,7 +353,17 @@ namespace PharmaCare.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Location = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    PharmacyId = table.Column<int>(type: "int", nullable: true)
+                    PharmacyId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -314,7 +384,17 @@ namespace PharmaCare.DAL.Migrations
                     PrescriptionRequired = table.Column<bool>(type: "BIT", nullable: false),
                     BarCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InventoryId = table.Column<int>(type: "int", nullable: false)
+                    InventoryId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -323,8 +403,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Products_Inventories_InventoryId",
                         column: x => x.InventoryId,
                         principalTable: "Inventories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -341,14 +420,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_ProductCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProductCategories_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -361,7 +438,17 @@ namespace PharmaCare.DAL.Migrations
                     Rating = table.Column<byte>(type: "TINYINT", nullable: false),
                     Comment = table.Column<string>(type: "NVARCHAR", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -370,14 +457,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Reviews_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Reviews_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -391,7 +476,17 @@ namespace PharmaCare.DAL.Migrations
                     UserType = table.Column<int>(type: "int", nullable: false),
                     ChatId = table.Column<int>(type: "int", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
-                    pharmacistId = table.Column<int>(type: "int", nullable: true)
+                    pharmacistId = table.Column<int>(type: "int", nullable: true),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -400,14 +495,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Messages_Chats_ChatId",
                         column: x => x.ChatId,
                         principalTable: "Chats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Messages_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -422,7 +515,17 @@ namespace PharmaCare.DAL.Migrations
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
-                    PharmacyId = table.Column<int>(type: "int", nullable: true)
+                    PharmacyId = table.Column<int>(type: "int", nullable: true),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -431,8 +534,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Notifications_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -445,9 +547,19 @@ namespace PharmaCare.DAL.Migrations
                     DeliveryAddress = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     TotalPrice = table.Column<double>(type: "float", nullable: false),
                     OrderStatus = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
-                    PharmacistId = table.Column<int>(type: "int", nullable: true),
-                    PharmacyId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    PharmacistId = table.Column<int>(type: "int", nullable: false),
+                    PharmacyId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -456,8 +568,7 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -465,29 +576,27 @@ namespace PharmaCare.DAL.Migrations
                 columns: table => new
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    OrderId1 = table.Column<int>(type: "int", nullable: true)
+                    OrderRefId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductOrders", x => new { x.ProductId, x.OrderId });
+                    table.PrimaryKey("PK_ProductOrders", x => new { x.ProductId, x.OrderRefId });
                     table.ForeignKey(
                         name: "FK_ProductOrders_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ProductOrders_Orders_OrderId1",
-                        column: x => x.OrderId1,
+                        name: "FK_ProductOrders_Orders_OrderRefId",
+                        column: x => x.OrderRefId,
                         principalTable: "Orders",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProductOrders_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -498,7 +607,17 @@ namespace PharmaCare.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Location = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    MangerPharmacyId = table.Column<int>(type: "int", nullable: true)
+                    MangerPharmacyId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -509,29 +628,26 @@ namespace PharmaCare.DAL.Migrations
                 name: "Pharmacists",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ManagerId = table.Column<int>(type: "int", nullable: false),
-                    PharmacyId = table.Column<int>(type: "int", nullable: true),
-                    Age = table.Column<int>(type: "int", nullable: false, computedColumnSql: "DATEDIFF(YEAR, [Birthday], GETDATE())", stored: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Birthday = table.Column<DateTime>(type: "DATE", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false)
+                    PharmacyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pharmacists", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Pharmacists_AspNetUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Pharmacists_Pharmacies_PharmacyId",
                         column: x => x.PharmacyId,
                         principalTable: "Pharmacies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -545,9 +661,19 @@ namespace PharmaCare.DAL.Migrations
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "DATE", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     PharmacyId = table.Column<int>(type: "int", nullable: false),
-                    PaymentId = table.Column<int>(type: "int", nullable: false)
+                    PaymentId = table.Column<int>(type: "int", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -556,26 +682,22 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Purchases_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Purchases_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Purchases_Payments_PaymentId",
                         column: x => x.PaymentId,
                         principalTable: "Payments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Purchases_Pharmacies_PharmacyId",
                         column: x => x.PharmacyId,
                         principalTable: "Pharmacies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -592,14 +714,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_PharmacistChats_Chats_ChatId",
                         column: x => x.ChatId,
                         principalTable: "Chats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PharmacistChats_Pharmacists_PharmacistId",
                         column: x => x.PharmacistId,
                         principalTable: "Pharmacists",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -611,8 +731,18 @@ namespace PharmaCare.DAL.Migrations
                     UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
-                    PharmacistId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    PharmacistId = table.Column<int>(type: "int", nullable: true),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    CreatedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    ModifiedById = table.Column<int>(type: "int", nullable: false),
+                    ModifiedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    ModifiedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    DeletedById = table.Column<int>(type: "int", nullable: false),
+                    DeletedByName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DeletedDateTime = table.Column<DateTime>(type: "DATE", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "BIT", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -621,14 +751,12 @@ namespace PharmaCare.DAL.Migrations
                         name: "FK_Prescriptions_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Prescriptions_Pharmacists_PharmacistId",
                         column: x => x.PharmacistId,
                         principalTable: "Pharmacists",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -693,8 +821,7 @@ namespace PharmaCare.DAL.Migrations
                 name: "IX_Chats_CustomerId",
                 table: "Chats",
                 column: "CustomerId",
-                unique: true,
-                filter: "[CustomerId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Chats_PharmacyId",
@@ -705,8 +832,7 @@ namespace PharmaCare.DAL.Migrations
                 name: "IX_Inventories_PharmacyId",
                 table: "Inventories",
                 column: "PharmacyId",
-                unique: true,
-                filter: "[PharmacyId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_ChatId",
@@ -752,8 +878,7 @@ namespace PharmaCare.DAL.Migrations
                 name: "IX_Pharmacies_MangerPharmacyId",
                 table: "Pharmacies",
                 column: "MangerPharmacyId",
-                unique: true,
-                filter: "[MangerPharmacyId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PharmacistChats_ChatId",
@@ -786,9 +911,9 @@ namespace PharmaCare.DAL.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductOrders_OrderId1",
+                name: "IX_ProductOrders_OrderRefId",
                 table: "ProductOrders",
-                column: "OrderId1");
+                column: "OrderRefId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_InventoryId",
@@ -831,80 +956,70 @@ namespace PharmaCare.DAL.Migrations
                 name: "IX_ShoppingCarts_CustomerId",
                 table: "ShoppingCarts",
                 column: "CustomerId",
-                unique: true,
-                filter: "[CustomerId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Address_Pharmacists_PharmacistId",
                 table: "Address",
                 column: "PharmacistId",
                 principalTable: "Pharmacists",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_CartProducts_Products_ProductId",
                 table: "CartProducts",
                 column: "ProductId",
                 principalTable: "Products",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Chats_Pharmacies_PharmacyId",
                 table: "Chats",
                 column: "PharmacyId",
                 principalTable: "Pharmacies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Inventories_Pharmacies_PharmacyId",
                 table: "Inventories",
                 column: "PharmacyId",
                 principalTable: "Pharmacies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Messages_Pharmacists_pharmacistId",
                 table: "Messages",
                 column: "pharmacistId",
                 principalTable: "Pharmacists",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.SetNull);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Notifications_Pharmacies_PharmacyId",
                 table: "Notifications",
                 column: "PharmacyId",
                 principalTable: "Pharmacies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Orders_Pharmacies_PharmacyId",
                 table: "Orders",
                 column: "PharmacyId",
                 principalTable: "Pharmacies",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.SetNull);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Orders_Pharmacists_PharmacistId",
                 table: "Orders",
                 column: "PharmacistId",
                 principalTable: "Pharmacists",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.SetNull);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Pharmacies_Pharmacists_MangerPharmacyId",
                 table: "Pharmacies",
                 column: "MangerPharmacyId",
                 principalTable: "Pharmacists",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.SetNull);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
@@ -963,9 +1078,6 @@ namespace PharmaCare.DAL.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
@@ -991,6 +1103,9 @@ namespace PharmaCare.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pharmacists");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Pharmacies");

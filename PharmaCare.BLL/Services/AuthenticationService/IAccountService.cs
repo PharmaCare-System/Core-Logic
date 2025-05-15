@@ -10,7 +10,8 @@ namespace PharmaCare.BLL.Services.AuthenticationService
     public interface IAccountService
     {
         public Task<string> LoginAsync(LoginDTO loginDTO);
-        public Task<string> RegisterAsync(RegisterDTO registerDTO);
+        public Task<string> RegisterPharmacyAsync(RegisterCustomerDTO registerDTO);
+        public Task<string> RegisterCustomerAsync(RegisterCustomerDTO registerDTO);
         public Task<string> CreateRole(RoleAddDTO roleAddDTO);
         public Task<string> AssignRole(AssignRoleDTO roleAssignDTO);
         public Task<List<RoleReadDTO>> GetAllRoles();

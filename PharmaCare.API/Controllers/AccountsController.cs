@@ -26,15 +26,26 @@ namespace PharmaCare.API.Controllers
                 return Ok(token);
             return Unauthorized();
         }
-        [HttpPost("register")]
-        public async Task<ActionResult> RegisterAsync(RegisterDTO registerDTO)
+        [HttpPost("pharmacy/register")]
+        public async Task<ActionResult> RegisterPharmacyAsync(RegisterCustomerDTO registerDTO)
         {
-            var token = await _accountService.RegisterAsync(registerDTO);
+            var token = await _accountService.RegisterPharmacyAsync(registerDTO);
 
             if (token != null)
                 return Ok(token);
             return Unauthorized();
         }
+
+        [HttpPost("customer/register")]
+        public async Task<ActionResult> RegisterCustomerAsync(RegisterCustomerDTO registerDTO)
+        {
+            var token = await _accountService.RegisterCustomerAsync(registerDTO);
+
+            if (token != null)
+                return Ok(token);
+            return Unauthorized();
+        }
+
         [HttpPost("CreateRole")]
         public async Task<ActionResult> CreateRole(RoleAddDTO roleAdd)
         {

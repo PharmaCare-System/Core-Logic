@@ -15,12 +15,12 @@ namespace PharmaCare.BLL.DTOs.OrderDTOs
         public double TotalPrice { get; set; }
         public OrderStatuses OrderStatus { get; set; }
 
-        public int? CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public List<ProductOrderAddDTO> OrderProducts { get; set; }
 
-        public int? PharmacistId { get; set; }
+        public int PharmacistId { get; set; }
 
-        public int? PharmacyId { get; set; }
+        public int PharmacyId { get; set; }
 
 
     }

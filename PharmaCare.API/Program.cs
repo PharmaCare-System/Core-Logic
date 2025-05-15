@@ -4,9 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using pharmacare.bll.services.pharmacyserivce;
 using PharmaCare.API.Middleware;
 using PharmaCare.BLL.DTOs.ProductDTOs;
 using PharmaCare.BLL.Services.AuthenticationService;
+using PharmaCare.BLL.Services.Category;
+using PharmaCare.BLL.Services.CategoryService;
+using PharmaCare.BLL.Services.Chat;
 using PharmaCare.BLL.Services.CustomerService;
 using PharmaCare.BLL.Services.InventoryService;
 using PharmaCare.BLL.Services.NotificationService;
@@ -17,12 +21,15 @@ using PharmaCare.DAL;
 using PharmaCare.DAL.Database;
 using PharmaCare.DAL.Models;
 using PharmaCare.DAL.ProductRepository;
+using PharmaCare.DAL.Repository.Category;
 using PharmaCare.DAL.Repository.Customers;
+using PharmaCare.DAL.Repository.Pharmacists;
 using PharmaCare.DAL.Repository.ProductRepository;
 using PharmaCare.DAL.Repository.UnitOfWork;
 using PharmaCareInv.DAL;
 using PharmaCarepharmacy.DAL.Repository;
 using pharmacy.DAL;
+
 
 
 namespace PharmaCare.API
@@ -49,6 +56,17 @@ namespace PharmaCare.API
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
+
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ChatService, ChatService>();
+
+            builder.Services.AddScoped<IPharmacistService, PharmacistService>();
+            builder.Services.AddScoped<IPharmacyService, PharmacyService>();
+
+            builder.Services.AddScoped<IPharmacistRepository, PharmacistRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            // Service registrations
             //-------------------------------------------------------------------//
 
             builder.Services.AddAutoMapper(cfg =>
@@ -60,9 +78,10 @@ namespace PharmaCare.API
 
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                                        b => b.MigrationsAssembly("PharmaCare.DAL")));
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddAuthentication(options =>

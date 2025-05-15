@@ -13,7 +13,7 @@ namespace PharmaCare.DAL.Models
         public virtual ICollection<Messages>? Messages { get; set; }
 
         // customer has only one chat
-        public int? CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public virtual Customer? Customer { get; set; }
 
 
