@@ -131,7 +131,7 @@ public class PharmacistService : IPharmacistService
         pharmacistModel.PhoneNumber = pharmacistDTO.Phone;
         pharmacistModel.Age = pharmacistDTO.Age;
 
-        //pharmacistModel.ApplicationUser.Password = pharmacistDTO.Password;
+        //pharmacistModel.Password = pharmacistDTO.Password;
 
         pharmacistModel.PharmacyId = pharmacistDTO.PharmacyId;
 

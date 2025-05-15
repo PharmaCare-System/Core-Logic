@@ -58,32 +58,14 @@ namespace PharmaCare.BLL.Services.CustomerService
 
         public async Task AddAsync(CustomerAddDTO customerDTO)
         {
-            var customerModel = new Customer();
-            await _customerRepository.AddAsync(customerModel);
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var customerModel = await _customerRepository.GetAsyncById(id);
-
-            id.CheckIfNull(customerModel);
-
-            var customerDTO = new CustomerReadDTO()
-            {
-                FirstName = customerModel.ApplicationUser.FirstName,
-                LastName = customerModel.ApplicationUser.LastName,
-                Id = customerModel.Id,
-                Phone = customerModel.ApplicationUser.Phone,
-                Email = customerModel.ApplicationUser.Email,
-                Birthday = customerModel.ApplicationUser.Birthday,
-                Age = customerModel.ApplicationUser.Age,
+            var customerModel = new Customer() {
+                FirstName = customerDTO.FirstName,
+                LastName = customerDTO.LastName,
+                Age = DateTime.Now.Year - customerDTO.Birthday.Year,
+                Email = customerDTO.Email,
+                Birthday = customerDTO.Birthday,
+                PhoneNumber = customerDTO.Phone
             };
-            return customerDTO;
-        }
-
-        public async Task AddAsync(CustomerAddDTO customerDTO)
-        {
-            var customerModel = new Customer();
             await _customerRepository.AddAsync(customerModel);
         }
 
@@ -100,11 +82,11 @@ namespace PharmaCare.BLL.Services.CustomerService
             var customerModel = await _customerRepository.GetAsyncById(id);
             id.CheckIfNull(customerModel);
 
-            customerModel.ApplicationUser.FirstName = customerDTO.FirstName;
-            customerModel.ApplicationUser.LastName = customerDTO.LastName;
-            customerModel.ApplicationUser.Phone = customerDTO.Phone;
-            customerModel.ApplicationUser.Email = customerDTO.Email;
-            customerModel.ApplicationUser.Birthday = customerDTO.Birthday;
+            customerModel.FirstName = customerDTO.FirstName;
+            customerModel.LastName = customerDTO.LastName;
+            customerModel.PhoneNumber = customerDTO.Phone;
+            customerModel.Email = customerDTO.Email;
+            customerModel.Birthday = customerDTO.Birthday;
 
 
             await _customerRepository.UpdateAsync(customerModel);

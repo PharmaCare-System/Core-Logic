@@ -11,7 +11,7 @@ using System.Linq.Dynamic.Core;
 
 namespace PharmaCare.DAL.Repository.GenericRepository
 {
-	public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+	public class GenericRepository<T> : IGenericRepository<T> where T : class
 	{
 		public readonly ApplicationDbContext _context;
 		public readonly DbSet<T> _DbSet;
