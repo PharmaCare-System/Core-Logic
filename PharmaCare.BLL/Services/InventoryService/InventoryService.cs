@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using PharmaCare.BLL.DTOs.InventoryDTOs;
 using PharmaCare.DAL.ExtensionMethods;
 using PharmaCare.DAL.Models;
+using PharmaCare.DAL.Repository.InventoryRepository;
 using PharmaCareInv.DAL;
+using PharmaCareInv.DAL.Repository.InventoryRepository;
 
 namespace PharmaCare.BLL.Services.InventoryService
 {
     public class InventoryService : IInventoryService
     {
-        private readonly InventoryRepository _inventoryRepository;
-        public InventoryService(InventoryRepository inventoryRepository)
+        private readonly IInventoryRepository _inventoryRepository;
+        public InventoryService(IInventoryRepository inventoryRepository)
         {
             _inventoryRepository = inventoryRepository;
         }

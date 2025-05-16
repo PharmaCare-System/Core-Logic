@@ -12,7 +12,7 @@ namespace PharmaCare.DAL.Models
     {
         public string Name { get; set; }
         public string Location  { get; set; }
-        public int PharmacyId { get; set; }
+        public int? PharmacyId { get; set; }
         public virtual Pharmacy? Pharmacy { get; set; }
 
         public ICollection<Product>? Products { get; set; }

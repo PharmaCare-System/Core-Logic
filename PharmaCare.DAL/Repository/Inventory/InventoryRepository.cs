@@ -8,7 +8,7 @@ using PharmaCare.DAL.Models;
 using PharmaCare.DAL.Repository.GenericRepository;
 using PharmaCare.DAL.Repository.InventoryRepository;
 
-namespace PharmaCareInv.DAL
+namespace PharmaCareInv.DAL.Repository.InventoryRepository
 {
     public class InventoryRepository: GenericRepository<Inventory>,IInventoryRepository
     {

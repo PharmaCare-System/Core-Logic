@@ -50,19 +50,22 @@ namespace PharmaCare.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryAddDTO categoryDTO)
+        public async Task<IActionResult> Add([FromBody]CategoryAddDTO categoryDTO)
         {
-            if(categoryDTO == null)
+            if (categoryDTO == null)
             {
                 return BadRequest();
             }
-           await _categoryService.AddAsync(categoryDTO);
-            return CreatedAtAction(nameof(GetById), new { Message = "Category Created Successfully" });
+
+                await _categoryService.AddAsync(categoryDTO);
+                return CreatedAtAction(nameof(GetById), new { Message = "Category Created Successfully" });
 
 
+
+            
         }
 
-        [HttpGet("active")]
+            [HttpGet("active")]
         public async Task<IActionResult> GetActive() {
             var categoryModels = await _categoryService.GetActiveCategoriesAsync();
             return Ok(categoryModels);

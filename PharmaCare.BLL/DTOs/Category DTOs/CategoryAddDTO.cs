@@ -9,5 +9,6 @@ namespace PharmaCare.BLL.DTOs.Category_DTOs
     public class CategoryAddDTO
     {
         public string CategoryName { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

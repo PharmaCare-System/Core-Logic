@@ -10,33 +10,16 @@ namespace PharmaCare.DAL.Configurations
         {
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.CreatedById)
-                   .IsRequired();
-            builder.Property(x => x.CreatedByName)
-                   .IsRequired()
-                   .HasMaxLength(15);
+
             builder.Property(x => x.CreatedDateTime)
-                   .IsRequired()
                    .HasColumnType("DATE");
 
 
-            builder.Property(x => x.ModifiedById)
-                   .IsRequired();
-            builder.Property(x => x.ModifiedByName)
-                   .IsRequired()
-                   .HasMaxLength(15);
             builder.Property(x => x.ModifiedDateTime)
-                   .IsRequired()
                    .HasColumnType("DATE");
 
 
-            builder.Property(x => x.DeletedById)
-                   .IsRequired();
-            builder.Property(x => x.DeletedByName)
-                   .IsRequired()
-                   .HasMaxLength(15);
             builder.Property(x => x.DeletedDateTime)
-                   .IsRequired()
                    .HasColumnType("DATE");
 
             builder.Property(x => x.IsDeleted)
@@ -45,39 +28,8 @@ namespace PharmaCare.DAL.Configurations
             //---------------------
 
 
-            builder.Property(x => x.CreatedById)
-                   .IsRequired();
-            builder.Property(x => x.CreatedByName)
-                   .IsRequired()
-                   .HasMaxLength(15);
-            builder.Property(x => x.CreatedDateTime)
-                   .IsRequired()
-                   .HasColumnType("DATE");
+    
 
-
-            builder.Property(x => x.ModifiedById)
-                   .IsRequired();
-            builder.Property(x => x.ModifiedByName)
-                   .IsRequired()
-                   .HasMaxLength(15);
-            builder.Property(x => x.ModifiedDateTime)
-                   .IsRequired()
-                   .HasColumnType("DATE");
-
-
-            builder.Property(x => x.DeletedById)
-                   .IsRequired();
-            builder.Property(x => x.DeletedByName)
-                   .IsRequired()
-                   .HasMaxLength(15);
-            builder.Property(x => x.DeletedDateTime)
-                   .IsRequired()
-                   .HasColumnType("DATE");
-
-            builder.Property(x => x.IsDeleted)
-                    .HasDefaultValue(false)
-                    .HasColumnType("BIT");
-            //---------------------
 
             builder.Property(r => r.ReviewDate)
                    .HasColumnType("DATE")

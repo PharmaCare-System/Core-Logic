@@ -40,7 +40,19 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            await _inventoryService.AddAsync(inventory);
+            try
+            {
+                await _inventoryService.AddAsync(inventory);
+            }
+                        catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
             return CreatedAtAction(nameof(GetById), new {Message="Inventory Created Successfully"});
 
         }

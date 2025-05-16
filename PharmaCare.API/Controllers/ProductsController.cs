@@ -47,8 +47,20 @@ namespace PharmaCare.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAsync(ProductAddDTO productDTO)
         {
-            await _productService.AddAsync(productDTO);
-            return CreatedAtAction(nameof(GetAsyncById), new { Message = "Product Created Successfully" });
+            try
+            {
+                await _productService.AddAsync(productDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
+            }
+                return CreatedAtAction(nameof(GetAsyncById), new { Message = "Product Created Successfully" });
         }
 
         [HttpPut("{id}")]

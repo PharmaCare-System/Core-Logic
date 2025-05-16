@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PharmaCare.DAL.Database;
 
@@ -11,9 +12,11 @@ using PharmaCare.DAL.Database;
 namespace PharmaCare.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250516005712_editAllReqiured")]
+    partial class editAllReqiured
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,14 +449,13 @@ namespace PharmaCare.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("PharmacyId")
+                    b.Property<int>("PharmacyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PharmacyId")
-                        .IsUnique()
-                        .HasFilter("[PharmacyId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Inventories");
                 });
@@ -1437,7 +1439,8 @@ namespace PharmaCare.DAL.Migrations
                     b.HasOne("PharmaCare.DAL.Models.Pharmacy", "Pharmacy")
                         .WithOne("inventory")
                         .HasForeignKey("PharmaCare.DAL.Models.Inventory", "PharmacyId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Pharmacy");
                 });

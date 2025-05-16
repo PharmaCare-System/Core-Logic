@@ -95,22 +95,22 @@ namespace PharmaCare.DAL.Database
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             base.OnModelCreating(builder);
-            foreach (var entityType in builder.Model.GetEntityTypes())
-            {
-                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
-                {
-                    builder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
-                }
+            //foreach (var entityType in builder.Model.GetEntityTypes())
+            //{
+            //    if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+            //    {
+            //        builder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
+            //    }
 
-            }
+            //}
         }
-       private static LambdaExpression ConvertFilterExpression(Type entityType)
-        {
-            var parameter = Expression.Parameter(entityType, "e");
-            var prop = Expression.Property(parameter, nameof(BaseEntity.IsDeleted));
-            var body = Expression.Equal(prop, Expression.Constant(false));
-            return Expression.Lambda(body, parameter);
-        }
+       //private static LambdaExpression ConvertFilterExpression(Type entityType)
+       // {
+       //     var parameter = Expression.Parameter(entityType, "e");
+       //     var prop = Expression.Property(parameter, nameof(BaseEntity.IsDeleted));
+       //     var body = Expression.Equal(prop, Expression.Constant(false));
+       //     return Expression.Lambda(body, parameter);
+       // }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -120,19 +120,19 @@ namespace PharmaCare.DAL.Database
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedById = 0;
+                        entry.Entity.CreatedById = 1;
                         entry.Entity.CreatedByName = "name";
                         entry.Entity.CreatedDateTime = DateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        entry.Entity.ModifiedById = 0;
+                        entry.Entity.ModifiedById = 1;
                         entry.Entity.ModifiedByName = "name";
                         entry.Entity.ModifiedDateTime = DateTime.Now;
                         break;
 
                     case EntityState.Deleted:
-                        entry.Entity.DeletedById = 0;
+                        entry.Entity.DeletedById = 1;
                         entry.Entity.DeletedByName = "name";
                         entry.Entity.DeletedDateTime = DateTime.Now;
                         entry.Entity.IsDeleted = true;
@@ -152,19 +152,19 @@ namespace PharmaCare.DAL.Database
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedById = 0;
+                        entry.Entity.CreatedById = 1;
                         entry.Entity.CreatedByName = "name";
                         entry.Entity.CreatedDateTime = DateTime.Now;
                         break;
                     
                     case EntityState.Modified:
-                            entry.Entity.ModifiedById = 0;
+                            entry.Entity.ModifiedById = 1;
                             entry.Entity.ModifiedByName = "name";
                             entry.Entity.ModifiedDateTime = DateTime.Now;
                             break;
                     
                     case EntityState.Deleted:
-                        entry.Entity.DeletedById = 0;
+                        entry.Entity.DeletedById = 1;
                         entry.Entity.DeletedByName = "name";
                         entry.Entity.DeletedDateTime = DateTime.Now;
                         entry.Entity.IsDeleted = true;
