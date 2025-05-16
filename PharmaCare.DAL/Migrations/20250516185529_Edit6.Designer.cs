@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PharmaCare.DAL.Database;
 
@@ -11,9 +12,11 @@ using PharmaCare.DAL.Database;
 namespace PharmaCare.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250516185529_Edit6")]
+    partial class Edit6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -748,9 +751,6 @@ namespace PharmaCare.DAL.Migrations
                     b.Property<bool>("BulkAllowed")
                         .HasColumnType("BIT");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
@@ -808,8 +808,6 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("InventoryId");
 
                     b.ToTable("Products");
@@ -848,6 +846,21 @@ namespace PharmaCare.DAL.Migrations
                     b.HasIndex("CartId");
 
                     b.ToTable("CartProducts");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductRel.ProductCategory", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Purchase", b =>
@@ -1510,19 +1523,11 @@ namespace PharmaCare.DAL.Migrations
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Product", b =>
                 {
-                    b.HasOne("PharmaCare.DAL.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PharmaCare.DAL.Models.Inventory", "Inventory")
                         .WithMany("Products")
                         .HasForeignKey("InventoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("Inventory");
                 });
@@ -1567,6 +1572,25 @@ namespace PharmaCare.DAL.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("ShoppingCart");
+                });
+
+            modelBuilder.Entity("PharmaCare.DAL.Models.ProductRel.ProductCategory", b =>
+                {
+                    b.HasOne("PharmaCare.DAL.Models.Category", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("PharmaCare.DAL.Models.Product", "Product")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Purchase", b =>
@@ -1736,7 +1760,7 @@ namespace PharmaCare.DAL.Migrations
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Category", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductCategories");
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Chat", b =>
@@ -1783,6 +1807,8 @@ namespace PharmaCare.DAL.Migrations
             modelBuilder.Entity("PharmaCare.DAL.Models.Product", b =>
                 {
                     b.Navigation("CartProducts");
+
+                    b.Navigation("ProductCategories");
 
                     b.Navigation("ProductOrders");
 

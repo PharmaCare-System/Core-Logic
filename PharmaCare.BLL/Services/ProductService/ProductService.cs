@@ -34,6 +34,8 @@ namespace PharmaCare.BLL.Services.ProductService
                 PrescriptionRequired = productDTO.PrescriptionRequired,
                 InventoryId = productDTO.InventoryId,
                 QuantityInStock = productDTO.QuantityInStock,
+                CategoryId = productDTO.CategoryId,
+
             };
 
             await _productRepository.AddAsync(productModel);
@@ -61,8 +63,9 @@ namespace PharmaCare.BLL.Services.ProductService
                  ExpiryDate = p.ExpiryDate,
                  BarCode = p.BarCode,
                  InventoryId = p.InventoryId,
-                 QuantityInStock = p.QuantityInStock
-                 
+                 QuantityInStock = p.QuantityInStock,
+                    CategoryId = p.CategoryId
+
              }).ToList();
 
             return productDTOs;
@@ -83,6 +86,7 @@ namespace PharmaCare.BLL.Services.ProductService
                  BarCode = p.BarCode,
                  InventoryId = p.InventoryId,
                  QuantityInStock = p.QuantityInStock
+
              }).ToList();
 
             return productDTOs;
@@ -102,7 +106,8 @@ namespace PharmaCare.BLL.Services.ProductService
                 ExpiryDate = productModel.ExpiryDate,
                 BarCode = productModel.BarCode,
                 InventoryId = productModel.InventoryId,
-                QuantityInStock = productModel.QuantityInStock
+                QuantityInStock = productModel.QuantityInStock,
+                CategoryId = productModel.CategoryId
             };
 
             return productDTO;
@@ -139,6 +144,7 @@ namespace PharmaCare.BLL.Services.ProductService
             productModel.QuantityInStock = productDTO.QuantityInStock;
             productModel.BulkAllowed = productDTO.BulkAllowed;
             productModel.PrescriptionRequired = productDTO.PrescriptionRequired;
+            productModel.CategoryId = productDTO.CategoryId;
 
             await _productRepository.UpdateAsync(productModel);
         }

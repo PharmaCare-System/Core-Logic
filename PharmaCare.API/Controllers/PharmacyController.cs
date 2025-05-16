@@ -15,62 +15,65 @@ namespace PharmaCare.API.Controllers
         {
             _pharmacyService = pharmacyService;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var pharmacies =   _pharmacyService.GetAll();
+            var pharmacies = await _pharmacyService.GetAllAsync();
             return Ok(pharmacies);
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var pharmacy = _pharmacyService.GetById(id);
+            var pharmacy = await _pharmacyService.GetAsyncById(id);
             if (pharmacy == null)
             {
-                return NotFound();
+                return NotFound("Pharmacy not found");
             }
             return Ok(pharmacy);
         }
-
         [HttpPost]
-        public IActionResult Add(PharmacyAddDto pharmacy)
+        public async Task<IActionResult> Add(PharmacyAddDto pharmacyDto)
         {
-            if (pharmacy == null)
+            try
             {
-                return BadRequest();
-            }
-            _pharmacyService.Add(pharmacy);
-            return CreatedAtAction(nameof(GetById), pharmacy);
-        }
+                await _pharmacyService.AddAsync(pharmacyDto);
+                return StatusCode(201, "Pharmacy Created Successfully");
 
+            }
+            catch (Exception ex) {
+                return StatusCode(500, new
+                {
+                    messege = ex.Message,
+                    innerException = ex.InnerException
+                });
+            
+            }
+
+        }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, PharmacyUpdateDto pharmacy)
+        public async Task<IActionResult> Update(int id, PharmacyUpdateDto pharmacyDto)
         {
-            if (id != pharmacy.Id)
+            var pharmacy = await _pharmacyService.GetAsyncById(id);
+            if (pharmacy == null)
             {
-                return BadRequest();
+                return NotFound("Pharmacy not found");
             }
-            var existingPharmacy = _pharmacyService.GetById(id);
-            if (existingPharmacy == null)
+            await _pharmacyService.UpdateAsync(pharmacyDto);
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var pharmacy = await _pharmacyService.GetAsyncById(id);
+            if (pharmacy == null)
             {
-                return NotFound();
+                return NotFound("Pharmacy not found");
             }
-            _pharmacyService.Update(pharmacy);
+            await _pharmacyService.DeleteAsync(id);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var pharmacy = _pharmacyService.GetById(id);
-            if (pharmacy == null)
-            {
-                return NotFound();
-            }
-            _pharmacyService.Delete(id);
-            return NoContent();
-        }
+
+
     }
 }

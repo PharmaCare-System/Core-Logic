@@ -12,9 +12,5 @@ namespace PharmaCare.BLL.DTOs.PharmayDTOs
         public string Name { get; set; }
         public string Address { get; set; }
 
-        public int MangerPharmacyId { get; set; }
-
-        public ICollection<Pharmacist>? pharmacists { get; set; }
-
     }
 }

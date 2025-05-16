@@ -55,20 +55,7 @@ namespace PharmaCare.DAL.Configurations
                    .IsRequired(false);
 
 
-            // relations
-            builder.HasMany(p => p.Categories)
-                   .WithMany(c => c.Products)
-                   .UsingEntity<ProductCategory>(
-                        cc => cc.HasOne(pc => pc.Category)
-                                .WithMany(c => c.ProductCategories)
-                                .HasForeignKey(pc => pc.CategoryId)
-                                .OnDelete(DeleteBehavior.NoAction),
-
-                        pp => pp.HasOne(pc => pc.Product)
-                                .WithMany(p => p.ProductCategories)
-                                .HasForeignKey(pc=>pc.ProductId)
-                                .OnDelete(DeleteBehavior.NoAction)
-                   );
+            
 
             builder.HasMany(p => p.Orders)
                    .WithMany(o => o.Products)

@@ -36,18 +36,19 @@ namespace PharmaCare.BLL.Services.InventoryService
         {
             var inventoryModel = await _inventoryRepository.GetAsyncById(id);
              id.CheckIfNull(inventoryModel);
-            _inventoryRepository.SoftDelete(inventoryModel);
+            await _inventoryRepository.SoftDelete(inventoryModel);
         }
 
         public async Task<IEnumerable<InventoryReadDTO>> GetAllAsync()
         {
             var inventories =await _inventoryRepository.GetAllAsync();
-           var inventoryDto = inventories.Select(i => new InventoryReadDTO
-           {
-               Id = i.Id,
-               Name = i.Name,
-               Location = i.Location,
-           });
+            var inventoryDto = inventories.Select(i => new InventoryReadDTO
+            {
+                Id = i.Id,
+                Name = i.Name,
+                Location = i.Location,
+                PharmacyId = i.PharmacyId
+            });
             return inventoryDto;
         }
 

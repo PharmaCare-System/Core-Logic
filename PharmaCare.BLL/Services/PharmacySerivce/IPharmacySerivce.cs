@@ -10,11 +10,11 @@ namespace PharmaCare.BLL.Services.PharmacySerivce
 {
     public interface IPharmacyService
     {
-        public IEnumerable<PharmacyReadDto> GetAll();
-        public PharmacyReadDto GetById(int id);
-        void Add(PharmacyAddDto pharmacy);
-        void Update(PharmacyUpdateDto pharmacy);
-        void Delete(int id);
+        public Task<IEnumerable<PharmacyReadDto>> GetAllAsync();
+        public Task< PharmacyReadDto> GetAsyncById(int id);
+        public Task  AddAsync(PharmacyAddDto pharmacy);
+        public Task UpdateAsync(PharmacyUpdateDto pharmacy);
+        public Task DeleteAsync(int id);
 
     }
 }

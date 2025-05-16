@@ -38,12 +38,14 @@ namespace PharmaCare.DAL.Repository.GenericRepository
 			await _context.SaveChangesAsync();
 		}
 		public async Task SoftDelete(T entity)
-		{	
-			await _context.SaveChangesAsync();
+		{
+            _DbSet.Remove(entity);
+            await _context.SaveChangesAsync();
 		}
 		public async Task<IEnumerable<T>> GetAllAsync()
 		{
-			return await _DbSet.ToListAsync();
+
+            return await _DbSet.ToListAsync();
 		}
 
     

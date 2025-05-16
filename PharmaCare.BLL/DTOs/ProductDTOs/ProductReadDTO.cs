@@ -17,5 +17,6 @@ namespace PharmaCare.BLL.DTOs.ProductDTOs
         public string ImageURL { get; set; }
 
         public int InventoryId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

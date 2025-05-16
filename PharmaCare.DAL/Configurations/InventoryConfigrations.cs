@@ -46,7 +46,6 @@ namespace PharmaCare.DAL.Configurations
 
             // relations
 
-
             builder.HasMany(i => i.Products)
                 .WithOne(p => p.Inventory)
                 .HasForeignKey(p => p.InventoryId)

@@ -11,6 +11,7 @@ namespace PharmaCare.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ILogger<ProductsController> _logger;
 
         public ProductsController(IProductService productService)
         {
@@ -27,21 +28,26 @@ namespace PharmaCare.API.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{inventoryId}")]
+        [HttpGet("byInventory/{inventoryId}")] 
         public async Task<IActionResult> GetAllByInventoryAsync(int inventoryId)
         {
             var products = await _productService.GetAllByInventoryAsync(inventoryId);
-            if (products == null)
-                return NotFound();
-
-            return Ok(products);
+            return products == null ? NotFound() : Ok(products);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] 
         public async Task<IActionResult> GetAsyncById(int id)
         {
-            var product = await _productService.GetAsyncById(id);
-            return Ok(product);
+            try
+            {
+                var product = await _productService.GetAsyncById(id);
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting product");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost]
@@ -60,7 +66,7 @@ namespace PharmaCare.API.Controllers
                     InnerException = ex.InnerException?.Message
                 });
             }
-                return CreatedAtAction(nameof(GetAsyncById), new { Message = "Product Created Successfully" });
+            return StatusCode(201, new { Message = "Product Created Successfully" });
         }
 
         [HttpPut("{id}")]
@@ -71,14 +77,16 @@ namespace PharmaCare.API.Controllers
                 return BadRequest();
 
             await _productService.UpdateAsync(productDTO, id);
-            return CreatedAtAction(nameof(GetAsyncById), new { Message = "Product Created Successfully" });
+            return NoContent();
+
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await _productService.DeleteAsync(id);
-            return CreatedAtAction(nameof(GetAsyncById), new { Message = "Product Deleted Successfully" });
+            return NoContent();
+
         }
         [HttpGet("search")]
         public async Task<IActionResult> GetPagedProductsAsync(string? term, string? sort, int page, int limit)

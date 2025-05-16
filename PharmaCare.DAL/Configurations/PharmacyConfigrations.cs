@@ -46,10 +46,6 @@ namespace PharmaCare.DAL.Configurations
                 .HasForeignKey(p => p.PharmacyId)
                 .OnDelete(DeleteBehavior.NoAction); 
 
-            builder.HasOne(p => p.inventory)
-                .WithOne(i => i.Pharmacy) 
-                .HasForeignKey<Inventory>(i => i.PharmacyId)
-                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(p => p.Pharmacists)
                 .WithOne(p => p.Pharmacy)

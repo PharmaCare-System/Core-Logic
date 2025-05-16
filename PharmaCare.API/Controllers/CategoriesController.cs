@@ -26,18 +26,20 @@ namespace PharmaCare.API.Controllers
             return Ok(categoryModels);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetById")]
         public async Task<IActionResult> GetById(int id)
         {
-            var categoryModel =await _categoryService.GetAsyncById(id);
-            return Ok(categoryModel);
+            var category = await _categoryService.GetAsyncById(id);
+            if (category == null)
+                return NotFound();
+            return Ok(category);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update( CategoryUpdateDTO categoryDTO,int id)
+        public async Task<IActionResult> Update( int id, CategoryUpdateDTO categoryDTO)
         {
             id.CheckIfNull(categoryDTO);
-            var categoryModel =_categoryService.GetAsyncById(id);
+            var categoryModel =await _categoryService.GetAsyncById(id);
           await  _categoryService.UpdateAsync(categoryDTO, id);
             return NoContent();
         }
@@ -50,19 +52,11 @@ namespace PharmaCare.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]CategoryAddDTO categoryDTO)
+        public async Task<IActionResult> Add(CategoryAddDTO categoryDTO)
         {
-            if (categoryDTO == null)
-            {
-                return BadRequest();
-            }
+            await _categoryService.AddAsync(categoryDTO);
+            return StatusCode(201, new { Message = "Category Created Successfully" });
 
-                await _categoryService.AddAsync(categoryDTO);
-                return CreatedAtAction(nameof(GetById), new { Message = "Category Created Successfully" });
-
-
-
-            
         }
 
             [HttpGet("active")]

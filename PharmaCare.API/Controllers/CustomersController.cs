@@ -40,7 +40,7 @@ namespace PharmaCare.API.Controllers
         {
             await _customerService.AddAsync(customerDTO);
 
-            return CreatedAtAction(nameof(GetAsyncById), new { Message = "Created Successfully" });
+            return StatusCode(201, new { Message = "Invetory Created Successfully" });
         }
 
         [HttpPut("{id}")]

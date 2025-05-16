@@ -40,21 +40,8 @@ namespace PharmaCare.API.Controllers
             {
                 return BadRequest();
             }
-            try
-            {
                 await _inventoryService.AddAsync(inventory);
-            }
-                        catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    Message = ex.Message,
-                    StackTrace = ex.StackTrace,
-                    InnerException = ex.InnerException?.Message
-                });
-            }
-            return CreatedAtAction(nameof(GetById), new {Message="Inventory Created Successfully"});
-
+                return StatusCode(201, new { Message = "Category Created Successfully" });
         }
 
         [HttpPut("{id}")]
@@ -74,7 +61,7 @@ namespace PharmaCare.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var inventory = _inventoryService.GetAsyncById(id);
+            var inventory = await _inventoryService.GetAsyncById(id);
             id.CheckIfNull(inventory);
             await _inventoryService.DeleteAsync(id);
 

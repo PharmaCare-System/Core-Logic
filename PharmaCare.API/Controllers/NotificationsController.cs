@@ -43,7 +43,7 @@ namespace PharmaCare.API.Controllers
                 return BadRequest("Notification data is null");
             }
             await _notifacationService.Add(notifacationDto);
-            return CreatedAtAction(nameof(GetById), new { message = "Notification Created Successfully" });
+            return StatusCode(201, new { Message = "Notification Created Successfully" });
         }
 
         [HttpDelete("{id}")]

@@ -33,7 +33,7 @@ namespace PharmaCare.API.Controllers
         public IActionResult Add(ReviewAddDto reviewAddDto)
         {    
             _reviewService.AddAsync(reviewAddDto);
-            return CreatedAtAction(nameof(GetById), new { Message = "Review Created Successfully" });
+            return StatusCode(201, new { Message = "Review Created Successfully" });
 
         }
 

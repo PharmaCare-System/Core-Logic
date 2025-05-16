@@ -41,6 +41,7 @@ namespace PharmaCare.DAL.Configurations
 //---------------------
             builder.Property(c => c.CategoryName)
                    .HasMaxLength(250).IsRequired();
+            builder.HasIndex(x => x.CategoryName).IsUnique();
         }
     }
 }

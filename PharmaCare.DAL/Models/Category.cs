@@ -13,7 +13,6 @@ namespace PharmaCare.DAL.Models
         public bool IsActive { get; set; } = true;
         // relations
 
-        public virtual ICollection<ProductCategory>? ProductCategories { get; set; }
         public virtual ICollection<Product>? Products { get; set; }
 
     }

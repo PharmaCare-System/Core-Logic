@@ -108,6 +108,8 @@ namespace PharmaCare.API
                 // Add other mappings here
             }, typeof(Program).Assembly);
             builder.Services.AddScoped<IMapper, Mapper>();
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>

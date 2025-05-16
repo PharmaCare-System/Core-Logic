@@ -40,9 +40,10 @@ namespace PharmaCare.API.Controllers
         public async Task<ActionResult> RegisterCustomerAsync(RegisterCustomerDTO registerDTO)
         {
             var token = await _accountService.RegisterCustomerAsync(registerDTO);
-
-            if (token != null)
-                return Ok(token);
+             if (token!= null)
+                    return Ok(token);
+            
+           
             return Unauthorized();
         }
 

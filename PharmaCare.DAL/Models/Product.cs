@@ -12,6 +12,7 @@ namespace PharmaCare.DAL.Models
         public bool PrescriptionRequired { get; set; } = true;
         public String BarCode { get; set; }
         public string ImageURL { get; set; }
+        public int CategoryId { get; set; }
 
 
         public int InventoryId { get; set; }
@@ -22,8 +23,7 @@ namespace PharmaCare.DAL.Models
 
         public virtual ICollection<Review>? Reviews { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
-        public virtual ICollection<Category>? Categories { get; set; }
-        public virtual ICollection<ProductCategory>? ProductCategories  { get; set; }
+        public virtual Category? Category { get; set; }
         public virtual ICollection<CartProducts>?  CartProducts  { get; set; }
     }
 }
