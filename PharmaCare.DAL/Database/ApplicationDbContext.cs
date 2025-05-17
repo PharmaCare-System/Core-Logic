@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,10 +19,7 @@ namespace PharmaCare.DAL.Database
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
-        //private static void SetGlobalQueryFilter<T>(ModelBuilder builder) where T : BaseEntity
-        //{
-        //    builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
-        //}
+      
 
         #region DbSets
         public DbSet<ApplicationUser> Users { get; set; }
@@ -65,18 +64,24 @@ namespace PharmaCare.DAL.Database
 
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            //// Apply global query filter to all BaseEntity entities
-            //foreach (var entityType in builder.Model.GetEntityTypes())
-            //{
-            //    if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
-            //    {
-            //        var method = typeof(ApplicationDbContext)
-            //            .GetMethod(nameof(SetGlobalQueryFilter), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
-            //            .MakeGenericMethod(entityType.ClrType);
+            var entityTypes = builder.Model
+           .GetEntityTypes()
+           .Where(t =>
+               typeof(BaseEntity).IsAssignableFrom(t.ClrType) &&
+               !t.ClrType.IsAbstract &&
+               t.BaseType == null) 
+           .Select(t => t.ClrType);
 
-            //        method.Invoke(null, new object[] { builder });
-            //    }
-            //}
+            foreach (var type in entityTypes)
+            {
+                var method = typeof(ApplicationDbContext) // use your DbContext class name
+                    .GetMethod(nameof(SetGlobalQueryFilter), BindingFlags.NonPublic | BindingFlags.Static)
+                    ?.MakeGenericMethod(type);
+
+                method?.Invoke(null, new object[] { builder });
+            }
+
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -139,6 +144,10 @@ namespace PharmaCare.DAL.Database
             }
 
             return base.SaveChanges();
+        }
+        private static void SetGlobalQueryFilter<T>(ModelBuilder builder) where T : BaseEntity
+        {
+            builder.Entity<T>().HasQueryFilter(e => e.IsDeleted == false);
         }
     }
 }
