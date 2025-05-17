@@ -25,8 +25,9 @@ namespace PharmaCare.DAL.Repository.Category
         public async Task<Models.Category> GetCategoryWithProductsAsync(int id)
         {
             var categoryModel = await _DbSet
-                         .Include(c => c.Products)
-                         .FirstOrDefaultAsync(c => c.Id == id);
+                .Where(c=> c.Id == id)
+                .Include(c => c.Products)
+                .FirstOrDefaultAsync();
             return categoryModel;
         }
     }

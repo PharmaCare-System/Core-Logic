@@ -67,8 +67,22 @@ namespace PharmaCare.API.Controllers
         [HttpGet("{id}/products")]
         public async Task<IActionResult> GetCategoryWithProducts(int id)
         {
-            var categoryModel = await _categoryService.GetCategoryWithProductsAsync(id);
-            return Ok(categoryModel);
+            try
+            {
+                var categoryModel = await _categoryService.GetCategoryWithProductsAsync(id);
+                return Ok(categoryModel);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Message = "An error occurred while retrieving the category with products.",
+                    Error = ex.Message,
+                    inner = ex.InnerException
+});
+
+            }
+
         }
     }
 }

@@ -74,7 +74,7 @@ namespace PharmaCare.DAL.Database
 
             foreach (var type in entityTypes)
             {
-                var method = typeof(ApplicationDbContext) // use your DbContext class name
+                var method = typeof(ApplicationDbContext) 
                     .GetMethod(nameof(SetGlobalQueryFilter), BindingFlags.NonPublic | BindingFlags.Static)
                     ?.MakeGenericMethod(type);
 
