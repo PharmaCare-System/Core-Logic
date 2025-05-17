@@ -136,15 +136,20 @@ namespace PharmaCare.API
                     ValidateAudience = false
                 };
             });
-
             var app = builder.Build();
-            
+
+          
+          
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                    c.RoutePrefix = "swagger";
+                });
             }
             if (app.Environment.IsDevelopment())
             {
@@ -165,8 +170,15 @@ namespace PharmaCare.API
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
-
-            app.Run();
+            try
+            {
+                app.Run();
+            }
+            catch(Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
     }
 }

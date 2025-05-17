@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PharmaCare.BLL.DTOs.Category_DTOs;
+using PharmaCare.BLL.DTOs.ProductDTOs;
 using PharmaCare.BLL.Services.CategoryService;
 using PharmaCare.DAL.ExtensionMethods;
 using PharmaCare.DAL.Models;
@@ -36,6 +37,7 @@ namespace PharmaCare.BLL.Services.Category
             var categoryModel = await _categoryRepository.GetAsyncById(id);
             id.CheckIfNull(categoryModel);
             categoryModel.IsActive = false;
+
             await _categoryRepository.SoftDelete(categoryModel);
         }
 
@@ -81,21 +83,30 @@ namespace PharmaCare.BLL.Services.Category
 
         public async Task<CategoryWithProductsDTO> GetCategoryWithProductsAsync(int id)
         {
-            var categoryModel = await _categoryRepository.GetAsyncById(id);
+            var categoryModel = await _categoryRepository.GetCategoryWithProductsAsync(id);
             id.CheckIfNull(categoryModel);
-            
-           
+
+
 
             return new CategoryWithProductsDTO
             {
                 Id = categoryModel.Id,
                 CategoryName = categoryModel.CategoryName,
-                Products = categoryModel.Products.Select(p => new ProductDto
+                Products = categoryModel.Products.Select(p => new ProductReadDTO
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Price = p.Price,
+                    ImageURL = p.ImageURL,
+                    ExpiryDate = p.ExpiryDate,
+                    BarCode = p.BarCode,
+                    InventoryId = p.InventoryId,
+                    QuantityInStock = p.QuantityInStock,
+                    CategoryId = p.CategoryId
+
+
                 }).ToList()
+
             };
 
 

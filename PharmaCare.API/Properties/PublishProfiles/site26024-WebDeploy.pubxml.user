@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAPw+iGrBtxEiGj0cUtJkATwAAAAACAAAAAAAQZgAAAAEAACAAAAAWxOG0BgPNfEMefblSvdW2MqX+kFp2rYr275KQ7y04NwAAAAAOgAAAAAIAACAAAAAK5Y+oTCozYcjUjgwwhhhx3er7eK1noKGcg4ot/P12yyAAAADo036rIuo2YLIJJfQP0xH8YlHJ+RDmEJXEJJwubTdmmkAAAADBx2AEl88CLfo/Z/Y7o1RqxPh4FlWhpSrXaf4WJPW2Xa39D+wTdvZYKDZD9gIP6QEF+Z3kqs80qq8H5aYgDg4E</EncryptedPassword>
+    <History>True|2025-05-17T02:02:45.7957472Z||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=SQL1003.site4now.net%3bInitial Catalog=db_ab8247_pharmacaredb%3bUser Id=db_ab8247_pharmacaredb_admin%3bPassword=PharmaCare%401</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="PharmaCare.DAL.Database.ApplicationDbContext">
+      <Value>Data Source=SQL1003.site4now.net%3bInitial Catalog=db_ab8247_pharmacaredb%3bUser Id=db_ab8247_pharmacaredb_admin%3bPassword=PharmaCare%401</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
