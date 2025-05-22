@@ -75,6 +75,7 @@ namespace PharmaCare.API
 
             builder.Services.AddScoped<IPharmacistRepository, PharmacistRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IPharmacyRepository, PharmacyRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<INotificationService, NotifacationService>();
             builder.Services.AddScoped<INotificationRepository, NotificationRepository>();

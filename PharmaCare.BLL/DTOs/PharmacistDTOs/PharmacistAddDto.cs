@@ -42,6 +42,5 @@ namespace PharmaCare.BLL.DTOs.PharmacistDTOs
 
         public int PharmacyId { get; set; }
  
-        public int ManagerPharmacistId { get; set; }
     }
 }

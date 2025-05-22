@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PharmaCare.BLL.DTOs.AuthenticationDTOs
 {
-    public class RegisterCustomerDTO
+
+
+    public class RegitserPharmacistDTO
     {
 
         [Required(ErrorMessage = "First name is required!")]
@@ -28,10 +25,10 @@ namespace PharmaCare.BLL.DTOs.AuthenticationDTOs
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage ="Birthdate is required!")]
+        [Required(ErrorMessage = "Birthdate is required!")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
-        public int Age { get;set; }
+        public int Age { get; set; }
 
         [Required(ErrorMessage = "Email is required!")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
@@ -45,6 +42,13 @@ namespace PharmaCare.BLL.DTOs.AuthenticationDTOs
 
         public string? AddressTwo { get; set; }
 
+        [Required]
+        public string HireDate { get; set; }
+
+        [Required]
+        public int pharmacyId { get; set; }
+
     }
+
 
 }

@@ -16,6 +16,15 @@ namespace PharmaCare.DAL.Repository.Pharmacists
         {
 
         }
+        public async Task AddAsync(Pharmacist pharmacist)
+        {
+            if (pharmacist == null)
+            {
+                return;
+            }
+            _context.Users.Add(pharmacist);
+        }
+
         public async Task<IEnumerable<Pharmacist>> GetAllAsync()
         {
             return await _context.Users.OfType<Pharmacist>().ToListAsync();

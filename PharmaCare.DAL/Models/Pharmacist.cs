@@ -15,7 +15,6 @@ namespace PharmaCare.DAL.Models
         //---------
         public DateTime HireDate { get; set; }
         public bool IsActive { get; set; } = true;
-        public int ManagerId { get; set; } 
 
         // relations
         public int PharmacyId { get; set; }
