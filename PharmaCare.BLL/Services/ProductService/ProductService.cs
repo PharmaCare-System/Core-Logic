@@ -6,6 +6,7 @@ using PharmaCare.DAL.ProductRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -113,24 +114,34 @@ namespace PharmaCare.BLL.Services.ProductService
             return productDTO;
         }
 
-        public async Task<PagedResult<ProductReadDTO>> GetPagedProductsAsync(string? term, string? sort, int page=1, int limit=10)
+        public async Task<PagedResult<ProductReadDTO>> GetPagedProductsAsync(int page, int pageSize, string? searchTerm = null)
         {
+            Expression<Func<Product, bool>>? filter = null;
+            if (!string.IsNullOrEmpty(searchTerm))
+                filter = p => p.Name.Contains(searchTerm);
 
+            var pagedResult = await _productRepository.GetPagedAsync(page, pageSize, filter, q => q.OrderBy(p => p.Name));
+
+            return new PagedResult<ProductReadDTO>
             {
-                var pagedProducts = await _productRepository.GetPagedProductsAsync(term, sort, page, limit);
-
-                var itemsDto = _mapper.Map<IEnumerable<ProductReadDTO>>(pagedProducts.Items);
-
-                return new PagedResult<ProductReadDTO>
+                TotalCount = pagedResult.TotalCount,
+                TotalPages = pagedResult.TotalPages,
+                Page = pagedResult.Page,
+                PageSize = pagedResult.PageSize,
+                Items = pagedResult.Items.Select(p => new ProductReadDTO
                 {
-                    Items = itemsDto,
-                    TotalCount = pagedProducts.TotalCount,
-                    PageNumber = pagedProducts.PageNumber,
-                    PageSize = pagedProducts.PageSize
-                };
-
-            }
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    QuantityInStock = p.QuantityInStock,
+                    BarCode = p.BarCode,
+                    ImageURL = p.ImageURL,
+                    InventoryId = p.InventoryId,
+                    CategoryId = p.CategoryId
+                }).ToList()
+            };
         }
+
 
         public async Task UpdateAsync(ProductUpdateDTO productDTO, int id)
         {

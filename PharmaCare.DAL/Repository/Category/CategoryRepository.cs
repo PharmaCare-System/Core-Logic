@@ -19,9 +19,6 @@ namespace PharmaCare.DAL.Repository.Category
                 .Where(c => c.IsActive == true)
                 .ToListAsync();
         }
-        
-     
-
         public async Task<Models.Category> GetCategoryWithProductsAsync(int id)
         {
             var categoryModel = await _DbSet

@@ -16,7 +16,6 @@ namespace PharmaCare.BLL.Services.ProductService
         public Task<IEnumerable<ProductReadDTO>> GetAllAsync();
         public Task<IEnumerable<ProductReadDTO>> GetAllByInventoryAsync(int inventoryId);
         public Task<ProductReadDTO> GetAsyncById(int id);
-        public Task<PagedResult<ProductReadDTO>> GetPagedProductsAsync(string? term, string? sort, int page, int limit);
-
+        public Task<PagedResult<ProductReadDTO>> GetPagedProductsAsync(int page, int pageSize, string? searchTerm = null);
     }
 }

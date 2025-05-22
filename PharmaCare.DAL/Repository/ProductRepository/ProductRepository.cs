@@ -26,34 +26,34 @@ namespace PharmaCare.DAL.Repository.ProductRepository
             return await _context.Products.Where(p => p.InventoryId == inventoryId).ToListAsync();
         }
 
-        public async Task<PagedResult<Product>> GetPagedProductsAsync(string? term, string? sort, int page, int limit)
-        {
-            var query = _context.Products.AsQueryable();
-            if (!string.IsNullOrEmpty(term))
-            {
-                query = query.Where(p => p.Name.Contains(term)) ;
-            }
-            if (!string.IsNullOrEmpty(sort))
-            {
-                query = sort.ToLower() switch
-                {
-                    "name" => query.OrderBy(p => p.Name),
-                    "price" => query.OrderBy(p => p.Price),
-                    _ => query.OrderBy(p => p.Id)
-                };
-            }
-            var totalCount = await query.CountAsync();
-            var totalPages = (int)Math.Ceiling((double)totalCount / limit);
-            var items = await query.Skip((page - 1) * limit).Take(limit).ToListAsync();
-            var pagedResult = new PagedResult<Product>
-            {
-                Items = items,
-                TotalCount = totalCount,
-                PageNumber = page,
-                PageSize = limit
-            };
-            return pagedResult;
-        }
+        //public async Task<PagedResult<Product>> GetPagedProductsAsync(string? term, string? sort, int page, int limit)
+        //{
+        //    var query = _context.Products.AsQueryable();
+        //    if (!string.IsNullOrEmpty(term))
+        //    {
+        //        query = query.Where(p => p.Name.Contains(term)) ;
+        //    }
+        //    if (!string.IsNullOrEmpty(sort))
+        //    {
+        //        query = sort.ToLower() switch
+        //        {
+        //            "name" => query.OrderBy(p => p.Name),
+        //            "price" => query.OrderBy(p => p.Price),
+        //            _ => query.OrderBy(p => p.Id)
+        //        };
+        //    }
+        //    var totalCount = await query.CountAsync();
+        //    var totalPages = (int)Math.Ceiling((decimal)totalCount / limit);
+        //    var items = await query.Skip((page - 1) * limit).Take(limit).ToListAsync();
+        //    var pagedResult = new PagedResult<Product>
+        //    {
+        //        Items = items,
+        //        TotalCount = totalCount,
+        //        PageNumber = page,
+        //        PageSize = limit
+        //    };
+        //    return pagedResult;
+        //}
     }
     
 }

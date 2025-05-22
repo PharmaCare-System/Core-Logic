@@ -89,12 +89,12 @@ namespace PharmaCare.API.Controllers
 
         }
         [HttpGet("search")]
-        public async Task<IActionResult> GetPagedProductsAsync(string? term, string? sort, int page, int limit)
+        public async Task<IActionResult> GetPagedProductsAsync([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? term = null)
         {
-            var pagedProducts = await _productService.GetPagedProductsAsync(term, sort, page, limit);
-            if (pagedProducts == null)
+            var result = await _productService.GetPagedProductsAsync(page, pageSize, term);
+            if (result == null)
                 return NotFound();
-            return Ok(pagedProducts);   
+            return Ok(result);   
         }
     }
 }

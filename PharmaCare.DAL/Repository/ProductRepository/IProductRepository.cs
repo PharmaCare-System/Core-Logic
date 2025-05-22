@@ -11,6 +11,6 @@ namespace PharmaCare.DAL.ProductRepository
     public interface IProductRepository : IGenericRepository<Product>
     {
         public Task<IEnumerable<Product>> GetAllProductsByPharmacy(int inventoryId);
-        public Task<PagedResult<Product>> GetPagedProductsAsync(string? term,string?sort, int page,int limit);
+        //public Task<PagedResult<Product>> GetPagedProductsAsync(string? term,string?sort, int page,int limit);
     }
 }
