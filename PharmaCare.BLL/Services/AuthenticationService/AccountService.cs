@@ -40,15 +40,18 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             _pharmacistService = pharmacistService;
             _customerService = customerService;
         }
-        public async Task<string> LoginAsync(LoginDTO loginDTO)
+        public async Task<GenerateResponses> LoginAsync(LoginDTO loginDTO)
         {
+            GenerateResponses response = new GenerateResponses();
             var userEmail = await _userManager.FindByEmailAsync(loginDTO.Email);
-            if (userEmail == null)
-                return null;
 
             var userPassword = await _userManager.CheckPasswordAsync(userEmail, loginDTO.Password);
-            if (userPassword == false)
-                return null;
+            if (userPassword == false || userEmail == null)
+            {
+                response.Success = false;
+                response.Errors.Add("Invalid Email Or Password");
+                return response;
+            }
 
             var claims = await _userManager.GetClaimsAsync(userEmail);
             
@@ -59,7 +62,7 @@ namespace PharmaCare.BLL.Services.AuthenticationService
         2. only Admin create any user
          */
         
-        public async Task<string> RegisterPharmacyAsync(RegisterCustomerDTO registerDTO)
+        public async Task<GenerateResponses> RegisterPharmacyAsync(RegisterCustomerDTO registerDTO)
         {
             // create the pharmacist with it
             if(registerDTO.Password != registerDTO.ConfirmPassword)
@@ -88,7 +91,7 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             return null;
         }
         
-        public async Task<string> RegisterCustomerAsync(RegisterCustomerDTO registerDTO)
+        public async Task<GenerateResponses> RegisterCustomerAsync(RegisterCustomerDTO registerDTO)
         {
             if(registerDTO.Password != registerDTO.ConfirmPassword)
                 return "Passwords do not match";
@@ -136,7 +139,7 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             return token;
         }
 
-        public async Task<string> CreateRole(RoleAddDTO roleAddDTO)
+        public async Task<GenerateResponses> CreateRole(RoleAddDTO roleAddDTO)
         {
             var result = await _roleManager.CreateAsync(new IdentityRole<int>
             {
@@ -150,7 +153,7 @@ namespace PharmaCare.BLL.Services.AuthenticationService
             return null;
         } 
 
-        public async Task<string> AssignRole(AssignRoleDTO roleAssignDTO)
+        public async Task<GenerateResponses> AssignRole(AssignRoleDTO roleAssignDTO)
         {
             var user = await _userManager.FindByIdAsync(roleAssignDTO.userId);
             var role = await _roleManager.FindByIdAsync(roleAssignDTO.RoleId);

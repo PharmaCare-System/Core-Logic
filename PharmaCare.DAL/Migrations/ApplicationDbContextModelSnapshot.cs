@@ -339,7 +339,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasIndex("CategoryName")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Chat", b =>
@@ -396,7 +396,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("PharmacyId");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chats", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Inventory", b =>
@@ -456,7 +456,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("PharmacyId");
 
-                    b.ToTable("Inventories");
+                    b.ToTable("Inventories", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Order", b =>
@@ -534,7 +534,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("PharmacyId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Payment", b =>
@@ -587,7 +587,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.PharmacistChats", b =>
@@ -602,7 +602,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("ChatId");
 
-                    b.ToTable("PharmacistChats");
+                    b.ToTable("PharmacistChats", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Pharmacy", b =>
@@ -664,7 +664,7 @@ namespace PharmaCare.DAL.Migrations
                         .IsUnique()
                         .HasFilter("[MangerPharmacyId] IS NOT NULL");
 
-                    b.ToTable("Pharmacies");
+                    b.ToTable("Pharmacies", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Prescription", b =>
@@ -731,7 +731,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("PharmacistId");
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("Prescriptions", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Product", b =>
@@ -812,7 +812,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("InventoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.ProductOrder", b =>
@@ -832,7 +832,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("OrderRefId");
 
-                    b.ToTable("ProductOrders");
+                    b.ToTable("ProductOrders", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.ProductRel.CartProducts", b =>
@@ -847,7 +847,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartProducts");
+                    b.ToTable("CartProducts", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Purchase", b =>
@@ -927,7 +927,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("PharmacyId");
 
-                    b.ToTable("Purchases");
+                    b.ToTable("Purchases", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.Review", b =>
@@ -991,7 +991,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.ShoppingCart", b =>
@@ -1045,7 +1045,7 @@ namespace PharmaCare.DAL.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("ShoppingCarts");
+                    b.ToTable("ShoppingCarts", (string)null);
                 });
 
             modelBuilder.Entity("PharmaCare.DAL.Models.UserAddress.Address", b =>
@@ -1109,7 +1109,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
 
                     b.HasDiscriminator<int>("UserType");
 
@@ -1173,7 +1173,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasIndex("ChatId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
 
                     b.HasDiscriminator<int>("UserType");
 
@@ -1243,7 +1243,7 @@ namespace PharmaCare.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
 
                     b.HasDiscriminator<string>("UserType");
 
