@@ -7,13 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\PrescriptionService\**" />
     <Compile Remove="Service\**" />
+    <EmbeddedResource Remove="Services\PrescriptionService\**" />
     <EmbeddedResource Remove="Service\**" />
+    <None Remove="Services\PrescriptionService\**" />
     <None Remove="Service\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.6.3" />
   </ItemGroup>
 
   <ItemGroup>

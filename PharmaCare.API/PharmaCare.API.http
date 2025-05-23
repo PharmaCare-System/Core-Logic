@@ -1,4 +1,4 @@
-@PharmaCare.API_HostAddress = http://localhost:5093
+@PharmaCare.API_HostAddress = http://pharmacareapi.runasp.net
 
 GET {{PharmaCare.API_HostAddress}}/weatherforecast/
 Accept: application/json
